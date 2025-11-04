@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/codigo/website/compare/v1.8.0...v1.9.0) (2025-11-04)
+
+
+### Features
+
+* **docs:** update README for Mau App information and setup ([#86](https://github.com/codigo/website/issues/86)) ([aed1cf9](https://github.com/codigo/website/commit/aed1cf9c11e7fb89c5ded4e548a0e30e8011675e))
+
 # [1.8.0](https://github.com/codigo/website/compare/v1.7.0...v1.8.0) (2025-11-04)
 
 
