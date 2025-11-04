@@ -103,24 +103,28 @@
 	<section class="skills-competences-outro b-border">
 		<div class="skills-competences-outro-text">
 			<p>
-				Outside my work life, I firmly believe in the ethos of lifelong learning. My GitHub
-				portfolio <a href="https://github.com/maumercado">https://github.com/maumercado</a> provides
-				a glimpse of my wide-ranging skills and interests, featuring projects like a React Native
-				app with Expo, my blog <a href="https://codigo.sh">https://codigo.sh</a>, and two Fastify
-				plugins, one for the Jaeger distributed tracing system, and the second a plugin to inject
-				secrets store in hashicorp vault into the service's environment at boot.
+				Beyond my professional work, I'm a firm believer in lifelong learning and continuous growth.
+				My GitHub portfolio at <a href="https://github.com/maumercado">github.com/maumercado</a>
+				showcases a diverse collection of projects that reflect my curiosity and passion for
+				technology. You'll find everything from a React Native app built with Expo, to my personal
+				blog at <a href="https://codigo.sh">codigo.sh</a>, and custom Fastify plugins including one
+				for the Jaeger distributed tracing system and another that injects secrets from HashiCorp
+				Vault into a service's environment at boot time.
 			</p>
 			<p>
-				I'm also a certified kitesurf instructor and love paddle boarding and surfing—the ocean is
-				where I feel most at home. I enjoy hiking and, of course, the occasional drink with friends.
-				Additionally, I believe in the power of mentorship, teaching others, and learning from those
-				around me.
+				Growing up on the coast, the ocean has always been an innate part of who I am. It's where I
+				feel most at home and where I naturally gravitate to recharge. I'm a certified kitesurf
+				instructor and love paddle boarding and surfing. Beyond the water, I enjoy exploring the
+				mountains through hiking and unwinding with friends over good conversation and drinks. I'm
+				deeply passionate about mentorship and believe in the reciprocal nature of teaching and
+				learning. Sharing knowledge with others and absorbing wisdom from those around me keeps me
+				grounded and inspired.
 			</p>
 			<p>
-				My mission remains steadfast: to continue growing, learning, and contributing to the
-				software development landscape. I'm eager to collaborate on new projects and contribute my
-				unique perspective to the tech community. Feel free to reach out if you believe we can
-				create something remarkable together!
+				My mission is simple: continue growing, learning, and contributing meaningfully
+				to the software development landscape. I'm always eager to collaborate on innovative projects
+				and bring my unique perspective to the tech community. If you think we can create something
+				remarkable together, I'd love to hear from you. Let's connect and explore what we can build!
 			</p>
 		</div>
 		<!-- <div class="skills-competences-outro-img">
