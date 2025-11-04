@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/codigo/website/compare/v1.6.0...v1.7.0) (2025-11-04)
+
+
+### Features
+
+* add CLAUDE.md documentation and chatbot integration ([#84](https://github.com/codigo/website/issues/84)) ([a470dff](https://github.com/codigo/website/commit/a470dffe7bbd83f93b30ced407959e50fce5165c))
+
 # [1.6.0](https://github.com/codigo/mau-web/compare/v1.5.0...v1.6.0) (2025-09-01)
 
 ### Features
