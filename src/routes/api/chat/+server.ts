@@ -50,7 +50,9 @@ export const POST: RequestHandler = async ({ request }) => {
 						const content = chunk.choices[0]?.delta?.content;
 						if (content) {
 							// Send each chunk as a server-sent event
-							controller.enqueue(new TextEncoder().encode(`data: ${JSON.stringify({ content })}\n\n`));
+							controller.enqueue(
+								new TextEncoder().encode(`data: ${JSON.stringify({ content })}\n\n`)
+							);
 						}
 					}
 					// Send done signal

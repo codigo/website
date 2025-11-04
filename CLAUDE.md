@@ -43,18 +43,19 @@ This is a personal portfolio/blog built with SvelteKit and TypeScript. It featur
 
 ### Tech Stack
 
+- **Runtime**: Node.js 24.8.0 (npm 11.6.0)
 - **Framework**: SvelteKit with Svelte 5 (Runes)
 - **Language**: TypeScript throughout
 - **Styling**: Tailwind CSS v4 with component-based architecture
 - **Backend**: Node.js adapter with PocketBase integration
 - **Content**: Markdown processing via mdsvex
-- **Testing**: Playwright (integration) + Vitest (unit)
+- **Testing**: Playwright (integration) + Vitest v4 (unit)
 - **Images**: Enhanced image processing with `@sveltejs/enhanced-img`
 - **AI**: OpenAI GPT-5 Nano for chatbot functionality
 
 ### Directory Structure
 
-```
+```dir
 src/
 ├── components/           # Reusable Svelte components
 │   ├── icons/           # Tech and social icons
@@ -143,8 +144,74 @@ The about-me page includes an AI-powered chatbot that answers questions about Ma
 
 ### Environment Variables
 
-Requires `OPENAI_API_KEY` to be set in the environment (managed via 1Password CLI in dev mode).
+Requires `SECRET_OPENAI_API_KEY` to be set in the environment (managed via 1Password CLI in dev mode).
 
 ### Usage
 
 The chatbot appears on the about-me page as a floating button in the bottom-right corner. Visitors can click to ask questions about Mauricio's experience, skills, projects, and interests. The AI only responds based on the content in the experiences markdown files and tech stack configuration.
+
+## Package Management & Upgrades
+
+### Major Version Upgrades (November 2025)
+
+The project was upgraded to Node.js 24.8.0 with the following major package updates:
+
+**Breaking Changes & Migrations:**
+
+1. **Vitest 3.x → 4.0.7**
+   - Upgraded to Vitest 4 with new module-runner architecture
+   - Requires Vite 6+ (currently on Vite 7)
+   - Reporter changes: verbose reporter now shows list format instead of tree
+   - Type system cleanup (deprecated types removed)
+   - All tests passing with new version
+
+2. **Zod 3.x → 4.1.12**
+   - Upgraded to Zod 4 with improved validation
+   - **Migration Required**: Updated `sveltekit-superforms` adapters from `zod/zodClient` to `zod4/zod4Client`
+   - Changed imports in contact form: `src/routes/contact/+page.server.ts` and `src/routes/contact/+page.svelte`
+   - All form validation working correctly
+
+3. **UUID 11.x → 13.0.0**
+   - v12 dropped CommonJS support (project uses ESM ✓)
+   - v13 changed to browser exports as default
+   - No code changes required
+
+4. **Tailwind-variants 1.x → 3.1.1**
+   - Main change: introduction of `/lite` build variant
+   - Standard build now includes `tailwind-merge` statically
+   - Project already has `tailwind-merge` as explicit dependency ✓
+   - No code changes required
+
+5. **Pino 9.x → 10.1.0**
+   - Logging library updated to v10
+   - No breaking changes affecting current usage
+
+**Other Notable Updates:**
+
+- Svelte: 5.38.6 → 5.43.3
+- SvelteKit: 2.37.0 → 2.48.4
+- TypeScript: 5.9.2 → 5.9.3
+- ESLint: 9.34.0 → 9.39.1
+- Tailwind CSS: 4.1.12 → 4.1.16
+- Playwright: 1.55.0 → 1.56.1
+
+**Verification Status:**
+
+- ✅ Type checking passing (0 errors, 1 deprecation warning for `<slot>`)
+- ✅ Unit tests passing (Vitest 4)
+- ✅ Production build successful on Node 24
+- ✅ All dependencies compatible with Node 24
+
+**Known Deprecations:**
+
+- Svelte 5 warning: `<slot>` is deprecated in favor of `{@render ...}` tags (non-breaking)
+
+### Upgrade Process
+
+When upgrading packages in the future:
+
+1. Check migration guides for major version updates (especially from GitHub repos)
+2. Test updates on current Node version first
+3. Upgrade Node version after verifying package compatibility
+4. For form validation: Always use `zod4` and `zod4Client` adapters with Zod 4+
+5. Run full test suite and production build before committing
