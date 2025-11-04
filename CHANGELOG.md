@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/codigo/website/compare/v1.7.0...v1.8.0) (2025-11-04)
+
+
+### Features
+
+* **contact:** upgrade form validation and dependencies ([#85](https://github.com/codigo/website/issues/85)) ([91cf220](https://github.com/codigo/website/commit/91cf220da7e5d20a5b012e6b1db5ab56c0338574))
+
 # [1.7.0](https://github.com/codigo/website/compare/v1.6.0...v1.7.0) (2025-11-04)
 
 
