@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.2
-FROM node:22-slim AS build
+FROM node:24-slim AS build
 
 # Create app directory
 WORKDIR /usr/src/app

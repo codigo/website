@@ -1,88 +1,155 @@
-# create-svelte
+# Mau App
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Personal portfolio and blog application built with SvelteKit, featuring an AI-powered chatbot for interactive Q&A about experience and skills.
 
-## Creating a project
+## Tech Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Runtime**: Node.js 24.8.0
+- **Framework**: SvelteKit with Svelte 5 (Runes)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Backend**: PocketBase
+- **Testing**: Playwright (integration) + Vitest v4 (unit)
+- **AI**: OpenAI GPT-5 Nano for chatbot functionality
+
+## Prerequisites
+
+- Node.js 24.x
+- 1Password CLI (for local development environment variables)
+
+## Development
+
+Install dependencies:
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start the development server (uses 1Password CLI for environment variables):
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+
+The app will be available at `http://localhost:5173`
 
 ## Building
 
-To create a production version of your app:
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Bin Directory
-
-This directory contains utility scripts used for various tasks in the project.
-
-### Scripts
-
-#### getUnsplashInfo.js
-
-This script fetches information about a specific photo from the Unsplash API.
-
-Usage:
-
-- `<API_KEY>`: Your Unsplash API client ID
-- `<PHOTO_ID>`: The ID of the photo you want to fetch information for
-
-The script returns a JSON object containing the following information about the photo:
-
-- blur_hash
-- URLs
-- color
-- ID
-- description
-- alt_description
-
-#### createAboutMeSummary.js
-
-This script generates an "About Me" summary by combining information from experience markdown files and the tech stack.
-
-Usage:
-
-```sh
-
-node createAboutMeSummary.js [OUTPUT_PATH]
-
+```bash
+npm run preview
 ```
 
-- `[OUTPUT_PATH]`: Optional. The path where the output file should be saved. If not provided, the default is `.generated/about-me.txt` in the project root.
+## Testing
 
-The script performs the following tasks:
+Run all tests (integration + unit):
 
-1. Reads markdown files from the `src/routes/experiences` directory
-2. Extracts tech stack information from `src/constants/techStack.ts`
-3. Combines this information into a single "About Me" text file
-4. Organizes the tech stack by category
+```bash
+npm test
+```
 
-The generated file includes:
+Run only unit tests:
 
-- An "Experiences" section with content from the markdown files
-- A "Tech Stack" section listing technologies by category
+```bash
+npm run test:unit
+```
+
+Run only integration tests:
+
+```bash
+npm run test:integration
+```
+
+## Code Quality
+
+Check formatting and linting:
+
+```bash
+npm run lint
+```
+
+Auto-format code:
+
+```bash
+npm run format
+```
+
+Run type checking:
+
+```bash
+npm run check
+```
+
+## Environment Variables
+
+The following environment variables are required:
+
+- `PUBLIC_CF_TURNSTILE_KEY` - Cloudflare Turnstile site key
+- `SECRET_CF_TURNSTILE_SECRET` - Cloudflare Turnstile secret key
+- `PUBLIC_POCKETBASE_URL` - PocketBase instance URL
+- `SECRET_OPENAI_API_KEY` - OpenAI API key for chatbot functionality
+
+In development, these are managed via 1Password CLI. In production, they are set via GitHub secrets and Docker build args.
+
+## Utility Scripts
+
+The `bin/` directory contains utility scripts for various tasks:
+
+### getUnsplashInfo.js
+
+Fetches metadata for Unsplash photos (blur hash, URLs, color, descriptions).
+
+```bash
+node bin/getUnsplashInfo.js <API_KEY> <PHOTO_ID>
+```
+
+### createAboutMeSummary.js
+
+Generates an "About Me" summary by combining experience markdown files and tech stack information. This is used as context for the AI chatbot.
+
+```bash
+node bin/createAboutMeSummary.js [OUTPUT_PATH]
+```
+
+Default output: `.generated/about-me.txt`
+
+## Features
+
+- **Portfolio**: Showcase of work experiences and technical skills
+- **Blog/Journal**: Dynamic blog powered by PocketBase
+- **AI Chatbot**: Interactive Q&A about experience and skills using GPT-5 Nano
+- **Contact Form**: Cloudflare Turnstile-protected contact form
+- **Responsive Design**: Mobile-first Tailwind CSS v4 styling
+
+## Project Structure
+
+```
+src/
+├── components/           # Reusable Svelte components
+├── constants/           # App constants (techStack.ts)
+├── lib/                # Shared utilities and services
+├── routes/             # SvelteKit file-based routing
+│   ├── experiences/    # Markdown files for work experience
+│   ├── about-me/       # About page with AI chatbot
+│   ├── contact/        # Contact form
+│   └── journal/        # Blog/journal pages
+└── types/              # TypeScript type definitions
+```
+
+## Deployment
+
+The application is containerized using Docker and deployed via GitHub Actions:
+
+1. Tests run on every push
+2. Semantic versioning and changelog generation
+3. Docker image built and pushed to container registry
+4. Automated deployment trigger to infrastructure repository
+
+See `.github/workflows/test-containerize-deploy.yml` for the complete CI/CD pipeline.
