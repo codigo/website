@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "context7": {
+      "enabled": true,
+      "comment": "Library documentation fetching"
+    },
+    "sequential-thinking": {
+      "enabled": true,
+      "comment": "Complex problem-solving assistance"
+    },
+    "svelte-llm": {
+      "enabled": true,
+      "comment": "Svelte 5 and SvelteKit documentation"
+    },
+    "playwright": {
+      "enabled": true,
+      "comment": "E2E testing and browser automation"
+    },
+    "github": {
+      "enabled": false,
+      "comment": "Disabled - use git CLI commands instead"
+    },
+    "ide": {
+      "enabled": false,
+      "comment": "Disabled - diagnostics and code execution not needed"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    }
+  }
+}

@@ -2,6 +2,7 @@
 	"dependencies": {
 		"@unpic/placeholder": "^0.1.2",
 		"@unpic/svelte": "1.0.0",
+		"openai": "^6.8.0",
 		"pino": "9.9.0",
 		"pocketbase": "0.26.2",
 		"prismjs": "1.30.0",
