@@ -1,9 +1,8 @@
 # [1.6.0](https://github.com/codigo/mau-web/compare/v1.5.0...v1.6.0) (2025-09-01)
 
-
 ### Features
 
-* enhance carousel components and add tailwind support ([#83](https://github.com/codigo/mau-web/issues/83)) ([8238864](https://github.com/codigo/mau-web/commit/8238864ea05dda13b97295177d07e3483bf0b6bf))
+- enhance carousel components and add tailwind support ([#83](https://github.com/codigo/mau-web/issues/83)) ([8238864](https://github.com/codigo/mau-web/commit/8238864ea05dda13b97295177d07e3483bf0b6bf))
 
 # [1.5.0](https://github.com/codigo/mau-web/compare/v1.4.0...v1.5.0) (2025-02-27)
 
