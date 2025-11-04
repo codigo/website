@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/codigo/website/compare/v1.9.0...v1.9.1) (2025-11-04)
+
+
+### Bug Fixes
+
+* update Node.js version in .nvmrc to 24 ([#88](https://github.com/codigo/website/issues/88)) ([a83ea3b](https://github.com/codigo/website/commit/a83ea3bdaac16e28b061c9d21ccde50b0aba3b6a))
+
 # [1.9.0](https://github.com/codigo/website/compare/v1.8.0...v1.9.0) (2025-11-04)
 
 
