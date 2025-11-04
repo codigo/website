@@ -1,19 +1,19 @@
 import { type RequestEvent, fail } from '@sveltejs/kit';
 import { SECRET_CF_TURNSTILE_SECRET } from '$env/static/private';
 import { superValidate, message } from 'sveltekit-superforms';
-import { zod } from 'sveltekit-superforms/adapters';
+import { zod4 } from 'sveltekit-superforms/adapters';
 import { sendMessage } from '$lib/services/pb';
 import { ContactSchema } from '$routes/contact/schema';
 
 import type { Actions, PageServerLoad } from './$types.js';
 
 export const load: PageServerLoad = async () => {
-	return { form: await superValidate(zod(ContactSchema)) };
+	return { form: await superValidate(zod4(ContactSchema)) };
 };
 
 export const actions: Actions = {
 	email: async ({ request, locals }: RequestEvent) => {
-		const form = await superValidate(request, zod(ContactSchema));
+		const form = await superValidate(request, zod4(ContactSchema));
 
 		if (!form.valid) {
 			return fail(400, { form });

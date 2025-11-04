@@ -238,7 +238,11 @@
 				placeholder="Ask a question..."
 				disabled={isLoading}
 			/>
-			<button onclick={sendMessage} disabled={isLoading || !inputValue.trim()} aria-label="Send message">
+			<button
+				onclick={sendMessage}
+				disabled={isLoading || !inputValue.trim()}
+				aria-label="Send message"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="20"

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { PUBLIC_CF_TURNSTILE_KEY } from '$env/static/public';
 	import { superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { Turnstile } from 'svelte-turnstile';
 	import { ContactSchema } from '$routes/contact/schema';
 
 	const { data } = $props();
 	const { form, errors, constraints, message, enhance, submitting } = superForm(data.form, {
 		customValidity: true,
-		validators: zodClient(ContactSchema)
+		validators: zod4Client(ContactSchema)
 	});
 
 	const handleTurnstileCb = (ev: CustomEvent<{ token: string }>) => {
