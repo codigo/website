@@ -35,12 +35,20 @@ Apr 2019 - Sep 2020
 
 As a critical member of the Telus Platform Tooling Team, I spearheaded initiatives that significantly improved development practices, deployment processes, and security measures. My contributions included:
 
-### Cloud Deployment Framework
+### Architectural Design Decisions
 
-- Developed a Fastify-based Node.js framework for seamless cloud deployment
-- Leveraged GitHub Actions, Google Cloud APIs, and Kubernetes for streamlined processes
-- Reduced time to test and deploy to production by 80%
-- Implemented Fastify's plugin-based architecture for extensible development
+- Architected plugin-based framework using Fastify's encapsulation model, enabling teams to extend core functionality without modifying base code
+- Designed secret management architecture integrating Hashicorp Vault with Kubernetes secrets, balancing security requirements with developer experience
+- Established architectural patterns for testing infrastructure code using mocks, defining standards adopted across 15+ development teams
+- Created deployment architecture supporting multi-cloud strategy (AWS/GCP), designing abstraction layer for cloud-agnostic deployments
+
+### Cloud Deployment Framework Architecture
+
+- Architected a Fastify-based Node.js framework providing abstraction over cloud-specific APIs, enabling seamless deployment across GCP and AWS environments
+- Designed plugin architecture leveraging Fastify's encapsulation model, allowing teams to extend core deployment functionality while maintaining stability
+- Established event-driven deployment pipeline integrating GitHub Actions, Google Cloud APIs, and Kubernetes API for zero-downtime releases
+- Reduced time to test and deploy to production by 80% through architectural optimization of the deployment workflow
+- Documented architectural decision records (ADRs) for framework design choices, facilitating team alignment and future maintenance
 
 ### Testing Best Practices
 
