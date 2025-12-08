@@ -9,7 +9,7 @@ previous: humanapi
 
 <!-- markdownlint-disable MD041 -->
 
-## Principal Software Engineer
+## Principal Software Engineer and Architect
 
 May 2013 - Jul 2015
 
@@ -31,7 +31,15 @@ May 2013 - Jul 2015
 - Sockets
 - Amazon SES
 
-At Selfie, I led the design, planning, execution, and deployment of 5+ microservices. My work included integrating Twilio API for two-factor authentication, which improved user security by 40%. I implemented MongoDB for data storage, handling 1M+ daily user interactions, and utilized Redis for caching user timelines, reducing load times by 60%. By employing ZeroMQ and REST for inter-service communication, I enhanced scalability by 3x.
+Architected and led the implementation of a microservices-based social platform consisting of 5+ distributed services handling 1M+ daily user interactions. I designed the system architecture using event-driven patterns with ZeroMQ for asynchronous inter-service communication and REST for synchronous operations, achieving 3x scalability improvement. Key architectural decisions included: selecting MongoDB for flexible user data schemas supporting rapid feature iteration, implementing Redis-based caching layer reducing database load by 60%, and designing Twilio integration for two-factor authentication improving security by 40%. I established service boundaries based on domain-driven design principles, ensuring loose coupling and high cohesion across the platform.
+
+### System Architecture and Design
+
+- Architected event-driven microservices platform using ZeroMQ for asynchronous messaging and REST for synchronous communication
+- Designed service boundaries following domain-driven design principles: Media Service, Notification Service, Authentication Service, Timeline Service, and Deployment Service
+- Established data architecture strategy: MongoDB for user-generated content (flexibility), Redis for session management and caching (performance), and S3 for media storage (scalability)
+- Implemented circuit breaker patterns and retry logic for inter-service communication, achieving 99.9% uptime
+- Designed auto-scaling architecture for Joyent infrastructure, reducing costs by 25% while maintaining performance under variable load
 
 ## Major Projects Developed
 

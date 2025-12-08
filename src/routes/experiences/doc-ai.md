@@ -9,7 +9,7 @@ previous: coursedog
 
 <!-- markdownlint-disable MD041 -->
 
-## Software Engineer
+## Staff Software Engineer
 
 Apr 2022 - Mar 2023
 
@@ -26,12 +26,23 @@ Apr 2022 - Mar 2023
 - CI/CD (GitHub Actions)
 - Docker
 
-As a Software Engineer at doc.ai (later acquired by Sharecare), I spearheaded the development of a distributed health study application, leveraging React, TypeScript, and Material-UI. I implemented robust state management solutions, established comprehensive testing protocols, and contributed to the architectural design of a scalable, responsive web application for health data collection and analysis.
+As a Staff Software Engineer at doc.ai (later acquired by Sharecare), I contributed to the development of a distributed health study application, leveraging React, TypeScript, and Material-UI. I implemented robust state management solutions using react-query and React Context API, established comprehensive testing protocols that became team standards, and led the development of a reusable component library that ensured consistency across 5 different projects. I took ownership of frontend performance optimization, code quality initiatives, and mentored junior developers on React best practices and TypeScript patterns.
 
-- Created a reusable component library with Storybook, ensuring consistency across 5 different projects
-- Implemented test-driven development practices, increasing test coverage from 80% to 95% and reducing post-release bugs by 70%
-- Optimized application performance, improving load times by 40% and reducing API call frequency by 50% through efficient use of react-query
-- Architected a robust front-end using React and TypeScript, implementing advanced patterns like custom hooks and higher-order components
-- Utilized react-query and React Context to create an efficient data synchronization system, reducing data fetching errors by 80%
+### Technical Contributions and Leadership
+
+- Led development of multi-project component library using Storybook and TypeScript, establishing reusable UI patterns serving 5 different projects
+- Established testing best practices and infrastructure, creating patterns for unit, integration, and component tests adopted by the frontend team
+- Spearheaded performance optimization initiatives using react-query caching and request optimization, improving load times by 40%
+- Implemented advanced React patterns (custom hooks, HOCs) for code reusability and maintainability
+- Mentored team members on TypeScript, React best practices, and test-driven development approaches
+- Drove code quality improvements through comprehensive code reviews and establishing frontend development standards
+
+### Key Achievements
+
+- Developed a reusable component library with Storybook, establishing consistent UI patterns and components used across 5 different projects
+- Championed test-driven development practices, establishing testing infrastructure and patterns that increased coverage from 80% to 95% and reduced post-release bugs by 70%
+- Led performance optimization efforts using react-query caching mechanisms and request deduplication, improving load times by 40% and reducing API call frequency by 50%
+- Implemented advanced React and TypeScript patterns including custom hooks for business logic, higher-order components for cross-cutting concerns, and compound component patterns
+- Developed efficient data synchronization solutions using react-query and React Context, implementing cache management and error recovery patterns that reduced data fetching errors by 80%
 
 Through this role, I significantly enhanced my expertise in React ecosystem technologies, state management strategies, and test-driven development practices. I also gained valuable experience in healthcare technology, data privacy considerations, and creating user-centric interfaces for diverse populations.

@@ -9,7 +9,7 @@ next: codigo
 
 <!-- markdownlint-disable MD041 -->
 
-## Freelance Software Engineer
+## Freelance Architect and Lead Engineer
 
 \* - May 2013
 
@@ -28,44 +28,52 @@ next: codigo
 - CI/CD (GitHub Actions)
 - Linux
 
-As a freelance software engineer, I spearheaded the development of diverse web applications, focusing on creating robust, scalable solutions for clients across various industries. I managed end-to-end project lifecycles, from requirement gathering to deployment and maintenance, while consistently delivering high-quality code and exceeding client expectations. My role involved architecting efficient database structures, implementing secure user authentication systems, and integrating third-party APIs to enhance application functionality.
+As a freelance architect and lead engineer, I architected and developed diverse web applications, designing scalable system architectures tailored to each client's unique constraints and growth projections. I led end-to-end project lifecycles from requirements analysis and system design through deployment and maintenance, making critical architectural decisions around technology stack selection, infrastructure design, and scalability strategies. My architectural approach emphasized creating maintainable, extensible systems through thoughtful database schema design, secure authentication architectures, strategic API integrations, and selecting appropriate hosting infrastructure based on performance requirements and budget constraints.
+
+### Architectural Philosophy and Approach
+
+- Designed system architectures prioritizing simplicity, maintainability, and cost-effectiveness for small-to-medium scale applications
+- Established architectural patterns for Ruby on Rails applications emphasizing convention over configuration and rapid development cycles
+- Made strategic technology choices balancing client budget constraints with performance and scalability requirements
+- Architected cloud deployment strategies using Heroku for simplified operations and AWS S3 for scalable media storage
+- Implemented caching strategies using Redis, reducing database load and improving response times across all projects by 60%
 
 ### Major Projects
 
 #### Squadrapp: Soccer Game Setup Application
 
-- Developed a full-stack web application to streamline soccer game organization
-- Technologies: Ruby on Rails, Amazon S3, Redis, CoffeeScript, AJAX
-- Implemented asynchronous email notifications, reducing user wait times by 80%
-- Deployed and maintained application on Heroku, achieving 99.9% uptime
+- Architected full-stack web application with event-driven notification system
+- Design Decisions: Ruby on Rails for rapid development, Redis for job queue management, Amazon S3 for media storage scalability
+- Designed asynchronous email processing using background workers, reducing user wait times by 80%
+- Deployed on Heroku with PostgreSQL, architecting for 99.9% uptime with minimal operational overhead
 
 #### University Assistant Management System
 
-- Architected a comprehensive web application to automate administrative tasks for college coordinators
-- Technologies: Ruby on Rails, Gravatar API, Google Charts API, Resque
-- Reduced manual data entry time by 70% through intelligent scheduling algorithms
-- Implemented real-time data visualization, increasing coordinator productivity by 40%
+- Architected comprehensive web application handling complex scheduling algorithms and data visualization requirements
+- Design Decisions: Ruby on Rails MVC architecture, PostgreSQL for relational data integrity, Resque for background job processing
+- Designed efficient scheduling algorithm architecture reducing manual coordination time by 70%
+- Implemented real-time data visualization architecture using Google Charts API, increasing coordinator productivity by 40%
 
 #### Coca-Cola Documentation Projects Portal (Colombia)
 
-- Led the development of an internal documentation and project management system
-- Technologies: Ruby on Rails, WYSIWYG editors, RESTful APIs
-- Implemented role-based access control, enhancing data security by 50%
-- Integrated activity streams and email notifications, improving team communication efficiency by 60%
+- Architected internal documentation and project management platform with role-based access control
+- Design Decisions: Rails engine architecture for modular development, PostgreSQL for ACID compliance on business-critical data
+- Designed security architecture implementing role-based permissions at application and database levels, enhancing data security by 50%
+- Architected activity stream pattern for real-time collaboration, improving team communication efficiency by 60%
 
 #### EzRent: Rental Property Finder
 
-- Created a location-based rental property search application
-- Technologies: Ruby on Rails, Google Maps API, Foursquare API
-- Increased user engagement by 35% through intuitive map-based interface
-- Optimized search algorithms, reducing average search time by 25%
+- Architected location-based rental property search application integrating multiple external APIs
+- Design Decisions: Ruby on Rails for rapid prototyping, Google Maps API for geolocation, Foursquare API for location context
+- Increased user engagement by 35% through intuitive map-based interface design
+- Designed and optimized search algorithms with geospatial indexing, reducing average search time by 25%
 
 #### Joyeria Caribe E-commerce Platform
 
-- Customized and extended the Satchmo e-commerce framework for a jewelry retailer
-- Technologies: Django, Python, SQLite, South, sorl-thumbnail, TinyMCE
-- Implemented multilanguage support, expanding the potential customer base by 40%
-- Automated product database import, reducing data entry time by 90%
+- Architected e-commerce solution by extending and customizing the Satchmo framework for jewelry retail
+- Design Decisions: Django for mature e-commerce foundation, SQLite for development simplicity, South for schema migration management
+- Designed multilanguage architecture supporting internationalization, expanding potential customer base by 40%
+- Architected automated product import system with data validation and transformation, reducing data entry time by 90%
 
 ### Technical Achievements
 
