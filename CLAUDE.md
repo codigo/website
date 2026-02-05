@@ -244,18 +244,75 @@ The project uses the following major package versions:
 
 ### Deployment Architecture
 
-The application is deployed as a **standalone Docker stack** using Docker contexts, separating infrastructure management from application deployment:
+The deployment follows a **platform/application separation** pattern with two repositories:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    services/ repository                         │
+│                  (Shared Platform Layer)                        │
+├─────────────────────────────────────────────────────────────────┤
+│  • VPS provisioning (Hetzner via Pulumi)                       │
+│  • Docker Swarm initialization                                  │
+│  • Cloudflare Tunnels (cloudflared containers)                 │
+│  • Caddy reverse proxy + SSL                                   │
+│  • Dozzle (log monitoring)                                     │
+│  • S3 backup infrastructure                                    │
+│  • caddy_net overlay network                                   │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+                    caddy_net (overlay network)
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                     mau-app/ repository                         │
+│                   (Application Layer)                           │
+├─────────────────────────────────────────────────────────────────┤
+│  • mau-app container (SvelteKit app)                           │
+│  • PocketBase container (backend/CMS)                          │
+│  • PocketBase migrations                                        │
+│  • Application-specific configuration                          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Responsibility Boundaries
+
+| Concern | Owner | Notes |
+|---------|-------|-------|
+| VPS provisioning | `services/` | Pulumi creates Hetzner server |
+| Docker Swarm setup | `services/` | Initializes swarm, creates networks |
+| Cloudflare Tunnels | `services/` | Routes traffic without exposing ports |
+| Caddy reverse proxy | `services/` | SSL termination, routing rules |
+| Caddy route config | `services/` | Add routes when deploying new apps |
+| Log monitoring | `services/` | Dozzle for all containers |
+| Backups | `services/` | S3 backup scripts and cron |
+| App containers | `mau-app/` | mau-app + PocketBase |
+| App deployment | `mau-app/` | GitHub Actions → docker stack deploy |
+| DB migrations | `mau-app/` | PocketBase migrations copied to VPS |
+
+#### Adding a New Application
+
+When deploying a new app to the platform:
+
+1. **In the app repo**: Create `docker-compose.yml` that connects to `caddy_net`
+2. **In services/**: Add Caddy routes to `tooling/data/caddy/Caddyfile`
+3. **In services/**: Run `pulumi up` to update Caddyfile on VPS (or manually update)
 
 #### Infrastructure (Pulumi - `services/` repository)
 
+Manages the shared platform (deploy once, rarely changes):
+
 - VPS provisioning (Hetzner)
-- SSH key configuration
+- SSH key configuration and user setup
 - Docker Swarm initialization
-- Cloudflare Tunnel setup
-- Caddy reverse proxy setup
-- Generic tooling (Dozzle, monitoring)
+- Cloudflare Tunnel containers (`cloudflared-maumercado`, `cloudflared-codigo`)
+- Caddy reverse proxy with automatic SSL
+- Dozzle for centralized logging
+- S3 backup infrastructure
+
+**Note**: `services/` should NOT contain `docker-compose.mau-app.yaml` - that's deprecated. Apps deploy themselves.
 
 #### Application Deployment (Docker Context - this repository)
+
+Manages application containers (deploy on every push to main):
 
 - GitHub Actions builds and pushes Docker image
 - Deployment happens via Docker context over SSH:
@@ -264,7 +321,7 @@ The application is deployed as a **standalone Docker stack** using Docker contex
   docker --context vps stack deploy --compose-file docker-compose.yml mau-app
   ```
 - No Pulumi needed for app deployment
-- PocketBase migrations run automatically on startup
+- PocketBase migrations copied to VPS automatically
 
 #### Docker Compose Configuration
 
@@ -284,15 +341,31 @@ The `docker-compose.yml` supports both development and production via environmen
 - `PB_DATA_PATH=/home/codigo/mau-app/data/pocketbase/pb_data` - VPS persistent storage
 - `DEBUG=false` - Production mode
 
-#### Caddy Routing
+#### Caddy Routing (managed in services/)
 
-Only publicly exposed services need Caddy routes in `services/tooling/data/caddy/Caddyfile`:
+Caddy routes are configured in `services/tooling/data/caddy/Caddyfile`:
 
 - `mau-app-codigo:3000` → codigo.sh, maumercado.com
 - `pocketbase:8090` → pocketbase.codigo.sh (admin UI)
 - `dozzle:8080` → dozzle.codigo.sh (monitoring)
 
 Internal service-to-service communication (e.g., mau-app → pocketbase) happens via Docker network and does not require Caddy routes.
+
+#### Deployment Flow
+
+```
+Push to main
+    ↓
+GitHub Actions: test-containerize-deploy.yml
+    ↓
+1. Run Playwright tests
+2. Semantic Release (bump version, changelog)
+3. Build & push Docker image to registry
+4. SSH to VPS, copy PB migrations
+5. docker stack deploy (connects to existing caddy_net)
+    ↓
+App running on platform managed by services/
+```
 
 ### Important Notes
 
