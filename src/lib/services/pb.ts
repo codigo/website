@@ -2,10 +2,15 @@ import { type Post, type Capability } from '$lib/types';
 import { type Logger } from 'pino';
 import { logger } from '$lib/stores/loggerStore';
 import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
+import {
+	SECRET_POCKETBASE_ADMIN_EMAIL,
+	SECRET_POCKETBASE_ADMIN_PASSWORD
+} from '$env/static/private';
 import PocketBase, { type ListResult } from 'pocketbase';
 
 class PocketBaseSingleton {
 	private static instance: PocketBase;
+	private static authPromise: Promise<void> | null = null;
 
 	private constructor() {}
 
@@ -18,12 +23,67 @@ class PocketBaseSingleton {
 		}
 		return PocketBaseSingleton.instance;
 	}
+
+	/**
+	 * Authenticate with PocketBase users collection
+	 * Required for operations like updating posts (generating embeddings)
+	 */
+	public static async ensureAdminAuth(): Promise<void> {
+		const pb = this.getInstance();
+		const log = logger.child({ module: 'pb-auth' });
+
+		// Check if already authenticated and token is valid
+		if (pb.authStore.isValid) {
+			log.debug('Already authenticated with valid token');
+			return;
+		}
+
+		// Return existing auth promise if already authenticating
+		if (this.authPromise) {
+			return this.authPromise;
+		}
+
+		this.authPromise = (async () => {
+			if (!SECRET_POCKETBASE_ADMIN_EMAIL || !SECRET_POCKETBASE_ADMIN_PASSWORD) {
+				log.error('PocketBase credentials not configured');
+				throw new Error(
+					'SECRET_POCKETBASE_ADMIN_EMAIL and SECRET_POCKETBASE_ADMIN_PASSWORD environment variables are required for embedding generation'
+				);
+			}
+
+			try {
+				log.info({ email: SECRET_POCKETBASE_ADMIN_EMAIL }, 'Authenticating with PocketBase admins');
+				await pb.admins.authWithPassword(
+					SECRET_POCKETBASE_ADMIN_EMAIL,
+					SECRET_POCKETBASE_ADMIN_PASSWORD
+				);
+				log.info('Successfully authenticated as admin');
+			} catch (error) {
+				log.error({ error }, 'Failed to authenticate');
+				this.authPromise = null; // Reset so it can be retried
+				throw error;
+			} finally {
+				this.authPromise = null; // Always reset promise
+			}
+		})();
+
+		return this.authPromise;
+	}
+
+	/**
+	 * Clear authentication state
+	 */
+	public static clearAuth(): void {
+		const pb = this.getInstance();
+		pb.authStore.clear();
+	}
 }
 
 const pb = PocketBaseSingleton.getInstance();
 pb.autoCancellation(true);
 
 export default pb;
+export { PocketBaseSingleton };
 
 export const sendMessage = async (name: string, email: string, message: string, log?: Logger) => {
 	log?.info({ name, email, message }, 'Sending message');

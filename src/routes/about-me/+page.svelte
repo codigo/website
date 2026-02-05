@@ -105,11 +105,11 @@
 			<p>
 				Beyond my professional work, I'm a firm believer in lifelong learning and continuous growth.
 				My GitHub portfolio at <a href="https://github.com/maumercado">github.com/maumercado</a>
-				showcases a diverse collection of projects that reflect my curiosity and passion for
-				technology. You'll find everything from a React Native app built with Expo, to my personal
-				blog at <a href="https://codigo.sh">codigo.sh</a>, and custom Fastify plugins including one
-				for the Jaeger distributed tracing system and another that injects secrets from HashiCorp
-				Vault into a service's environment at boot time.
+				showcases a diverse collection of projects that reflect my curiosity and passion for technology.
+				You'll find everything from a React Native app built with Expo, to my personal blog at
+				<a href="https://codigo.sh">codigo.sh</a>, and custom Fastify plugins including one for the
+				Jaeger distributed tracing system and another that injects secrets from HashiCorp Vault into
+				a service's environment at boot time.
 			</p>
 			<p>
 				Growing up on the coast, the ocean has always been an innate part of who I am. It's where I
@@ -121,9 +121,9 @@
 				grounded and inspired.
 			</p>
 			<p>
-				My mission is simple: continue growing, learning, and contributing meaningfully
-				to the software development landscape. I'm always eager to collaborate on innovative projects
-				and bring my unique perspective to the tech community. If you think we can create something
+				My mission is simple: continue growing, learning, and contributing meaningfully to the
+				software development landscape. I'm always eager to collaborate on innovative projects and
+				bring my unique perspective to the tech community. If you think we can create something
 				remarkable together, I'd love to hear from you. Let's connect and explore what we can build!
 			</p>
 		</div>

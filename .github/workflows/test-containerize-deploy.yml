@@ -18,6 +18,8 @@ jobs:
         SECRET_CF_TURNSTILE_SECRET: ${{ secrets.SECRET_CF_TURNSTILE_SECRET }}
         PUBLIC_POCKETBASE_URL: ${{ secrets.PUBLIC_POCKETBASE_URL }}
         SECRET_OPENAI_API_KEY: ${{ secrets.SECRET_OPENAI_API_KEY }}
+        SECRET_POCKETBASE_ADMIN_PASSWORD: ${{ secrets.SECRET_POCKETBASE_ADMIN_PASSWORD }}
+        SECRET_POCKETBASE_ADMIN_EMAIL: ${{ secrets.SECRET_POCKETBASE_ADMIN_EMAIL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -89,3 +91,50 @@ jobs:
             SECRET_CF_TURNSTILE_SECRET=${{ secrets.SECRET_CF_TURNSTILE_SECRET }}
             PUBLIC_POCKETBASE_URL=${{ secrets.PUBLIC_POCKETBASE_URL }}
             SECRET_OPENAI_API_KEY=${{ secrets.SECRET_OPENAI_API_KEY }}
+            SECRET_POCKETBASE_ADMIN_PASSWORD=${{ secrets.SECRET_POCKETBASE_ADMIN_PASSWORD }}
+            SECRET_POCKETBASE_ADMIN_EMAIL=${{ secrets.SECRET_POCKETBASE_ADMIN_EMAIL }}
+
+  deploy:
+    name: 'Deploy to VPS via Docker Context'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via Docker Context
+        env:
+          # Production environment variables for docker-compose.yml
+          CONTAINER_REGISTRY_URL: ${{ vars.CONTAINER_REGISTRY_URL }}
+          IMAGE_TAG: latest
+          NETWORK_DRIVER: overlay
+          CADDY_NET_EXTERNAL: true
+          REPLICAS: 1
+          DEBUG: false
+          PUBLIC_LOG_LEVEL: info
+          PB_DATA_PATH: /home/codigo/mau-app/data/pocketbase/pb_data
+          PB_MIGRATIONS_PATH: /home/codigo/mau-app/pb/pb_migrations
+          PUBLIC_POCKETBASE_URL: http://pocketbase:8090
+          SECRET_POCKETBASE_ADMIN_EMAIL: ${{ secrets.SECRET_POCKETBASE_ADMIN_EMAIL }}
+          SECRET_POCKETBASE_ADMIN_PASSWORD: ${{ secrets.SECRET_POCKETBASE_ADMIN_PASSWORD }}
+        run: |
+          # Set up SSH
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
+
+          # Ensure PocketBase data directories exist on VPS
+          ssh -i ~/.ssh/id_rsa codigo@${{ secrets.VPS_IP }} "mkdir -p /home/codigo/mau-app/data/pocketbase/pb_data /home/codigo/mau-app/data/pocketbase/pb_migrations"
+
+          # Copy PocketBase migrations to VPS
+          scp -i ~/.ssh/id_rsa -r pb/pb_migrations/* codigo@${{ secrets.VPS_IP }}:/home/codigo/mau-app/pb/pb_migrations/
+
+          # Create Docker context and deploy
+          docker context create vps --docker "host=ssh://codigo@${{ secrets.VPS_IP }}"
+          docker --context vps stack deploy \
+            --compose-file docker-compose.yml \
+            --with-registry-auth \
+            mau-app
+
+      # Note: Embeddings are generated automatically via PocketBase subscription
+      # Manual generation if needed: docker exec <container_name> npm run embeddings:generate

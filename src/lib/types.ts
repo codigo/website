@@ -36,6 +36,8 @@ export interface Post {
 	tags: string;
 	summary: string;
 	photo_metadata: PhotoMetadata;
+	ai_summary?: string; // AI-generated summary optimized for semantic search
+	embedding?: number[]; // Vector embedding for semantic search (1536 dimensions)
 }
 
 export interface EnhancedImage {

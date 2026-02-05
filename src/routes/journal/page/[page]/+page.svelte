@@ -5,9 +5,11 @@
 
 	import Posts from './Posts.svelte';
 	import Pagination from './Pagination.svelte';
+	import SearchBar from '$components/SearchBar.svelte';
 
 	const { page, totalPages } = $derived(data);
 </script>
 
+<SearchBar />
 <Posts posts={data.items} />
 <Pagination currentPage={page} {totalPages} />
