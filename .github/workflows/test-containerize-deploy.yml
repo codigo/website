@@ -123,8 +123,8 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
 
-          # Ensure PocketBase data directories exist on VPS
-          ssh -i ~/.ssh/id_rsa codigo@${{ secrets.VPS_IP }} "mkdir -p /home/codigo/mau-app/data/pocketbase/pb_data /home/codigo/mau-app/data/pocketbase/pb_migrations"
+          # Ensure PocketBase directories exist on VPS (data volume + migrations)
+          ssh -i ~/.ssh/id_rsa codigo@${{ secrets.VPS_IP }} "mkdir -p /home/codigo/mau-app/data/pocketbase/pb_data /home/codigo/mau-app/pb/pb_migrations"
 
           # Copy PocketBase migrations to VPS
           scp -i ~/.ssh/id_rsa -r pb/pb_migrations/* codigo@${{ secrets.VPS_IP }}:/home/codigo/mau-app/pb/pb_migrations/
