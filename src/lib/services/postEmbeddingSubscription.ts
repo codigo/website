@@ -89,11 +89,3 @@ export function subscribeToPostEmbeddings() {
 	log.info('Posts collection subscription active');
 }
 
-/**
- * Unsubscribe from posts collection
- */
-export function unsubscribeFromPostEmbeddings() {
-	const log = logger.child({ module: 'post-embeddings-subscription' });
-	pb.collection('posts').unsubscribe('*');
-	log.info('Posts collection subscription stopped');
-}
