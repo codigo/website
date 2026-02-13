@@ -255,6 +255,20 @@ describe('searchPosts', () => {
 		expect(results3.length).toBeGreaterThan(0);
 	});
 
+	it('clamps negative similarity scores to zero before boosting', () => {
+		const queryEmbedding = [1, 2, 3, 4, 5];
+		// Opposite vector produces negative cosine similarity
+		const oppositeEmbedding = [-1, -2, -3, -4, -5];
+		const post = createMockPost('neg', 'TypeScript Guide', oppositeEmbedding);
+
+		const results = searchPosts(queryEmbedding, [post], 'typescript', 10, 0);
+
+		// Even with keyword boost, negative similarity should be clamped to 0, not made more negative
+		if (results.length > 0) {
+			expect(results[0].score).toBeGreaterThanOrEqual(0);
+		}
+	});
+
 	it('handles multi-word queries', () => {
 		const queryEmbedding = createEmbedding(1);
 		// Use similar embedding so results pass the filter

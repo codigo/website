@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 import { generateAISummary, generatePostEmbedding } from '$lib/services/embeddings';
 import pb, { PocketBaseSingleton } from '$lib/services/pb';
 import type { Post } from '$lib/types';
+import { SECRET_OPENAI_API_KEY } from '$env/static/private';
 
 /**
  * POST endpoint to generate AI summaries and embeddings for posts.
@@ -24,6 +25,13 @@ import type { Post } from '$lib/types';
  */
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const log = locals.logger.child({ module: 'generate-embeddings' });
+
+	// Verify authorization - require Bearer token to prevent anonymous access
+	const authHeader = request.headers.get('authorization');
+	if (!authHeader || authHeader !== `Bearer ${SECRET_OPENAI_API_KEY}`) {
+		log.warn('Unauthorized embedding generation attempt');
+		throw error(401, { message: 'Unauthorized' });
+	}
 
 	try {
 		// Ensure admin authentication before proceeding

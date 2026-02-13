@@ -77,8 +77,8 @@ export function searchPosts(
 	const results: SearchResult[] = posts
 		.filter((post) => post.embedding && post.embedding.length > 0)
 		.map((post) => {
-			// Calculate base semantic similarity
-			let score = cosineSimilarity(queryEmbedding, post.embedding!);
+			// Calculate base semantic similarity (clamp negatives to 0 so multiplicative boosts work correctly)
+			let score = Math.max(0, cosineSimilarity(queryEmbedding, post.embedding!));
 
 			// Apply keyword boosting for better precision
 			const titleLower = post.title.toLowerCase();
