@@ -133,7 +133,7 @@ jobs:
 
           # Ensure PocketBase directories exist on VPS (data volume + migrations)
           # chown to uid=100(pocketbase) so the container can write to the data directory
-          ssh -i ~/.ssh/id_rsa codigo@${{ secrets.VPS_IP }} "mkdir -p /home/codigo/mau-app/data/pocketbase/pb_data /home/codigo/mau-app/pb/pb_migrations && chown -R 100:101 /home/codigo/mau-app/data/pocketbase/pb_data"
+          ssh -i ~/.ssh/id_rsa codigo@${{ secrets.VPS_IP }} "mkdir -p /home/codigo/mau-app/data/pocketbase/pb_data /home/codigo/mau-app/pb/pb_migrations && sudo chown -R 100:101 /home/codigo/mau-app/data/pocketbase/pb_data"
 
           # Copy PocketBase migrations to VPS
           scp -i ~/.ssh/id_rsa -r pb/pb_migrations/* codigo@${{ secrets.VPS_IP }}:/home/codigo/mau-app/pb/pb_migrations/
