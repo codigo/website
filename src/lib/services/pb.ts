@@ -2,10 +2,7 @@ import { type Post, type Capability } from '$lib/types';
 import { type Logger } from 'pino';
 import { logger } from '$lib/stores/loggerStore';
 import { PUBLIC_POCKETBASE_URL } from '$env/static/public';
-import {
-	SECRET_POCKETBASE_ADMIN_EMAIL,
-	SECRET_POCKETBASE_ADMIN_PASSWORD
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import PocketBase, { type ListResult } from 'pocketbase';
 
 class PocketBaseSingleton {
@@ -44,18 +41,18 @@ class PocketBaseSingleton {
 		}
 
 		this.authPromise = (async () => {
-			if (!SECRET_POCKETBASE_ADMIN_EMAIL || !SECRET_POCKETBASE_ADMIN_PASSWORD) {
+			if (!env.SECRET_POCKETBASE_ADMIN_EMAIL || !env.SECRET_POCKETBASE_ADMIN_PASSWORD) {
 				log.error('PocketBase credentials not configured');
 				throw new Error(
-					'SECRET_POCKETBASE_ADMIN_EMAIL and SECRET_POCKETBASE_ADMIN_PASSWORD environment variables are required for embedding generation'
+					'env.SECRET_POCKETBASE_ADMIN_EMAIL and env.SECRET_POCKETBASE_ADMIN_PASSWORD environment variables are required for embedding generation'
 				);
 			}
 
 			try {
-				log.info({ email: SECRET_POCKETBASE_ADMIN_EMAIL }, 'Authenticating with PocketBase admins');
+				log.info({ email: env.SECRET_POCKETBASE_ADMIN_EMAIL }, 'Authenticating with PocketBase admins');
 				await pb.admins.authWithPassword(
-					SECRET_POCKETBASE_ADMIN_EMAIL,
-					SECRET_POCKETBASE_ADMIN_PASSWORD
+					env.SECRET_POCKETBASE_ADMIN_EMAIL,
+					env.SECRET_POCKETBASE_ADMIN_PASSWORD
 				);
 				log.info('Successfully authenticated as admin');
 			} catch (error) {

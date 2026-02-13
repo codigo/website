@@ -91,8 +91,6 @@ jobs:
             SECRET_CF_TURNSTILE_SECRET=${{ secrets.SECRET_CF_TURNSTILE_SECRET }}
             PUBLIC_POCKETBASE_URL=${{ secrets.PUBLIC_POCKETBASE_URL }}
             SECRET_OPENAI_API_KEY=${{ secrets.SECRET_OPENAI_API_KEY }}
-            SECRET_POCKETBASE_ADMIN_PASSWORD=${{ secrets.SECRET_POCKETBASE_ADMIN_PASSWORD }}
-            SECRET_POCKETBASE_ADMIN_EMAIL=${{ secrets.SECRET_POCKETBASE_ADMIN_EMAIL }}
 
   deploy:
     name: 'Deploy to VPS via Docker Context'

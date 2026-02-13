@@ -30,9 +30,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		);
 
 		// Fetch all published posts with embeddings from PocketBase
+		// requestKey: null disables auto-cancellation so concurrent search requests don't cancel each other
 		const posts = await pb.collection('posts').getFullList<Post>({
 			filter: 'publish=true',
-			sort: '-created'
+			sort: '-created',
+			requestKey: null
 		});
 
 		log.info({ totalPosts: posts.length }, 'Fetched posts from PocketBase');

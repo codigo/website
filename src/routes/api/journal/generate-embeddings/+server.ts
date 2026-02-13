@@ -65,7 +65,8 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			// Batch mode - fetch all published posts
 			const posts = await pb.collection('posts').getFullList<Post>({
 				filter: 'publish=true',
-				sort: '-created'
+				sort: '-created',
+				requestKey: null
 			});
 
 			log.info({ totalPosts: posts.length }, 'Fetched posts from PocketBase');
