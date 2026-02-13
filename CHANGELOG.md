@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/codigo/website/compare/v1.10.2...v1.10.3) (2026-02-13)
+
+
+### Bug Fixes
+
+* use sudo for PocketBase data directory chown in deploy ([028b001](https://github.com/codigo/website/commit/028b0013f074ce068ccf7fdd0a91853204fb938a))
+
 ## [1.10.2](https://github.com/codigo/website/compare/v1.10.1...v1.10.2) (2026-02-13)
 
 
