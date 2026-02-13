@@ -72,6 +72,7 @@
 		if (!query.trim()) {
 			results = [];
 			showResults = false;
+			isLoading = false;
 		} else {
 			results = [];
 			isLoading = true;
