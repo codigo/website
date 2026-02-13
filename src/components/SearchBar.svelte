@@ -101,7 +101,12 @@
 
 	{#if showResults && query.trim()}
 		<div class="results-dropdown">
-			{#if error || (results.length === 0 && !isLoading)}
+			{#if error}
+				<div class="result-empty result-error">
+					<p><strong>Search failed</strong></p>
+					<p>{error}</p>
+				</div>
+			{:else if results.length === 0 && !isLoading}
 				<div class="result-empty">
 					<p><strong>No results found</strong></p>
 					<p>Try different keywords</p>
@@ -195,6 +200,11 @@
 	.result-empty {
 		padding: 2.4rem;
 		text-align: center;
+	}
+
+	.result-error p:last-child {
+		color: var(--pico-del-color, #e53935);
+		font-size: 1.3rem;
 	}
 
 	.results-list {

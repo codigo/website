@@ -2,6 +2,12 @@ import { SECRET_OPENAI_API_KEY } from '$env/static/private';
 import type { Logger } from 'pino';
 
 /**
+ * NOTE: The core logic in this module is duplicated in bin/generateEmbeddings.js
+ * (standalone CLI script that can't use SvelteKit $env imports).
+ * If you update the logic here, update bin/generateEmbeddings.js as well.
+ */
+
+/**
  * Cleans markdown content by removing images and truncating to a reasonable length.
  * This prevents sending massive amounts of image data to OpenAI API.
  *

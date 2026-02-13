@@ -55,6 +55,14 @@ console.log(`📋 Config: regenerate=${regenerate}, limit=${limit || 'all'}`);
 const pb = new PocketBase(POCKETBASE_URL);
 
 /**
+ * NOTE: The functions below (cleanContentForAI, generateEmbedding, generateAISummary,
+ * generatePostEmbedding) are duplicated from src/lib/services/embeddings.ts.
+ * They cannot be shared directly because the SvelteKit module uses $env/static/private
+ * imports which are unavailable in standalone Node.js scripts.
+ * If you update the logic here, update src/lib/services/embeddings.ts as well (and vice versa).
+ */
+
+/**
  * Cleans markdown content by removing images and truncating to a reasonable length.
  * This prevents sending massive amounts of image data to OpenAI API.
  */
