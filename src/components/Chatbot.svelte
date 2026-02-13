@@ -10,6 +10,18 @@
 	let isOpen = $state(false);
 	let chatContainer = $state<HTMLDivElement | undefined>(undefined);
 	let error = $state<string | null>(null);
+	let showPrompt = $state(false);
+	let promptDismissed = $state(false);
+
+	// Show prompt bubble after 3 seconds if chat hasn't been opened
+	$effect(() => {
+		if (!isOpen && !promptDismissed) {
+			const timer = setTimeout(() => {
+				showPrompt = true;
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
+	});
 
 	// Auto-scroll to bottom when messages update (including during streaming)
 	$effect(() => {
@@ -123,8 +135,14 @@
 		}
 	}
 
+	function dismissPrompt() {
+		showPrompt = false;
+		promptDismissed = true;
+	}
+
 	function toggleChat() {
 		isOpen = !isOpen;
+		dismissPrompt();
 		if (isOpen && messages.length === 0) {
 			// Add welcome message
 			messages = [
@@ -137,6 +155,29 @@
 		}
 	}
 </script>
+
+<!-- Prompt Bubble -->
+{#if showPrompt && !isOpen}
+	<div class="prompt-bubble">
+		<span>Have any questions about Mau? I can help!</span>
+		<button onclick={dismissPrompt} class="prompt-close" aria-label="Dismiss">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="14"
+				height="14"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+{/if}
 
 <!-- Chatbot Toggle Button -->
 <button
@@ -263,6 +304,71 @@
 {/if}
 
 <style>
+	.prompt-bubble {
+		position: fixed;
+		bottom: 9rem;
+		right: 2rem;
+		background: var(--color-bg, #ffffff);
+		border: 1px solid var(--color-border, #e5e7eb);
+		border-radius: 1.2rem;
+		padding: 1.2rem 1.6rem;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+		z-index: 1001;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		max-width: 28rem;
+		animation: slideUp 0.3s ease-out;
+	}
+
+	.prompt-bubble span {
+		font-size: 1.4rem;
+		color: var(--color-text, #1f2937);
+		line-height: 1.4;
+	}
+
+	.prompt-bubble::after {
+		content: '';
+		position: absolute;
+		bottom: -0.8rem;
+		right: 3rem;
+		width: 1.6rem;
+		height: 1.6rem;
+		background: var(--color-bg, #ffffff);
+		border-right: 1px solid var(--color-border, #e5e7eb);
+		border-bottom: 1px solid var(--color-border, #e5e7eb);
+		transform: rotate(45deg);
+	}
+
+	.prompt-close {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		color: var(--color-text, #9ca3af);
+		padding: 0.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		border-radius: 0.4rem;
+		transition: color 0.2s ease;
+	}
+
+	.prompt-close:hover {
+		color: var(--color-text, #1f2937);
+	}
+
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(1rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
 	.chatbot-toggle {
 		position: fixed;
 		bottom: 2rem;
@@ -493,6 +599,12 @@
 			right: 1.5rem;
 			width: 5.6rem;
 			height: 5.6rem;
+		}
+
+		.prompt-bubble {
+			bottom: 8rem;
+			right: 1.5rem;
+			max-width: calc(100vw - 3rem);
 		}
 	}
 </style>
