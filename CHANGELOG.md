@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/codigo/website/compare/v1.10.1...v1.10.2) (2026-02-13)
+
+
+### Bug Fixes
+
+* add registry login to deploy job for Swarm image pull ([afa1b45](https://github.com/codigo/website/commit/afa1b45728d536f0bfade4982d3a676022f1b950))
+
 ## [1.10.1](https://github.com/codigo/website/compare/v1.10.0...v1.10.1) (2026-02-13)
 
 
