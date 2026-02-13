@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mau-app-codigo:
+    # Image is built and pushed to registry by GitHub Actions
+    # Production pulls pre-built image from Vultr container registry
+    # This service is NOT used in local dev (use `npm run dev` instead)
+    image: ${CONTAINER_REGISTRY_URL}/codigo/mau-app:${IMAGE_TAG:-latest}
+    deploy:
+      replicas: ${REPLICAS:-1}
+      restart_policy:
+        condition: on-failure
+    environment:
+      DEBUG: ${DEBUG:-false}
+      PUBLIC_LOG_LEVEL: ${PUBLIC_LOG_LEVEL:-info}
+      SECRET_POCKETBASE_ADMIN_EMAIL: ${SECRET_POCKETBASE_ADMIN_EMAIL}
+      SECRET_POCKETBASE_ADMIN_PASSWORD: ${SECRET_POCKETBASE_ADMIN_PASSWORD}
+    ports:
+      - '3000'
+    networks:
+      - internal_net
+      - caddy_net
+    depends_on:
+      - pocketbase
+
+  pocketbase:
+    image: elestio/pocketbase:latest
+    deploy:
+      replicas: ${REPLICAS:-1}
+      restart_policy:
+        condition: on-failure
+    ports:
+      - '8090:8090'
+    volumes:
+      - ${PB_DATA_PATH:-./pb/pb_data}:/pb_data
+      - ${PB_MIGRATIONS_PATH:-./pb/pb_migrations}:/pb_migrations:ro
+    networks:
+      - internal_net
+      - caddy_net
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:8090/api/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  internal_net:
+    driver: ${NETWORK_DRIVER:-bridge}
+  caddy_net:
+    external: ${CADDY_NET_EXTERNAL:-false}

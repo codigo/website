@@ -1,5 +1,9 @@
 import type { Handle } from '@sveltejs/kit';
 import { logger, uuidv4 } from '$lib/stores/loggerStore';
+import { subscribeToPostEmbeddings } from '$lib/services/postEmbeddingSubscription';
+
+// Start automatic embedding generation for new/updated posts
+subscribeToPostEmbeddings();
 
 function logRequest(
 	event: Parameters<Handle>[0]['event'],

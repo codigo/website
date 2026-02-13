@@ -17,13 +17,14 @@ ENV HOST_HEADER=x-forwarded-host
 ENV PUBLIC_LOG_LEVEL=info
 ENV PUBLIC_APP_ENV=production
 
-# Use ARG for build-time variables
+# Use ARG for build-time variables (inlined by SvelteKit $env/static)
 ARG PUBLIC_CF_TURNSTILE_KEY
 ARG PUBLIC_POCKETBASE_URL
 ARG SECRET_CF_TURNSTILE_SECRET
 ARG SECRET_OPENAI_API_KEY
 
 # Set environment variables using ARG values
+# Note: PB admin credentials use $env/dynamic/private (read at runtime from docker-compose env)
 ENV PUBLIC_CF_TURNSTILE_KEY=$PUBLIC_CF_TURNSTILE_KEY
 ENV PUBLIC_POCKETBASE_URL=$PUBLIC_POCKETBASE_URL
 ENV SECRET_CF_TURNSTILE_SECRET=$SECRET_CF_TURNSTILE_SECRET

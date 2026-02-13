@@ -1,30 +1,26 @@
 ## [1.9.1](https://github.com/codigo/website/compare/v1.9.0...v1.9.1) (2025-11-04)
 
-
 ### Bug Fixes
 
-* update Node.js version in .nvmrc to 24 ([#88](https://github.com/codigo/website/issues/88)) ([a83ea3b](https://github.com/codigo/website/commit/a83ea3bdaac16e28b061c9d21ccde50b0aba3b6a))
+- update Node.js version in .nvmrc to 24 ([#88](https://github.com/codigo/website/issues/88)) ([a83ea3b](https://github.com/codigo/website/commit/a83ea3bdaac16e28b061c9d21ccde50b0aba3b6a))
 
 # [1.9.0](https://github.com/codigo/website/compare/v1.8.0...v1.9.0) (2025-11-04)
 
-
 ### Features
 
-* **docs:** update README for Mau App information and setup ([#86](https://github.com/codigo/website/issues/86)) ([aed1cf9](https://github.com/codigo/website/commit/aed1cf9c11e7fb89c5ded4e548a0e30e8011675e))
+- **docs:** update README for Mau App information and setup ([#86](https://github.com/codigo/website/issues/86)) ([aed1cf9](https://github.com/codigo/website/commit/aed1cf9c11e7fb89c5ded4e548a0e30e8011675e))
 
 # [1.8.0](https://github.com/codigo/website/compare/v1.7.0...v1.8.0) (2025-11-04)
 
-
 ### Features
 
-* **contact:** upgrade form validation and dependencies ([#85](https://github.com/codigo/website/issues/85)) ([91cf220](https://github.com/codigo/website/commit/91cf220da7e5d20a5b012e6b1db5ab56c0338574))
+- **contact:** upgrade form validation and dependencies ([#85](https://github.com/codigo/website/issues/85)) ([91cf220](https://github.com/codigo/website/commit/91cf220da7e5d20a5b012e6b1db5ab56c0338574))
 
 # [1.7.0](https://github.com/codigo/website/compare/v1.6.0...v1.7.0) (2025-11-04)
 
-
 ### Features
 
-* add CLAUDE.md documentation and chatbot integration ([#84](https://github.com/codigo/website/issues/84)) ([a470dff](https://github.com/codigo/website/commit/a470dffe7bbd83f93b30ced407959e50fce5165c))
+- add CLAUDE.md documentation and chatbot integration ([#84](https://github.com/codigo/website/issues/84)) ([a470dff](https://github.com/codigo/website/commit/a470dffe7bbd83f93b30ced407959e50fce5165c))
 
 # [1.6.0](https://github.com/codigo/mau-web/compare/v1.5.0...v1.6.0) (2025-09-01)
 

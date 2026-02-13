@@ -8,6 +8,7 @@ This is a personal portfolio/blog built with SvelteKit and TypeScript. It featur
 
 - Personal portfolio with experiences and tech stack showcase
 - Blog/journal functionality powered by PocketBase
+- AI-powered semantic search for journal posts using OpenAI embeddings
 - Markdown content processing with mdsvex
 - Tailwind CSS v4 for styling
 - Full-stack application with Node.js adapter
@@ -38,6 +39,8 @@ This is a personal portfolio/blog built with SvelteKit and TypeScript. It featur
 
 - `node bin/getUnsplashInfo.js <API_KEY> <PHOTO_ID>` - Fetch Unsplash photo metadata
 - `node bin/createAboutMeSummary.js [OUTPUT_PATH]` - Generate about-me summary from experiences
+- `npm run embeddings:generate` - Generate embeddings for posts without them
+- `npm run embeddings:regenerate` - Regenerate all embeddings
 
 ## Architecture
 
@@ -104,6 +107,71 @@ src/
 ## PocketBase Integration
 
 The application uses PocketBase as a backend service for dynamic content, particularly the blog/journal functionality. Ensure PocketBase is configured and running when working on blog-related features.
+
+## AI Semantic Search for Journal Posts
+
+The journal features AI-powered semantic search that understands the meaning of queries, not just keywords. This allows users to find relevant posts using natural language queries like "TypeScript performance tips" or "posts about React hooks."
+
+### Implementation Details
+
+- **AI Summaries**: GPT-4o-mini generates search-optimized summaries extracting key concepts
+- **Vector Embeddings**: OpenAI text-embedding-3-small creates 1536-dimensional vectors
+- **Similarity Search**: Cosine similarity matching finds relevant posts by semantic meaning
+- **Storage**: Embeddings and AI summaries stored directly in PocketBase (no external vector DB needed)
+- **Automatic Generation**: PocketBase realtime subscriptions automatically generate embeddings when posts are created/updated
+
+### Components
+
+1. **SearchBar Component** (`src/components/SearchBar.svelte`)
+   - Pico CSS styled search input
+   - Debounced search-as-you-type (500ms delay)
+   - Real-time results dropdown with match scores
+   - Responsive design matching contact form styling
+
+2. **Search API** (`src/routes/api/journal/search/+server.ts`)
+   - POST endpoint accepting natural language queries
+   - Generates query embedding via OpenAI
+   - Performs in-memory cosine similarity calculation
+   - Returns top matches with similarity scores
+
+3. **Embedding Generation API** (`src/routes/api/journal/generate-embeddings/+server.ts`)
+   - Batch processes posts to generate AI summaries and embeddings
+   - Single post mode: process specific post by ID
+   - Can regenerate embeddings for existing posts
+   - Supports incremental processing with limit parameter
+
+4. **Automatic Generation** (`src/lib/services/postEmbeddingSubscription.ts`)
+   - Subscribes to PocketBase posts collection via realtime API
+   - Automatically generates embeddings when posts are created/updated
+   - Activated in `src/hooks.server.ts` on app startup
+   - Skips posts that already have embeddings
+
+5. **Utilities**
+   - `src/lib/services/embeddings.ts` - AI summary and embedding generation
+   - `src/lib/utils/vectorSearch.ts` - Cosine similarity and search algorithms
+   - `bin/generateEmbeddings.js` - Standalone CLI script for batch processing
+
+### Database Schema
+
+PocketBase `posts` collection includes:
+
+- `ai_summary` (Text, optional) - AI-generated search-optimized summary
+- `embedding` (JSON, optional) - 1536-dimensional vector array
+
+### Cost & Performance
+
+- **Per post**: ~$0.000035 (AI summary + embedding generation)
+- **Per search**: ~$0.00002 (query embedding only)
+- **Performance**: In-memory cosine similarity handles < 1000 posts efficiently
+- **Migration Path**: Can move to Pinecone or TrailBase for > 1000 posts if needed
+
+### Setup Guide
+
+See `SEMANTIC_SEARCH_SETUP.md` for complete setup instructions including:
+
+- PocketBase schema updates
+- Generating embeddings for existing posts
+- Testing and troubleshooting
 
 ## Image Handling
 
@@ -173,6 +241,131 @@ The project uses the following major package versions:
 - **Dockerfile**: Uses `node:24-slim` base image
 - **GitHub Actions**: Uses Node 24 for all workflows
 - **Environment Variables**: `SECRET_OPENAI_API_KEY` is configured in all workflows for build compatibility
+
+### Deployment Architecture
+
+The deployment follows a **platform/application separation** pattern with two repositories:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    services/ repository                         │
+│                  (Shared Platform Layer)                        │
+├─────────────────────────────────────────────────────────────────┤
+│  • VPS provisioning (Hetzner via Pulumi)                       │
+│  • Docker Swarm initialization                                  │
+│  • Cloudflare Tunnels (cloudflared containers)                 │
+│  • Caddy reverse proxy + SSL                                   │
+│  • Dozzle (log monitoring)                                     │
+│  • S3 backup infrastructure                                    │
+│  • caddy_net overlay network                                   │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+                    caddy_net (overlay network)
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                     mau-app/ repository                         │
+│                   (Application Layer)                           │
+├─────────────────────────────────────────────────────────────────┤
+│  • mau-app container (SvelteKit app)                           │
+│  • PocketBase container (backend/CMS)                          │
+│  • PocketBase migrations                                        │
+│  • Application-specific configuration                          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Responsibility Boundaries
+
+| Concern             | Owner       | Notes                                 |
+| ------------------- | ----------- | ------------------------------------- |
+| VPS provisioning    | `services/` | Pulumi creates Hetzner server         |
+| Docker Swarm setup  | `services/` | Initializes swarm, creates networks   |
+| Cloudflare Tunnels  | `services/` | Routes traffic without exposing ports |
+| Caddy reverse proxy | `services/` | SSL termination, routing rules        |
+| Caddy route config  | `services/` | Add routes when deploying new apps    |
+| Log monitoring      | `services/` | Dozzle for all containers             |
+| Backups             | `services/` | S3 backup scripts and cron            |
+| App containers      | `mau-app/`  | mau-app + PocketBase                  |
+| App deployment      | `mau-app/`  | GitHub Actions → docker stack deploy  |
+| DB migrations       | `mau-app/`  | PocketBase migrations copied to VPS   |
+
+#### Adding a New Application
+
+When deploying a new app to the platform:
+
+1. **In the app repo**: Create `docker-compose.yml` that connects to `caddy_net`
+2. **In services/**: Add Caddy routes to `tooling/data/caddy/Caddyfile`
+3. **In services/**: Run `pulumi up` to update Caddyfile on VPS (or manually update)
+
+#### Infrastructure (Pulumi - `services/` repository)
+
+Manages the shared platform (deploy once, rarely changes):
+
+- VPS provisioning (Hetzner)
+- SSH key configuration and user setup
+- Docker Swarm initialization
+- Cloudflare Tunnel containers (`cloudflared-maumercado`, `cloudflared-codigo`)
+- Caddy reverse proxy with automatic SSL
+- Dozzle for centralized logging
+- S3 backup infrastructure
+
+**Note**: `services/` should NOT contain `docker-compose.mau-app.yaml` - that's deprecated. Apps deploy themselves.
+
+#### Application Deployment (Docker Context - this repository)
+
+Manages application containers (deploy on every push to main):
+
+- GitHub Actions builds and pushes Docker image
+- Deployment happens via Docker context over SSH:
+  ```bash
+  docker context create vps --docker "host=ssh://codigo@VPS_IP"
+  docker --context vps stack deploy --compose-file docker-compose.yml mau-app
+  ```
+- No Pulumi needed for app deployment
+- PocketBase migrations copied to VPS automatically
+
+#### Docker Compose Configuration
+
+The `docker-compose.yml` supports both development and production via environment variables:
+
+**Development** (`.env.example`):
+
+- `NETWORK_DRIVER=bridge` - Local bridge network
+- `CADDY_NET_EXTERNAL=false` - No external Caddy network
+- `PB_DATA_PATH=./pb/pb_data` - Local PocketBase data
+- `DEBUG=true` - Enable debug mode
+
+**Production** (GitHub Actions env vars):
+
+- `NETWORK_DRIVER=overlay` - Docker Swarm overlay network
+- `CADDY_NET_EXTERNAL=true` - Connect to existing Caddy network
+- `PB_DATA_PATH=/home/codigo/mau-app/data/pocketbase/pb_data` - VPS persistent storage
+- `DEBUG=false` - Production mode
+
+#### Caddy Routing (managed in services/)
+
+Caddy routes are configured in `services/tooling/data/caddy/Caddyfile`:
+
+- `mau-app-codigo:3000` → codigo.sh, maumercado.com
+- `pocketbase:8090` → pocketbase.codigo.sh (admin UI)
+- `dozzle:8080` → dozzle.codigo.sh (monitoring)
+
+Internal service-to-service communication (e.g., mau-app → pocketbase) happens via Docker network and does not require Caddy routes.
+
+#### Deployment Flow
+
+```
+Push to main
+    ↓
+GitHub Actions: test-containerize-deploy.yml
+    ↓
+1. Run Playwright tests
+2. Semantic Release (bump version, changelog)
+3. Build & push Docker image to registry
+4. SSH to VPS, copy PB migrations
+5. docker stack deploy (connects to existing caddy_net)
+    ↓
+App running on platform managed by services/
+```
 
 ### Important Notes
 

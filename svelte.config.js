@@ -25,6 +25,15 @@ const config = {
 			$routes: './src/routes',
 			'@unpic/svelte': 'node_modules/@unpic/svelte/dist/'
 		}
+	},
+
+	vitePlugin: {
+		inspector: {
+			toggleKeyCombo: 'alt-x',
+			holdMode: true,
+			showToggleButton: 'active',
+			toggleButtonPos: 'top-right'
+		}
 	}
 };
 
