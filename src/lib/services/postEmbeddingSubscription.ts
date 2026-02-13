@@ -41,6 +41,13 @@ export function subscribeToPostEmbeddings() {
 			return;
 		}
 
+		// On updates, skip posts that already have embeddings to prevent infinite loops.
+		// Our own write sets both fields, so the self-triggered event will be caught here.
+		// To regenerate embeddings after content edits, use the generate-embeddings API.
+		if (action === 'update' && record.embedding && record.ai_summary) {
+			return;
+		}
+
 		log.info(
 			{ postId: record.id, title: record.title, action },
 			'Post changed, generating embeddings'
@@ -88,4 +95,3 @@ export function subscribeToPostEmbeddings() {
 
 	log.info('Posts collection subscription active');
 }
-

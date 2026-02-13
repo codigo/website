@@ -13,7 +13,7 @@ migrate(
 			new Field({
 				name: 'ai_summary',
 				type: 'text',
-				required: false,
+				required: false
 			})
 		);
 
@@ -22,7 +22,7 @@ migrate(
 			new JSONField({
 				name: 'embedding',
 				required: false,
-				maxSize: 2000000, // 2MB max for vector embeddings
+				maxSize: 2000000 // 2MB max for vector embeddings
 			})
 		);
 

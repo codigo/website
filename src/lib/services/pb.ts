@@ -49,7 +49,10 @@ class PocketBaseSingleton {
 			}
 
 			try {
-				log.info({ email: env.SECRET_POCKETBASE_ADMIN_EMAIL }, 'Authenticating with PocketBase admins');
+				log.info(
+					{ email: env.SECRET_POCKETBASE_ADMIN_EMAIL },
+					'Authenticating with PocketBase admins'
+				);
 				await pb.admins.authWithPassword(
 					env.SECRET_POCKETBASE_ADMIN_EMAIL,
 					env.SECRET_POCKETBASE_ADMIN_PASSWORD
