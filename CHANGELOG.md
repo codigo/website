@@ -1,3 +1,15 @@
+# [1.10.0](https://github.com/codigo/website/compare/v1.9.1...v1.10.0) (2026-02-13)
+
+
+### Bug Fixes
+
+* pass SEMANTIC_RELEASE_PAT to checkout step for ruleset bypass ([6c83bc0](https://github.com/codigo/website/commit/6c83bc0738daac8a187428627740bdc9e16195bd))
+
+
+### Features
+
+* add AI-powered semantic search for journal posts ([#90](https://github.com/codigo/website/issues/90)) ([670a398](https://github.com/codigo/website/commit/670a398c63ad35273b8e4381a46cd5d1e4b3955a))
+
 ## [1.9.1](https://github.com/codigo/website/compare/v1.9.0...v1.9.1) (2025-11-04)
 
 ### Bug Fixes
