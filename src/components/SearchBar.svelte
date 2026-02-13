@@ -68,6 +68,14 @@
 
 	// Trigger search when query changes
 	$effect(() => {
+		// Clear stale results immediately so they don't flash while debounce waits
+		if (!query.trim()) {
+			results = [];
+			showResults = false;
+		} else {
+			results = [];
+			isLoading = true;
+		}
 		performSearch(query);
 	});
 
