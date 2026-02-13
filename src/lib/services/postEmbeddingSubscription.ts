@@ -6,92 +6,107 @@ import type { Post } from '$lib/types';
 let subscribed = false;
 
 /**
- * Subscribe to posts collection and automatically generate embeddings for new/updated posts
+ * Subscribe to posts collection and automatically generate embeddings for new/updated posts.
+ * Retries with exponential backoff if PocketBase is unavailable at startup.
  */
-export function subscribeToPostEmbeddings() {
+export async function subscribeToPostEmbeddings() {
 	if (subscribed) {
 		return;
 	}
 	subscribed = true;
 
 	const log = logger.child({ module: 'post-embeddings-subscription' });
-
-	log.info('Starting posts collection subscription for automatic embedding generation');
-
-	// Track posts currently being processed to avoid infinite loops
 	const processing = new Set<string>();
 
-	// Subscribe to any record change in the posts collection
-	pb.collection('posts').subscribe<Post>('*', async (e) => {
-		const { action, record } = e;
+	const MAX_RETRIES = 5;
+	const BASE_DELAY_MS = 3000;
 
-		// Only process create and update actions
-		if (action !== 'create' && action !== 'update') {
-			return;
-		}
-
-		// Only process published posts
-		if (!record.publish) {
-			log.info({ postId: record.id, action }, 'Skipping unpublished post');
-			return;
-		}
-
-		// Skip if we're currently processing this post (our own update triggered the event)
-		if (processing.has(record.id)) {
-			return;
-		}
-
-		// On updates, skip posts that already have embeddings to prevent infinite loops.
-		// Our own write sets both fields, so the self-triggered event will be caught here.
-		// To regenerate embeddings after content edits, use the generate-embeddings API.
-		if (action === 'update' && record.embedding && record.ai_summary) {
-			return;
-		}
-
-		log.info(
-			{ postId: record.id, title: record.title, action },
-			'Post changed, generating embeddings'
-		);
-
-		const postLog = log.child({ postId: record.id, title: record.title });
-
-		processing.add(record.id);
+	for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
 		try {
-			// Authenticate first
-			postLog.info('Authenticating with PocketBase');
-			await PocketBaseSingleton.ensureAdminAuth();
+			log.info({ attempt }, 'Subscribing to posts collection for automatic embedding generation');
 
-			// Generate AI summary
-			postLog.info('Generating AI summary');
-			const aiSummary = await generateAISummary(
-				record.title,
-				record.content,
-				postLog.child({ step: 'ai-summary' })
-			);
+			await pb.collection('posts').subscribe<Post>('*', async (e) => {
+				const { action, record } = e;
 
-			// Generate embedding
-			postLog.info('Generating embedding');
-			const embedding = await generatePostEmbedding(
-				record.title,
-				aiSummary,
-				record.content,
-				postLog.child({ step: 'embedding' })
-			);
+				if (action !== 'create' && action !== 'update') {
+					return;
+				}
 
-			// Update post in PocketBase
-			postLog.info('Saving to PocketBase');
-			await pb.collection('posts').update(record.id, {
-				ai_summary: aiSummary,
-				embedding: embedding
+				if (!record.publish) {
+					log.info({ postId: record.id, action }, 'Skipping unpublished post');
+					return;
+				}
+
+				if (processing.has(record.id)) {
+					return;
+				}
+
+				// On updates, skip posts that already have embeddings to prevent infinite loops.
+				// Our own write sets both fields, so the self-triggered event will be caught here.
+				// To regenerate embeddings after content edits, use the generate-embeddings API.
+				if (action === 'update' && record.embedding && record.ai_summary) {
+					return;
+				}
+
+				log.info(
+					{ postId: record.id, title: record.title, action },
+					'Post changed, generating embeddings'
+				);
+
+				const postLog = log.child({ postId: record.id, title: record.title });
+
+				processing.add(record.id);
+				try {
+					postLog.info('Authenticating with PocketBase');
+					await PocketBaseSingleton.ensureAdminAuth();
+
+					postLog.info('Generating AI summary');
+					const aiSummary = await generateAISummary(
+						record.title,
+						record.content,
+						postLog.child({ step: 'ai-summary' })
+					);
+
+					postLog.info('Generating embedding');
+					const embedding = await generatePostEmbedding(
+						record.title,
+						aiSummary,
+						record.content,
+						postLog.child({ step: 'embedding' })
+					);
+
+					postLog.info('Saving to PocketBase');
+					await pb.collection('posts').update(record.id, {
+						ai_summary: aiSummary,
+						embedding: embedding
+					});
+
+					postLog.info('Embeddings generated and saved successfully');
+				} catch (error) {
+					postLog.error({ error }, 'Failed to generate embeddings for post');
+				} finally {
+					processing.delete(record.id);
+				}
 			});
 
-			postLog.info('Embeddings generated and saved successfully');
+			log.info('Posts collection subscription active');
+			return; // Success — exit retry loop
 		} catch (error) {
-			postLog.error({ error }, 'Failed to generate embeddings for post');
-		} finally {
-			processing.delete(record.id);
-		}
-	});
+			const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
+			log.warn(
+				{ error, attempt, maxRetries: MAX_RETRIES, retryInMs: delay },
+				'Failed to subscribe to posts collection, retrying'
+			);
 
-	log.info('Posts collection subscription active');
+			if (attempt === MAX_RETRIES) {
+				log.error(
+					'Exhausted all retries for posts subscription — automatic embedding generation disabled'
+				);
+				subscribed = false; // Allow manual retry later
+				return;
+			}
+
+			await new Promise((resolve) => setTimeout(resolve, delay));
+		}
+	}
 }
