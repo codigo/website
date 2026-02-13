@@ -219,14 +219,21 @@ describe('searchPosts', () => {
 		expect(results[0].score).toBeLessThanOrEqual(1.0);
 	});
 
-	it('handles empty query string gracefully', () => {
+	it('handles empty query string without applying keyword boosts', () => {
 		const queryEmbedding = createEmbedding(1);
-		const posts = [createMockPost('test', 'Test Post', createEmbedding(1.1))];
+		const embedding = createEmbedding(1.1);
+		const post = createMockPost('test', 'Test Post', embedding, 'react, typescript');
 
-		const results = searchPosts(queryEmbedding, posts, '', 10, 0);
+		const resultsEmpty = searchPosts(queryEmbedding, [post], '', 10, 0);
+		const resultsWhitespace = searchPosts(queryEmbedding, [post], '   ', 10, 0);
+		const resultsBoosted = searchPosts(queryEmbedding, [post], 'test', 10, 0);
 
-		expect(results.length).toBeGreaterThan(0);
-		// No keyword boosting should be applied
+		expect(resultsEmpty.length).toBeGreaterThan(0);
+		expect(resultsWhitespace.length).toBeGreaterThan(0);
+		// Empty/whitespace queries should NOT get keyword boosts
+		expect(resultsEmpty[0].score).toBe(resultsWhitespace[0].score);
+		// A matching query should score higher due to title boost
+		expect(resultsBoosted[0].score).toBeGreaterThan(resultsEmpty[0].score);
 	});
 
 	it('handles case-insensitive keyword matching', () => {

@@ -69,14 +69,6 @@ class PocketBaseSingleton {
 
 		return this.authPromise;
 	}
-
-	/**
-	 * Clear authentication state
-	 */
-	public static clearAuth(): void {
-		const pb = this.getInstance();
-		pb.authStore.clear();
-	}
 }
 
 const pb = PocketBaseSingleton.getInstance();

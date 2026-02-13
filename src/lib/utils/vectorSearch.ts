@@ -71,7 +71,7 @@ export function searchPosts(
 ): SearchResult[] {
 	// Normalize query for keyword matching
 	const queryLower = query.toLowerCase().trim();
-	const queryWords = queryLower.split(/\s+/);
+	const queryWords = queryLower.split(/\s+/).filter(Boolean);
 
 	// Calculate similarity scores for all posts with embeddings
 	const results: SearchResult[] = posts

@@ -3,13 +3,23 @@ import { logger } from '$lib/stores/loggerStore';
 import { generateAISummary, generatePostEmbedding } from '$lib/services/embeddings';
 import type { Post } from '$lib/types';
 
+let subscribed = false;
+
 /**
  * Subscribe to posts collection and automatically generate embeddings for new/updated posts
  */
 export function subscribeToPostEmbeddings() {
+	if (subscribed) {
+		return;
+	}
+	subscribed = true;
+
 	const log = logger.child({ module: 'post-embeddings-subscription' });
 
 	log.info('Starting posts collection subscription for automatic embedding generation');
+
+	// Track posts currently being processed to avoid infinite loops
+	const processing = new Set<string>();
 
 	// Subscribe to any record change in the posts collection
 	pb.collection('posts').subscribe<Post>('*', async (e) => {
@@ -26,9 +36,8 @@ export function subscribeToPostEmbeddings() {
 			return;
 		}
 
-		// Check if post already has embeddings
-		if (record.embedding && record.ai_summary && action === 'update') {
-			log.info({ postId: record.id, title: record.title }, 'Post already has embeddings, skipping');
+		// Skip if we're currently processing this post (our own update triggered the event)
+		if (processing.has(record.id)) {
 			return;
 		}
 
@@ -39,6 +48,7 @@ export function subscribeToPostEmbeddings() {
 
 		const postLog = log.child({ postId: record.id, title: record.title });
 
+		processing.add(record.id);
 		try {
 			// Authenticate first
 			postLog.info('Authenticating with PocketBase');
@@ -69,13 +79,10 @@ export function subscribeToPostEmbeddings() {
 			});
 
 			postLog.info('Embeddings generated and saved successfully');
-
-			// Clear auth after successful operation
-			PocketBaseSingleton.clearAuth();
 		} catch (error) {
 			postLog.error({ error }, 'Failed to generate embeddings for post');
-			// Clear auth on error too
-			PocketBaseSingleton.clearAuth();
+		} finally {
+			processing.delete(record.id);
 		}
 	});
 

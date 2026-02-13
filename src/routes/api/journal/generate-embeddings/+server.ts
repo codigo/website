@@ -142,9 +142,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 		log.info({ results }, 'Embedding generation completed');
 
-		// Clear auth state after processing
-		PocketBaseSingleton.clearAuth();
-
 		return json({
 			success: true,
 			message: `Processed ${results.success} posts successfully, ${results.failed} failed`,
@@ -155,9 +152,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		});
 	} catch (e) {
 		log.error({ error: e }, 'Error in embedding generation');
-
-		// Clear auth state on error too
-		PocketBaseSingleton.clearAuth();
 
 		if (e instanceof Error) {
 			throw error(500, { message: `Embedding generation error: ${e.message}` });
