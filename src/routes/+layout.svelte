@@ -4,9 +4,11 @@
 	import type { SEOMetadata } from './+layout';
 	import Header from '../components/Header.svelte';
 	import Footer from '../components/Footer.svelte';
+	import type { Snippet } from 'svelte';
 
-	const { data } = $props<{
+	const { data, children } = $props<{
 		data: { metadata: SEOMetadata; url: string };
+		children: Snippet;
 	}>();
 
 	let mounted = $state(false);
@@ -52,7 +54,7 @@
 					<span class="loader-cloud"></span>
 				</div>
 			{:else}
-				<slot />
+				{@render children()}
 			{/if}
 		{/key}
 	</main>

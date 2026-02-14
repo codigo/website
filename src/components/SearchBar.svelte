@@ -58,6 +58,7 @@
 			});
 			error = errorMessage;
 			results = [];
+			showResults = true;
 		} finally {
 			isLoading = false;
 		}

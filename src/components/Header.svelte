@@ -38,7 +38,7 @@
 					<li>
 						<a
 							class="main-nav-link"
-							class:active={path === link.path}
+							class:active={link.path === '/' ? path === '/' : path.startsWith(link.path)}
 							class:hovered={hoveredLink === key}
 							href={link.path}
 							on:click={() => (isMenuOpen = false)}
