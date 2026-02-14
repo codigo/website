@@ -11,6 +11,7 @@
 		children: Snippet;
 	}>();
 
+	// eslint-disable-next-line svelte/prefer-writable-derived -- intentional mount detection pattern
 	let mounted = $state(false);
 
 	$effect.pre(() => {

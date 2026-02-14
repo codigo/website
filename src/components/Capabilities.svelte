@@ -5,12 +5,12 @@
 
 <section class="section-capabilities b-border">
 	<div class="pico capabilities">
-		{#each capabilities as capability}
+		{#each capabilities as capability (capability.title)}
 			<div class="capability capability-{capability.title.toLowerCase().replace(/\s+/g, '-')}">
 				<div class="capability-icon">{capability.icon}</div>
 				<h3 class="capability-text">{capability.title}</h3>
 				<ul class="capability-list">
-					{#each capability.items as item}
+					{#each capability.items as item (item.text)}
 						<li class="capability-item" data-tooltip={item.tooltip}>{item.text}</li>
 					{/each}
 				</ul>

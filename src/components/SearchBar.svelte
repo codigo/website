@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { debounce } from 'lodash-es';
+	import { resolve } from '$app/paths';
 
 	interface SearchResult {
 		id: string;
@@ -123,16 +124,19 @@
 				</div>
 			{:else}
 				<ul class="results-list">
-					{#each results as result}
+					{#each results as result (result.id)}
 						<li>
-							<a href="/journal/{result.slug}" onclick={handleResultClick}>
+							<a
+								href={resolve('/journal/[slug]', { slug: result.slug })}
+								onclick={handleResultClick}
+							>
 								<div class="result-content">
 									<div class="result-main">
 										<h3>{result.title}</h3>
 										<p>{result.summary}</p>
 										{#if result.tags}
 											<div class="result-tags">
-												{#each result.tags.split(',').slice(0, 3) as tag}
+												{#each result.tags.split(',').slice(0, 3) as tag (tag)}
 													<span class="tag">#{tag.trim()}</span>
 												{/each}
 											</div>

@@ -110,7 +110,7 @@
 									messages = [...messages]; // Trigger reactivity
 								}
 							}
-						} catch (e) {
+						} catch {
 							// Ignore parse errors for partial chunks
 						}
 					}
@@ -244,7 +244,7 @@
 		</div>
 
 		<div class="chatbot-messages" bind:this={chatContainer}>
-			{#each messages as message}
+			{#each messages as message, i (i)}
 				<div class="message {message.role}">
 					<div class="message-content">
 						{message.content}

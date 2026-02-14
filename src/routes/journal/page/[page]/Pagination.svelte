@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	const { currentPage, totalPages } = $props<{ currentPage: number; totalPages: number }>();
 
 	const getPageNumbers = () => {
@@ -37,18 +39,18 @@
 	<ul class="pagination">
 		<li>
 			<a
-				href={currentPage > 1 ? `/journal/page/${currentPage - 1}` : '#'}
+				href={resolve('/journal/page/[page]', { page: String(Math.max(1, currentPage - 1)) })}
 				class:disabled={currentPage === 1}
 				aria-label="Previous page">&lt;</a
 			>
 		</li>
-		{#each getPageNumbers() as pageNum}
+		{#each getPageNumbers() as pageNum, i (i)}
 			<li>
 				{#if pageNum === '...'}
 					<span class="dots">...</span>
 				{:else}
 					<a
-						href={`/journal/page/${pageNum}`}
+						href={resolve('/journal/page/[page]', { page: String(pageNum) })}
 						class:active={currentPage === pageNum}
 						aria-label={`Page ${pageNum}`}
 						aria-current={currentPage === pageNum ? 'page' : undefined}>{pageNum}</a
@@ -58,7 +60,9 @@
 		{/each}
 		<li>
 			<a
-				href={currentPage < totalPages ? `/journal/page/${currentPage + 1}` : '#'}
+				href={resolve('/journal/page/[page]', {
+					page: String(Math.min(totalPages, currentPage + 1))
+				})}
 				class:disabled={currentPage === totalPages}
 				aria-label="Next page">&gt;</a
 			>

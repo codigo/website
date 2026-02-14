@@ -18,7 +18,7 @@
 		class="w-full"
 	>
 		<Carousel.Content class="-ml-2">
-			{#each testimonials as testimonial}
+			{#each testimonials as testimonial (testimonial.author)}
 				<Carousel.Item class="pl-2 {basisClass}">
 					<figure class="testimonial">
 						<enhanced:img

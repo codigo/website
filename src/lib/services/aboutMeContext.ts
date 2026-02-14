@@ -28,7 +28,7 @@ const getTechStack = async (projectRoot: string) => {
 		.map(parseTechStackItem);
 };
 
-const groupBy = <T extends Record<string, any>>(array: T[], key: keyof T) =>
+const groupBy = <T extends Record<string, unknown>>(array: T[], key: keyof T) =>
 	array.reduce(
 		(acc, item) => {
 			const group = String(item[key]);

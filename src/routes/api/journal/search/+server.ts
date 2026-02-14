@@ -77,7 +77,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		});
 	} catch (e) {
 		// Re-throw validation errors (400)
-		if (e && typeof e === 'object' && 'status' in e && (e as any).status === 400) {
+		if (e && typeof e === 'object' && 'status' in e && (e as { status: number }).status === 400) {
 			throw e;
 		}
 

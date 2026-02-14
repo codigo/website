@@ -3,17 +3,16 @@
 	import type { SvelteComponent } from 'svelte';
 	import type { Experience } from '$lib/types';
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	const { data } = $props<{ data: { meta: Experience; content: typeof SvelteComponent } }>();
 
 	const { content, meta } = $derived(data);
 
-	const LINK_PREFIX = '/about-me/';
-
 	const handleClick = (slug: string | undefined) => {
 		if (!slug) return;
 
-		goto(LINK_PREFIX + slug);
+		goto(resolve('/about-me/[slug]', { slug }));
 	};
 </script>
 
