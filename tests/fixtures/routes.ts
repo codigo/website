@@ -37,7 +37,7 @@ export async function mockSearchAPIError(page: Page, status = 500) {
 
 export async function mockChatAPI(page: Page, content = 'Hello! I can help with that.') {
 	await page.route('**/api/chat', async (route) => {
-		const chunks = content.split(' ').map((word, i, arr) => {
+		const chunks = content.split(' ').map((word, i) => {
 			const text = i === 0 ? word : ' ' + word;
 			return `data: ${JSON.stringify({ content: text })}\n\n`;
 		});

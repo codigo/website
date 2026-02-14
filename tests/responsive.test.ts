@@ -14,9 +14,7 @@ test.describe('Responsive Design', () => {
 			await page.goto('/about-me');
 			const skillsList = page.locator('.skills-competences-list');
 			await expect(skillsList).toBeVisible();
-			const style = await skillsList.evaluate(
-				(el) => getComputedStyle(el).gridTemplateColumns
-			);
+			const style = await skillsList.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
 			// Single column means one value in gridTemplateColumns
 			const columns = style.split(' ').filter((v) => v !== '');
 			expect(columns.length).toBe(1);
@@ -56,9 +54,7 @@ test.describe('Responsive Design', () => {
 			await page.goto('/about-me');
 			const skillsList = page.locator('.skills-competences-list');
 			await expect(skillsList).toBeVisible();
-			const style = await skillsList.evaluate(
-				(el) => getComputedStyle(el).gridTemplateColumns
-			);
+			const style = await skillsList.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
 			const columns = style.split(' ').filter((v) => v !== '');
 			expect(columns.length).toBe(2);
 		});

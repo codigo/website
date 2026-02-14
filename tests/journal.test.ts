@@ -30,10 +30,7 @@ test.describe('SearchBar', () => {
 		});
 
 		await page.getByPlaceholder('Search posts...').fill('test query');
-		await expect(page.getByPlaceholder('Search posts...')).toHaveAttribute(
-			'aria-busy',
-			'true'
-		);
+		await expect(page.getByPlaceholder('Search posts...')).toHaveAttribute('aria-busy', 'true');
 	});
 
 	test('displays search results after typing', async ({ page }) => {

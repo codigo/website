@@ -38,9 +38,7 @@ test.describe('Home Page', () => {
 
 	test('displays tech stack section', async ({ page }) => {
 		await expect(page.getByText('Building Blocks')).toBeVisible();
-		await expect(
-			page.getByText('The technologies I use to bring ideas to life')
-		).toBeVisible();
+		await expect(page.getByText('The technologies I use to bring ideas to life')).toBeVisible();
 	});
 
 	test('renders known tech stack items', async ({ page }) => {
