@@ -2,8 +2,7 @@ import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { generateEmbedding } from '$lib/services/embeddings';
 import { searchPosts } from '$lib/utils/vectorSearch';
-import pb from '$lib/services/pb';
-import type { Post } from '$lib/types';
+import { isIndexReady } from '$lib/services/vectorIndex';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const log = locals.logger.child({ module: 'search-api' });
@@ -21,6 +20,15 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			throw error(400, { message: 'Query cannot be empty' });
 		}
 
+		if (!isIndexReady()) {
+			log.warn('Search index not yet initialized');
+			return json({
+				results: [],
+				query,
+				total: 0
+			});
+		}
+
 		log.info({ query, limit, minScore }, 'Processing search request');
 
 		// Generate embedding for the search query
@@ -29,35 +37,8 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			log.child({ step: 'generate-embedding' })
 		);
 
-		// Fetch all published posts with embeddings from PocketBase
-		// requestKey: null disables auto-cancellation so concurrent search requests don't cancel each other
-		const posts = await pb.collection('posts').getFullList<Post>({
-			filter: 'publish=true',
-			sort: '-created',
-			requestKey: null
-		});
-
-		log.info({ totalPosts: posts.length }, 'Fetched posts from PocketBase');
-
-		// Filter posts that have embeddings
-		const postsWithEmbeddings = posts.filter((post) => post.embedding && post.embedding.length > 0);
-
-		if (postsWithEmbeddings.length === 0) {
-			log.warn('No posts with embeddings found');
-			return json({
-				results: [],
-				query,
-				total: 0
-			});
-		}
-
-		log.info(
-			{ postsWithEmbeddings: postsWithEmbeddings.length },
-			'Posts with embeddings available for search'
-		);
-
-		// Perform semantic search with keyword boosting
-		const results = searchPosts(queryEmbedding, postsWithEmbeddings, query, limit, minScore);
+		// Perform semantic search using HNSW index with keyword boosting
+		const results = await searchPosts(queryEmbedding, query, limit, minScore);
 
 		log.info({ resultsCount: results.length, query }, 'Search completed successfully');
 

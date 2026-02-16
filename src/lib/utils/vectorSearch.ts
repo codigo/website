@@ -1,4 +1,5 @@
-import type { Post } from '$lib/types';
+import { searchIndex, getPostMetadata, isIndexReady } from '$lib/services/vectorIndex';
+import type { PostMetadata } from '$lib/services/vectorIndex';
 
 /**
  * Calculates the cosine similarity between two vectors.
@@ -46,62 +47,65 @@ export function cosineSimilarity(vecA: number[], vecB: number[]): number {
  * Search result with similarity score
  */
 export interface SearchResult {
-	post: Post;
+	post: PostMetadata;
 	score: number;
 }
 
 /**
- * Performs semantic search on posts using vector embeddings with keyword boosting.
- * Calculates cosine similarity between the query embedding and each post's embedding,
- * then boosts scores when query terms match title or tags for better precision.
+ * Performs semantic search using the HNSW vector index with keyword boosting.
+ * Uses approximate nearest neighbor search (O(log n)) instead of linear scan.
  *
  * @param queryEmbedding - The embedding vector for the search query
- * @param posts - Array of posts to search through (must have embeddings)
  * @param query - The original search query string (for keyword boosting)
  * @param limit - Maximum number of results to return (default: 10)
  * @param minScore - Minimum similarity score to include (default: 0.5)
  * @returns Array of search results sorted by relevance (highest score first)
  */
-export function searchPosts(
+export async function searchPosts(
 	queryEmbedding: number[],
-	posts: Post[],
 	query: string = '',
 	limit: number = 10,
 	minScore: number = 0.5
-): SearchResult[] {
+): Promise<SearchResult[]> {
+	if (!isIndexReady()) {
+		return [];
+	}
+
+	// Over-fetch to allow for filtering after keyword boosting
+	const rawResults = await searchIndex(queryEmbedding, limit * 3);
+
 	// Normalize query for keyword matching
 	const queryLower = query.toLowerCase().trim();
 	const queryWords = queryLower.split(/\s+/).filter(Boolean);
 
-	// Calculate similarity scores for all posts with embeddings
-	const results: SearchResult[] = posts
-		.filter((post) => post.embedding && post.embedding.length > 0)
-		.map((post) => {
-			// Calculate base semantic similarity (clamp negatives to 0 so multiplicative boosts work correctly)
-			let score = Math.max(0, cosineSimilarity(queryEmbedding, post.embedding!));
+	const results: SearchResult[] = rawResults
+		.map(({ id, score }) => {
+			const metadata = getPostMetadata(id);
+			if (!metadata) return null;
+
+			// Clamp negatives to 0 so multiplicative boosts work correctly
+			let adjustedScore = Math.max(0, score);
 
 			// Apply keyword boosting for better precision
-			const titleLower = post.title.toLowerCase();
-			const tagsLower = post.tags?.toLowerCase() || '';
+			const titleLower = metadata.title.toLowerCase();
+			const tagsLower = metadata.tags?.toLowerCase() || '';
 
-			// Check if any query word appears in title or tags
 			const titleMatch = queryWords.some((word) => titleLower.includes(word));
 			const tagMatch = queryWords.some((word) => tagsLower.includes(word));
 
-			// Boost scores for keyword matches
 			if (titleMatch) {
-				score *= 1.5; // 50% boost for title match
+				adjustedScore *= 1.5;
 			}
 			if (tagMatch) {
-				score *= 1.3; // 30% boost for tag match
+				adjustedScore *= 1.3;
 			}
 
 			return {
-				post,
-				score: Math.min(score, 1.0) // Cap at 1.0 to maintain score normalization
+				post: metadata,
+				score: Math.min(adjustedScore, 1.0)
 			};
 		})
-		.filter((result) => result.score >= minScore)
+		.filter((result): result is SearchResult => result !== null && result.score >= minScore)
 		.sort((a, b) => b.score - a.score)
 		.slice(0, limit);
 

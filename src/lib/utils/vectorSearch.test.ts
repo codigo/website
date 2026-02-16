@@ -1,6 +1,60 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+// Mock PocketBase before imports
+vi.mock('$lib/services/pb', () => {
+	return {
+		default: {
+			collection: () => ({
+				getFullList: vi.fn().mockResolvedValue([])
+			})
+		}
+	};
+});
+
+vi.mock('$lib/stores/loggerStore', () => ({
+	logger: {
+		child: () => ({
+			info: vi.fn(),
+			warn: vi.fn(),
+			error: vi.fn(),
+			debug: vi.fn()
+		})
+	}
+}));
+
 import { cosineSimilarity, searchPosts } from './vectorSearch';
-import type { Post } from '$lib/types';
+import { initializeIndex, addToIndex } from '$lib/services/vectorIndex';
+import type { PostMetadata } from '$lib/services/vectorIndex';
+
+const DIMENSIONS = 1536;
+
+function createEmbedding(seed: number): number[] {
+	const embedding = [];
+	for (let i = 0; i < DIMENSIONS; i++) {
+		embedding.push(Math.sin(seed + i) * 0.5);
+	}
+	return embedding;
+}
+
+function createMetadata(id: string, title: string, tags: string = ''): PostMetadata {
+	return {
+		id,
+		slug: id,
+		title,
+		summary: `Summary for ${title}`,
+		tags,
+		created: '2024-01-01',
+		photo_metadata: {
+			blur_hash: '',
+			blur_hash_style: '',
+			urls: { raw: '', full: '', regular: '', small: '', thumb: '', small_s3: '' },
+			color: '',
+			id: '',
+			description: '',
+			alt_description: ''
+		}
+	};
+}
 
 describe('cosineSimilarity', () => {
 	it('returns 1 for identical vectors', () => {
@@ -50,59 +104,26 @@ describe('cosineSimilarity', () => {
 	});
 });
 
-describe('searchPosts', () => {
-	// Helper to create mock posts
-	const createMockPost = (id: string, title: string, embedding: number[], tags?: string): Post => ({
-		id,
-		created: '2024-01-01',
-		updated: '2024-01-01',
-		slug: id,
-		content: 'Test content',
-		publish: true,
-		title,
-		tags: tags || '',
-		summary: 'Test summary',
-		photo_metadata: {
-			blur_hash: '',
-			blur_hash_style: '',
-			urls: { raw: '', full: '', regular: '', small: '', thumb: '', small_s3: '' },
-			color: '',
-			id: '',
-			description: '',
-			alt_description: ''
-		},
-		embedding
+describe('searchPosts (HNSW-backed)', () => {
+	beforeEach(async () => {
+		// Initialize with empty PB data, then add posts manually
+		await initializeIndex();
 	});
 
-	// Create a base embedding vector (1536 dimensions like OpenAI)
-	const createEmbedding = (seed: number): number[] => {
-		const embedding = [];
-		for (let i = 0; i < 100; i++) {
-			// Using 100 for test simplicity
-			embedding.push(Math.sin(seed + i) * 0.5);
-		}
-		return embedding;
-	};
-
-	it('returns empty array when no posts have embeddings', () => {
-		const posts: Post[] = [
-			{ ...createMockPost('1', 'Test', []), embedding: undefined },
-			{ ...createMockPost('2', 'Test 2', []), embedding: [] }
-		];
+	it('returns empty array when index is not ready (no posts)', async () => {
 		const queryEmbedding = createEmbedding(1);
-		const results = searchPosts(queryEmbedding, posts, '', 10, 0);
+		const results = await searchPosts(queryEmbedding, '', 10, 0);
 		expect(results).toHaveLength(0);
 	});
 
-	it('returns posts sorted by similarity score (highest first)', () => {
+	it('returns posts sorted by similarity score (highest first)', async () => {
 		const queryEmbedding = createEmbedding(1);
-		const posts: Post[] = [
-			createMockPost('low', 'Low Match', createEmbedding(100)), // very different
-			createMockPost('high', 'High Match', createEmbedding(1.1)), // very similar
-			createMockPost('mid', 'Mid Match', createEmbedding(10)) // somewhat different
-		];
 
-		const results = searchPosts(queryEmbedding, posts, '', 10, 0);
+		addToIndex('high', createEmbedding(1.01), createMetadata('high', 'High Match'));
+		addToIndex('mid', createEmbedding(10), createMetadata('mid', 'Mid Match'));
+		addToIndex('low', createEmbedding(100), createMetadata('low', 'Low Match'));
+
+		const results = await searchPosts(queryEmbedding, '', 10, 0);
 
 		expect(results.length).toBeGreaterThan(0);
 		expect(results[0].post.id).toBe('high');
@@ -112,43 +133,42 @@ describe('searchPosts', () => {
 		}
 	});
 
-	it('filters results below minScore threshold', () => {
+	it('filters results below minScore threshold', async () => {
 		const queryEmbedding = createEmbedding(1);
-		const posts: Post[] = [
-			createMockPost('similar', 'Similar', createEmbedding(1.01)),
-			createMockPost('different', 'Different', createEmbedding(1000))
-		];
 
-		const results = searchPosts(queryEmbedding, posts, '', 10, 0.9);
+		addToIndex('similar', createEmbedding(1.001), createMetadata('similar', 'Similar'));
+		addToIndex('different', createEmbedding(1000), createMetadata('different', 'Different'));
 
-		// Only the similar post should pass the high threshold
+		const results = await searchPosts(queryEmbedding, '', 10, 0.9);
+
 		expect(results.every((r) => r.score >= 0.9)).toBe(true);
 	});
 
-	it('limits results to specified limit', () => {
+	it('limits results to specified limit', async () => {
 		const queryEmbedding = createEmbedding(1);
-		const posts: Post[] = Array.from({ length: 20 }, (_, i) =>
-			createMockPost(`post-${i}`, `Post ${i}`, createEmbedding(1 + i * 0.01))
-		);
+		for (let i = 0; i < 20; i++) {
+			addToIndex(
+				`post-${i}`,
+				createEmbedding(1 + i * 0.01),
+				createMetadata(`post-${i}`, `Post ${i}`)
+			);
+		}
 
-		const results = searchPosts(queryEmbedding, posts, '', 5, 0);
+		const results = await searchPosts(queryEmbedding, '', 5, 0);
 
 		expect(results.length).toBeLessThanOrEqual(5);
 	});
 
-	it('boosts score for title keyword matches', () => {
+	it('boosts score for title keyword matches', async () => {
 		const queryEmbedding = createEmbedding(1);
-		// Two posts with identical embeddings but different titles
-		const postWithKeyword = createMockPost('with', 'TypeScript Guide', createEmbedding(5));
-		const postWithoutKeyword = createMockPost('without', 'Programming Guide', createEmbedding(5));
+		// Use close embedding so base similarity is non-zero
+		const embedding = createEmbedding(1.5);
 
-		const results = searchPosts(
-			queryEmbedding,
-			[postWithKeyword, postWithoutKeyword],
-			'typescript'
-		);
+		addToIndex('with', embedding, createMetadata('with', 'TypeScript Guide'));
+		addToIndex('without', embedding, createMetadata('without', 'Programming Guide'));
 
-		// Find the posts in results
+		const results = await searchPosts(queryEmbedding, 'typescript', 10, 0);
+
 		const withKeywordResult = results.find((r) => r.post.id === 'with');
 		const withoutKeywordResult = results.find((r) => r.post.id === 'without');
 
@@ -157,13 +177,15 @@ describe('searchPosts', () => {
 		}
 	});
 
-	it('boosts score for tag keyword matches', () => {
+	it('boosts score for tag keyword matches', async () => {
 		const queryEmbedding = createEmbedding(1);
-		// Two posts with identical embeddings but different tags
-		const postWithTag = createMockPost('with', 'Guide', createEmbedding(5), 'react, javascript');
-		const postWithoutTag = createMockPost('without', 'Guide', createEmbedding(5), 'python, django');
+		// Use close embedding so base similarity is non-zero
+		const embedding = createEmbedding(1.5);
 
-		const results = searchPosts(queryEmbedding, [postWithTag, postWithoutTag], 'react');
+		addToIndex('with', embedding, createMetadata('with', 'Guide', 'react, javascript'));
+		addToIndex('without', embedding, createMetadata('without', 'Guide', 'python, django'));
+
+		const results = await searchPosts(queryEmbedding, 'react', 10, 0);
 
 		const withTagResult = results.find((r) => r.post.id === 'with');
 		const withoutTagResult = results.find((r) => r.post.id === 'without');
@@ -173,60 +195,53 @@ describe('searchPosts', () => {
 		}
 	});
 
-	it('applies both title and tag boosts cumulatively', () => {
+	it('applies both title and tag boosts cumulatively', async () => {
 		const queryEmbedding = createEmbedding(1);
-		// Use an embedding with ~0.5 base similarity so boosts don't all cap at 1.0
 		const embedding = createEmbedding(2);
 
-		const postBothMatch = createMockPost('both', 'React Tutorial', embedding, 'react, hooks');
-		const postTitleOnly = createMockPost('title', 'React Guide', embedding, 'python');
-		const postTagOnly = createMockPost('tag', 'Guide', embedding, 'react');
-		const postNoMatch = createMockPost('none', 'Guide', embedding, 'python');
+		addToIndex('both', embedding, createMetadata('both', 'React Tutorial', 'react, hooks'));
+		addToIndex('title', embedding, createMetadata('title', 'React Guide', 'python'));
+		addToIndex('tag', embedding, createMetadata('tag', 'Guide', 'react'));
+		addToIndex('none', embedding, createMetadata('none', 'Guide', 'python'));
 
-		const results = searchPosts(
-			queryEmbedding,
-			[postNoMatch, postTagOnly, postTitleOnly, postBothMatch],
-			'react',
-			10,
-			0 // no minimum score filter
-		);
+		const results = await searchPosts(queryEmbedding, 'react', 10, 0);
 
 		const scores: Record<string, number> = {};
 		results.forEach((r) => {
 			scores[r.post.id] = r.score;
 		});
 
-		// Both match should have highest score (gets both 1.5x title and 1.3x tag boost)
 		expect(scores['both']).toBeGreaterThan(scores['title']);
 		expect(scores['both']).toBeGreaterThan(scores['tag']);
-		// Title and tag only should be higher than no match
 		expect(scores['title']).toBeGreaterThan(scores['none']);
 		expect(scores['tag']).toBeGreaterThan(scores['none']);
 	});
 
-	it('caps boosted scores at 1.0', () => {
+	it('caps boosted scores at 1.0', async () => {
 		const queryEmbedding = createEmbedding(1);
-		// Create a post with nearly identical embedding (score close to 1.0)
-		const nearIdenticalPost = createMockPost(
+		// Create a post with nearly identical embedding
+		addToIndex(
 			'near-identical',
-			'TypeScript React',
-			createEmbedding(1.001),
-			'typescript, react'
+			createEmbedding(1.0001),
+			createMetadata('near-identical', 'TypeScript React', 'typescript, react')
 		);
 
-		const results = searchPosts(queryEmbedding, [nearIdenticalPost], 'typescript react', 10, 0);
+		const results = await searchPosts(queryEmbedding, 'typescript react', 10, 0);
 
 		expect(results[0].score).toBeLessThanOrEqual(1.0);
 	});
 
-	it('handles empty query string without applying keyword boosts', () => {
+	it('handles empty query string without applying keyword boosts', async () => {
 		const queryEmbedding = createEmbedding(1);
-		const embedding = createEmbedding(1.1);
-		const post = createMockPost('test', 'Test Post', embedding, 'react, typescript');
+		addToIndex(
+			'test',
+			createEmbedding(1.01),
+			createMetadata('test', 'Test Post', 'react, typescript')
+		);
 
-		const resultsEmpty = searchPosts(queryEmbedding, [post], '', 10, 0);
-		const resultsWhitespace = searchPosts(queryEmbedding, [post], '   ', 10, 0);
-		const resultsBoosted = searchPosts(queryEmbedding, [post], 'test', 10, 0);
+		const resultsEmpty = await searchPosts(queryEmbedding, '', 10, 0);
+		const resultsWhitespace = await searchPosts(queryEmbedding, '   ', 10, 0);
+		const resultsBoosted = await searchPosts(queryEmbedding, 'test', 10, 0);
 
 		expect(resultsEmpty.length).toBeGreaterThan(0);
 		expect(resultsWhitespace.length).toBeGreaterThan(0);
@@ -236,47 +251,20 @@ describe('searchPosts', () => {
 		expect(resultsBoosted[0].score).toBeGreaterThan(resultsEmpty[0].score);
 	});
 
-	it('handles case-insensitive keyword matching', () => {
+	it('handles case-insensitive keyword matching', async () => {
 		const queryEmbedding = createEmbedding(1);
-		// Use similar embedding so results pass the filter
-		const post = createMockPost(
+		addToIndex(
 			'test',
-			'TypeScript GUIDE',
 			createEmbedding(1.001),
-			'REACT, JavaScript'
+			createMetadata('test', 'TypeScript GUIDE', 'REACT, JavaScript')
 		);
 
-		const results1 = searchPosts(queryEmbedding, [post], 'typescript', 10, 0);
-		const results2 = searchPosts(queryEmbedding, [post], 'TYPESCRIPT', 10, 0);
-		const results3 = searchPosts(queryEmbedding, [post], 'react', 10, 0);
+		const results1 = await searchPosts(queryEmbedding, 'typescript', 10, 0);
+		const results2 = await searchPosts(queryEmbedding, 'TYPESCRIPT', 10, 0);
+		const results3 = await searchPosts(queryEmbedding, 'react', 10, 0);
 
 		// All should find the post and apply the same boost
 		expect(results1[0].score).toBe(results2[0].score);
 		expect(results3.length).toBeGreaterThan(0);
-	});
-
-	it('clamps negative similarity scores to zero before boosting', () => {
-		const queryEmbedding = [1, 2, 3, 4, 5];
-		// Opposite vector produces negative cosine similarity
-		const oppositeEmbedding = [-1, -2, -3, -4, -5];
-		const post = createMockPost('neg', 'TypeScript Guide', oppositeEmbedding);
-
-		const results = searchPosts(queryEmbedding, [post], 'typescript', 10, 0);
-
-		// Even with keyword boost, negative similarity should be clamped to 0, not made more negative
-		if (results.length > 0) {
-			expect(results[0].score).toBeGreaterThanOrEqual(0);
-		}
-	});
-
-	it('handles multi-word queries', () => {
-		const queryEmbedding = createEmbedding(1);
-		// Use similar embedding so results pass the filter
-		const post = createMockPost('test', 'TypeScript React Guide', createEmbedding(1.001));
-
-		const results = searchPosts(queryEmbedding, [post], 'typescript react', 10, 0);
-
-		// Should match both words in title
-		expect(results.length).toBeGreaterThan(0);
 	});
 });

@@ -1,6 +1,7 @@
 import pb, { PocketBaseSingleton } from '$lib/services/pb';
 import { logger } from '$lib/stores/loggerStore';
 import { generateAISummary, generatePostEmbedding } from '$lib/services/embeddings';
+import { addToIndex } from '$lib/services/vectorIndex';
 import type { Post } from '$lib/types';
 
 let subscribed = false;
@@ -79,6 +80,17 @@ export async function subscribeToPostEmbeddings() {
 					await pb.collection('posts').update(record.id, {
 						ai_summary: aiSummary,
 						embedding: embedding
+					});
+
+					// Update the in-memory HNSW index
+					addToIndex(record.id, embedding, {
+						id: record.id,
+						slug: record.slug,
+						title: record.title,
+						summary: record.summary,
+						tags: record.tags,
+						created: record.created,
+						photo_metadata: record.photo_metadata
 					});
 
 					postLog.info('Embeddings generated and saved successfully');
