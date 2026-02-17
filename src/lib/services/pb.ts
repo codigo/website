@@ -123,7 +123,12 @@ export const getPostBySlug = async (slug: string, log?: Logger) => {
 		const post = await pb.collection('posts').getOne<Post>(result.id, { requestKey: null });
 		log?.info({ slug, postId: post.id }, 'Post fetched successfully');
 		return post;
-	} catch (error) {
+	} catch (error: unknown) {
+		// PocketBase getFirstListItem throws when no record matches (status 404)
+		if (error && typeof error === 'object' && 'status' in error && error.status === 404) {
+			log?.warn({ slug }, 'Post not found');
+			return null;
+		}
 		log?.error({ slug, error }, 'Error fetching post');
 		throw error;
 	}
