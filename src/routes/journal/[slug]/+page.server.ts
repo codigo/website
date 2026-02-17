@@ -30,8 +30,8 @@ export async function load({ params, setHeaders, locals }) {
 		let message: string = '';
 		let status = 500;
 		if (e instanceof ClientResponseError) {
-			status = e.response?.code || 500;
-			message = e.response?.message || e.message;
+			status = e.status || 500;
+			message = e.message;
 		} else if (e instanceof Error) {
 			message = e.message;
 		} else {
