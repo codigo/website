@@ -91,6 +91,7 @@
 		const target = event.target as HTMLElement;
 		if (!target.closest('.search-wrapper')) {
 			showResults = false;
+			isLoading = false;
 		}
 	}
 </script>
