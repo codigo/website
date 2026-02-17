@@ -26,3 +26,6 @@ vite.config.ts.timestamp-*
 pb_data/
 pb/pb_data/
 !pb/pb_migrations/
+
+# Journal drafts
+journal-ideas/
