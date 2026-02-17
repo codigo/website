@@ -24,10 +24,10 @@
 				<p>Hi there, I'm Mauricio &nbsp;</p>
 				<div class="wave">👋</div>
 			</div>
-			<h1 class="hero-title">Full Stack Developer based in Canada.</h1>
+			<h1 class="hero-title">Backend & AI Integration Engineer based in Canada.</h1>
 			<p class="hero-text">
-				I specialize in building exceptional user experiences and robust products.<br />
-				With my expertise in systems architecture, frontend, backend and various database technologies,
+				I specialize in building robust backend systems and integrating AI into workflows.<br />
+				With my expertise in systems architecture, backend technologies, and AI integration,
 				I can help you bring your ideas to life.
 			</p>
 

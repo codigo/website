@@ -4,9 +4,9 @@ import { test, expect } from '@playwright/test';
 const SEO_DATA = {
 	title: 'Mauricio Mercado | AI & Software Engineering Consultant',
 	description:
-		'Mauricio Mercado - Full Stack & AI Engineer specializing in modern web development, AI solutions, and technical consulting. Based in Canada, offering professional software development services.',
+		'Mauricio Mercado - Backend & AI Integration Engineer specializing in modern web development, AI solutions, and technical consulting. Based in Canada, offering professional software development services.',
 	keywords:
-		'Mauricio Mercado, Full Stack Developer, AI Engineer, Web Development, Software Architecture, Technical Consulting, Canada',
+		'Mauricio Mercado, Backend Developer, AI Integration Engineer, Web Development, Software Architecture, Technical Consulting, Canada',
 	baseUrl: 'http://localhost:4173/'
 };
 
