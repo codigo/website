@@ -1,3 +1,15 @@
+# [1.11.0](https://github.com/codigo/website/compare/v1.10.3...v1.11.0) (2026-02-17)
+
+
+### Bug Fixes
+
+* resolve 31 CI test failures across journal and layout tests ([#92](https://github.com/codigo/website/issues/92)) ([42b28e8](https://github.com/codigo/website/commit/42b28e88755a2c61672d74ff47059d83a7298835))
+
+
+### Features
+
+* replace linear vector search with HNSW index for O(log n) search ([dba8ad8](https://github.com/codigo/website/commit/dba8ad84d3c60fbd566c65dcd61d31d704fa70d5))
+
 ## [1.10.3](https://github.com/codigo/website/compare/v1.10.2...v1.10.3) (2026-02-13)
 
 ### Bug Fixes
