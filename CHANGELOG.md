@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/codigo/website/compare/v1.11.0...v1.12.0) (2026-02-17)
+
+
+### Features
+
+* migrate all components to Svelte 5 runes and enable runes mode ([#93](https://github.com/codigo/website/issues/93)) ([0c1c8f5](https://github.com/codigo/website/commit/0c1c8f5b3e0030ee1ad9a9baf0cbc415ad8acfb1))
+
 # [1.11.0](https://github.com/codigo/website/compare/v1.10.3...v1.11.0) (2026-02-17)
 
 
