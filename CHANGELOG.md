@@ -1,28 +1,24 @@
 # [1.13.0](https://github.com/codigo/website/compare/v1.12.0...v1.13.0) (2026-02-17)
 
-
 ### Features
 
-* update title and comprehensive SEO improvements ([#94](https://github.com/codigo/website/issues/94)) ([0a978ca](https://github.com/codigo/website/commit/0a978ca0fc541add663648d1e05c56287e063dcd))
+- update title and comprehensive SEO improvements ([#94](https://github.com/codigo/website/issues/94)) ([0a978ca](https://github.com/codigo/website/commit/0a978ca0fc541add663648d1e05c56287e063dcd))
 
 # [1.12.0](https://github.com/codigo/website/compare/v1.11.0...v1.12.0) (2026-02-17)
 
-
 ### Features
 
-* migrate all components to Svelte 5 runes and enable runes mode ([#93](https://github.com/codigo/website/issues/93)) ([0c1c8f5](https://github.com/codigo/website/commit/0c1c8f5b3e0030ee1ad9a9baf0cbc415ad8acfb1))
+- migrate all components to Svelte 5 runes and enable runes mode ([#93](https://github.com/codigo/website/issues/93)) ([0c1c8f5](https://github.com/codigo/website/commit/0c1c8f5b3e0030ee1ad9a9baf0cbc415ad8acfb1))
 
 # [1.11.0](https://github.com/codigo/website/compare/v1.10.3...v1.11.0) (2026-02-17)
 
-
 ### Bug Fixes
 
-* resolve 31 CI test failures across journal and layout tests ([#92](https://github.com/codigo/website/issues/92)) ([42b28e8](https://github.com/codigo/website/commit/42b28e88755a2c61672d74ff47059d83a7298835))
-
+- resolve 31 CI test failures across journal and layout tests ([#92](https://github.com/codigo/website/issues/92)) ([42b28e8](https://github.com/codigo/website/commit/42b28e88755a2c61672d74ff47059d83a7298835))
 
 ### Features
 
-* replace linear vector search with HNSW index for O(log n) search ([dba8ad8](https://github.com/codigo/website/commit/dba8ad84d3c60fbd566c65dcd61d31d704fa70d5))
+- replace linear vector search with HNSW index for O(log n) search ([dba8ad8](https://github.com/codigo/website/commit/dba8ad84d3c60fbd566c65dcd61d31d704fa70d5))
 
 ## [1.10.3](https://github.com/codigo/website/compare/v1.10.2...v1.10.3) (2026-02-13)
 

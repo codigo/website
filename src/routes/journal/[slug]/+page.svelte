@@ -20,8 +20,8 @@
 
 	const placeholder = $derived(blurhashToCssGradientString(data.photo_metadata.blur_hash));
 
-	const blogPostingJsonLd = $derived(
-		JSON.stringify({
+	const blogPostingJsonLdTag = $derived(
+		`<${'script'} type="application/ld+json">${JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'BlogPosting',
 			headline: title,
@@ -35,7 +35,7 @@
 				url: page.url.origin
 			},
 			keywords: data.tags
-		})
+		})}</${'script'}>`
 	);
 
 	onMount(() => {
@@ -54,7 +54,8 @@
 	<meta property="og:title" content={`${title} | Mauricio Mercado`} />
 	<meta property="og:description" content={data.summary} />
 	<meta property="og:image" content={photo_metadata.urls.regular} />
-	{@html `<script type="application/ld+json">${blogPostingJsonLd}</script>`}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html blogPostingJsonLdTag}
 </svelte:head>
 
 <article class="post-wrapper">
