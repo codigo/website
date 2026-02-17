@@ -9,7 +9,7 @@ jobs:
     name: 'Playwright Tests'
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.46.0-jammy
+      image: mcr.microsoft.com/playwright:v1.56.1-jammy
       env:
         PUBLIC_LOG_LEVEL: info
         PUBLIC_APP_ENV: development

@@ -99,7 +99,8 @@ export const getAllPaginatedPosts = (page: number = 1, log?: Logger): Promise<Li
 		log?.info({ page, perPage: PER_PAGE }, 'Fetching paginated posts');
 		return pb.collection('posts').getList(page, PER_PAGE, {
 			sort: '-created',
-			filter: 'publish=true'
+			filter: 'publish=true',
+			requestKey: null
 		});
 	} catch (error) {
 		log?.error({ error, page }, 'Error fetching paginated posts');
@@ -110,14 +111,16 @@ export const getAllPaginatedPosts = (page: number = 1, log?: Logger): Promise<Li
 export const getPostBySlug = async (slug: string, log?: Logger) => {
 	log?.info({ slug }, `Fetching post by slug`);
 	try {
-		const result = await pb.collection('posts').getFirstListItem(`slug="${slug}" && publish=True`);
+		const result = await pb
+			.collection('posts')
+			.getFirstListItem(`slug="${slug}" && publish=True`, { requestKey: null });
 
 		if (!result) {
 			log?.warn({ slug }, 'Post not found');
 			return null;
 		}
 
-		const post = await pb.collection('posts').getOne<Post>(result.id);
+		const post = await pb.collection('posts').getOne<Post>(result.id, { requestKey: null });
 		log?.info({ slug, postId: post.id }, 'Post fetched successfully');
 		return post;
 	} catch (error) {

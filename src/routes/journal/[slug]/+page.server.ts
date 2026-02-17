@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, isHttpError } from '@sveltejs/kit';
 import { getPostBySlug } from '$lib/services/pb';
 import { ClientResponseError } from 'pocketbase';
 
@@ -7,7 +7,7 @@ export async function load({ params, setHeaders, locals }) {
 	log.info({ slug: params.slug }, 'Fetching post');
 
 	setHeaders({
-		'Cache-Control': 'max-age=3600, s-max-age=1'
+		'Cache-Control': 'max-age=3600, s-maxage=1'
 	});
 
 	const { slug } = params;
@@ -21,12 +21,17 @@ export async function load({ params, setHeaders, locals }) {
 
 		return post;
 	} catch (e) {
+		// Re-throw SvelteKit HttpError instances (e.g. 404 from above)
+		if (isHttpError(e)) {
+			throw e;
+		}
+
 		log.error({ error: e, slug: params.slug }, 'Error fetching post');
 		let message: string = '';
 		let status = 500;
 		if (e instanceof ClientResponseError) {
-			status = e.response.code;
-			message = e.response.message;
+			status = e.response?.code || 500;
+			message = e.response?.message || e.message;
 		} else if (e instanceof Error) {
 			message = e.message;
 		} else {

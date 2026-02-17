@@ -1,7 +1,5 @@
-import { error } from '@sveltejs/kit';
 import type { ServerLoadEvent } from '@sveltejs/kit';
 import { getAllPaginatedPosts } from '$lib/services/pb';
-import { ClientResponseError } from 'pocketbase';
 import { blurhashToCssGradientString } from '@unpic/placeholder';
 import { formatDate } from '$lib/utils';
 
@@ -9,7 +7,7 @@ export async function load({ params, setHeaders, locals }: ServerLoadEvent) {
 	const log = locals.logger;
 
 	setHeaders({
-		'Cache-Control': 'max-age=3600, s-max-age=1'
+		'Cache-Control': 'max-age=3600, s-maxage=1'
 	});
 
 	const page = Number(params.page) || 1;
@@ -23,17 +21,13 @@ export async function load({ params, setHeaders, locals }: ServerLoadEvent) {
 		});
 		return results;
 	} catch (e) {
-		let message: string = '';
-		let status = 500;
-		if (e instanceof Error) {
-			message = e.message;
-		} else if (e instanceof ClientResponseError) {
-			status = e.response.status;
-			message = e.response.statusText;
-		} else {
-			message = 'An internal error occurred while fetching the posts';
-		}
-
-		throw error(status, { message });
+		log.warn({ error: e, page }, 'Failed to fetch posts, returning empty results');
+		return {
+			page,
+			perPage: 6,
+			totalPages: 1,
+			totalItems: 0,
+			items: []
+		};
 	}
 }
