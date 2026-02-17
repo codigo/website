@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 
-	export let experiences: Experience[] = [];
+	let { experiences = [] }: { experiences?: Experience[] } = $props();
 
 	const onClick = (slug: string) => {
 		goto(resolve('/about-me/[slug]', { slug }));
@@ -24,7 +24,7 @@
 					class:timeline-content--flipped={index % 2 !== 0}
 					role="link"
 					tabindex={index}
-					on:click={() => onClick(entry.slug)}
+					onclick={() => onClick(entry.slug)}
 				>
 					<h4 class="timeline-heading">
 						{entry.company}

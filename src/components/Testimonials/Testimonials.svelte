@@ -114,7 +114,7 @@
 		}
 	];
 
-	let screenWidth: number = 900;
+	let screenWidth = $state(900);
 
 	onMount(() => {
 		screenWidth = window.innerWidth;
@@ -127,7 +127,7 @@
 		};
 	});
 
-	$: itemsToShow = screenWidth < 1060 ? 1 : 2;
+	let itemsToShow = $derived(screenWidth < 1060 ? 1 : 2);
 </script>
 
 <section class="section-testimonials b-border">

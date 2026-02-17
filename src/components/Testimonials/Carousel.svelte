@@ -2,11 +2,10 @@
 	import type { Testimonial } from '$lib/types';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 
-	export let testimonials: Testimonial[] = [];
-	export let itemsToShow: number = 1;
+	let { testimonials = [], itemsToShow = 1 }: { testimonials?: Testimonial[]; itemsToShow?: number } = $props();
 
 	// Calculate responsive basis classes
-	$: basisClass = itemsToShow === 1 ? 'basis-full' : 'basis-1/2';
+	let basisClass = $derived(itemsToShow === 1 ? 'basis-full' : 'basis-1/2');
 </script>
 
 <div class="carousel-wrapper">

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Capability } from '$lib/types';
-	export let capabilities: Capability[];
+	let { capabilities }: { capabilities: Capability[] } = $props();
 </script>
 
 <section class="section-capabilities b-border">

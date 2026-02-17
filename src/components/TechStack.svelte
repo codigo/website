@@ -3,10 +3,10 @@
 	import { splitArrayIntoChunks, duplicateObjectsInArray } from '$lib/utils';
 	import { TECH_STACK, CHUNKS, type TechStack } from '../constants/techStack';
 
-	let techStackChunks = [[] as TechStack[]];
-	let loading = true;
+	let techStackChunks = $state([[] as TechStack[]]);
+	let loading = $state(true);
 
-	let dataAnimatedScroller: boolean;
+	let dataAnimatedScroller = $state(false);
 	onMount(() => {
 		loading = false;
 		if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

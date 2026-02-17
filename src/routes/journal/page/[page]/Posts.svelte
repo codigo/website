@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import type { Post } from '$lib/types';
-	export let posts: Post[];
+	let { posts }: { posts: Post[] } = $props();
 
 	const onClick = (slug: string) => {
 		goto(resolve('/journal/[slug]', { slug }));
@@ -21,7 +21,7 @@
 		{#each posts as { title, slug, tags, photo_metadata, created, summary }, idx (slug)}
 			<li class="post-item">
 				<article class="article">
-					<button class="article-wrapper" role="link" tabindex={idx} on:click={() => onClick(slug)}>
+					<button class="article-wrapper" role="link" tabindex={idx} onclick={() => onClick(slug)}>
 						<div
 							class="background-blur background-blur-radius"
 							style={`background-image: ${blurhashToCssGradientString(photo_metadata.blur_hash)}`}

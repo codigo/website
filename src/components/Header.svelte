@@ -1,20 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { resolve } from '$app/paths';
-	let links = {
+	const links = {
 		home: { path: '/', name: 'Home' },
 		about: { path: '/about-me', name: 'About me' },
 		journal: { path: '/journal', name: 'Journal' },
 		contact: { path: '/contact', name: 'Contact me' }
-	};
+	} as const;
 
-	let path: string;
-	let isMenuOpen = false;
-	let hoveredLink: string | null = null;
-
-	function getPath(currentPath: string) {
-		path = currentPath;
-	}
+	let isMenuOpen = $state(false);
+	let hoveredLink = $state<string | null>(null);
+	let path = $derived($page.url.pathname);
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -27,8 +23,6 @@
 	function handleMouseLeave() {
 		hoveredLink = null;
 	}
-
-	$: getPath($page.url.pathname);
 </script>
 
 <div class="content-wrapper">
@@ -42,9 +36,9 @@
 							class:active={link.path === '/' ? path === '/' : path.startsWith(link.path)}
 							class:hovered={hoveredLink === key}
 							href={resolve(link.path)}
-							on:click={() => (isMenuOpen = false)}
-							on:mouseenter={() => handleMouseEnter(key)}
-							on:mouseleave={handleMouseLeave}
+							onclick={() => (isMenuOpen = false)}
+							onmouseenter={() => handleMouseEnter(key)}
+							onmouseleave={handleMouseLeave}
 						>
 							{link.name}
 						</a>
@@ -53,7 +47,7 @@
 			</ul>
 			<button
 				class="hamburger-menu"
-				on:click={toggleMenu}
+				onclick={toggleMenu}
 				aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
 				class:hovered={hoveredLink === 'hamburger-menu'}
 			>
