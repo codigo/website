@@ -12,7 +12,10 @@
 
 <svelte:head>
 	<title>Journal{page > 1 ? ` — Page ${page}` : ''} | Mauricio Mercado</title>
-	<meta name="description" content="Technical articles and insights on backend development, AI integration, and software engineering by Mauricio Mercado." />
+	<meta
+		name="description"
+		content="Technical articles and insights on backend development, AI integration, and software engineering by Mauricio Mercado."
+	/>
 </svelte:head>
 
 <SearchBar />

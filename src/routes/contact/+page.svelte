@@ -19,7 +19,10 @@
 
 <svelte:head>
 	<title>Contact | Mauricio Mercado</title>
-	<meta name="description" content="Get in touch with Mauricio Mercado for backend development, AI integration, and technical consulting opportunities." />
+	<meta
+		name="description"
+		content="Get in touch with Mauricio Mercado for backend development, AI integration, and technical consulting opportunities."
+	/>
 </svelte:head>
 
 {#if $message}
