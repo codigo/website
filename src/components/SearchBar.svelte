@@ -91,6 +91,7 @@
 		const target = event.target as HTMLElement;
 		if (!target.closest('.search-wrapper')) {
 			showResults = false;
+			isLoading = false;
 		}
 	}
 </script>
@@ -110,14 +111,19 @@
 		autocomplete="off"
 	/>
 
-	{#if showResults && query.trim()}
+	{#if (showResults || isLoading) && query.trim()}
 		<div class="results-dropdown">
-			{#if error}
+			{#if isLoading}
+				<div class="result-empty result-loading">
+					<div class="loading-spinner"></div>
+					<p>Searching...</p>
+				</div>
+			{:else if error}
 				<div class="result-empty result-error">
 					<p><strong>Search failed</strong></p>
 					<p>{error}</p>
 				</div>
-			{:else if results.length === 0 && !isLoading}
+			{:else if results.length === 0}
 				<div class="result-empty">
 					<p><strong>No results found</strong></p>
 					<p>Try different keywords</p>
@@ -214,6 +220,28 @@
 	.result-empty {
 		padding: 2.4rem;
 		text-align: center;
+	}
+
+	.result-loading {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.2rem;
+	}
+
+	.loading-spinner {
+		width: 2.4rem;
+		height: 2.4rem;
+		border: 3px solid var(--pico-muted-border-color);
+		border-top-color: var(--pico-primary);
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	.result-error p:last-child {
