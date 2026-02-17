@@ -1,4 +1,4 @@
-import type { SvelteComponent } from 'svelte';
+import type { Component } from 'svelte';
 
 // Import all tech icons
 import AWS from '../components/icons/tech/AWS.svelte';
@@ -31,7 +31,7 @@ import Pulumi from '../components/icons/tech/Pulumi.svelte';
 
 export interface TechStack {
 	category: string;
-	icon: new (options: { target: HTMLElement; props?: Record<string, unknown> }) => SvelteComponent;
+	icon: Component<{ size?: string }>;
 	name: string;
 	duplicate?: boolean;
 }

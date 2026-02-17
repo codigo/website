@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Number of skeleton cards to display
-	export let count = 4;
+	let { count = 4 }: { count?: number } = $props();
 </script>
 
 <section class="section-capabilities b-border">

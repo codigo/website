@@ -10,6 +10,9 @@ const mdsvexOptions = {
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+	compilerOptions: {
+		runes: true
+	},
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
@@ -28,6 +31,11 @@ const config = {
 	},
 
 	vitePlugin: {
+		dynamicCompileOptions({ filename }) {
+			if (filename.includes('node_modules')) {
+				return { runes: undefined };
+			}
+		},
 		inspector: {
 			toggleKeyCombo: 'alt-x',
 			holdMode: true,

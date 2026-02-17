@@ -2,9 +2,9 @@
 	import type { Experience } from '$lib/types';
 	import Timeline from './Timeline.svelte';
 	import Chatbot from '$components/Chatbot.svelte';
-	import { resolve } from '$app/paths';
+	import { base } from '$app/paths';
 
-	export let data: object & { experiences: Experience[] };
+	let { data }: { data: { experiences: Experience[] } } = $props();
 </script>
 
 <svelte:head>
@@ -39,7 +39,7 @@
 					You can explore the timeline below for a detailed view of my experience, or download my
 					resume for a quick overview.
 				</p>
-				<a href={resolve('/mm_resume.pdf')} download class="download-resume-btn">
+				<a href="{base}/mm_resume.pdf" download class="download-resume-btn">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
