@@ -7,9 +7,7 @@ import { initializeIndex } from '$lib/services/vectorIndex';
 subscribeToPostEmbeddings();
 
 // Initialize HNSW vector search index
-initializeIndex().catch((err) =>
-	logger.error({ err }, 'Failed to initialize vector index')
-);
+initializeIndex().catch((err) => logger.error({ err }, 'Failed to initialize vector index'));
 
 function logRequest(
 	event: Parameters<Handle>[0]['event'],

@@ -17,7 +17,9 @@
 			}
 		}
 
-		range.push(totalPages);
+		if (totalPages > 1) {
+			range.push(totalPages);
+		}
 
 		for (let i of range) {
 			if (l) {

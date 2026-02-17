@@ -37,7 +37,7 @@
 					data-animated={dataAnimatedScroller}
 					data-direction={idx % 2 === 0 ? 'left' : 'right'}
 				>
-					{#each techStackChunk as tech (tech.name)}
+					{#each techStackChunk as tech, techIdx (`${tech.name}-${techIdx}`)}
 						<li
 							title={tech.name}
 							data-tooltip={tech.name}
