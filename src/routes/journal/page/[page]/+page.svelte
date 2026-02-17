@@ -10,6 +10,11 @@
 	const { page, totalPages } = $derived(data);
 </script>
 
+<svelte:head>
+	<title>Journal{page > 1 ? ` — Page ${page}` : ''} | Mauricio Mercado</title>
+	<meta name="description" content="Technical articles and insights on backend development, AI integration, and software engineering by Mauricio Mercado." />
+</svelte:head>
+
 <SearchBar />
 <Posts posts={data.items} />
 <Pagination currentPage={page} {totalPages} />

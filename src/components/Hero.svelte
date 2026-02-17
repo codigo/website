@@ -27,8 +27,8 @@
 			<h1 class="hero-title">Backend & AI Integration Engineer based in Canada.</h1>
 			<p class="hero-text">
 				I specialize in building robust backend systems and integrating AI into workflows.<br />
-				With my expertise in systems architecture, backend technologies, and AI integration,
-				I can help you bring your ideas to life.
+				With my expertise in systems architecture, backend technologies, and AI integration, I can help
+				you bring your ideas to life.
 			</p>
 
 			<div class="hero-social-icons">

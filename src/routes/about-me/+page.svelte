@@ -8,7 +8,8 @@
 </script>
 
 <svelte:head>
-	<title>About me</title>
+	<title>About Me | Mauricio Mercado</title>
+	<meta name="description" content="Learn about Mauricio Mercado — a Backend & AI Integration Engineer with over a decade of experience building scalable systems and integrating AI solutions." />
 </svelte:head>
 
 <div class="about-layout">

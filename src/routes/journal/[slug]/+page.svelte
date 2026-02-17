@@ -13,11 +13,30 @@
 	import 'prismjs/components/prism-markdown';
 	import 'prismjs/components/prism-yaml';
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	const { data } = $props<{ data: Post }>();
 
 	const { title, photo_metadata, content } = $derived(data);
 
 	const placeholder = $derived(blurhashToCssGradientString(data.photo_metadata.blur_hash));
+
+	const blogPostingJsonLd = $derived(
+		JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'BlogPosting',
+			headline: title,
+			description: data.summary,
+			image: photo_metadata.urls.regular,
+			datePublished: data.created,
+			dateModified: data.updated,
+			author: {
+				'@type': 'Person',
+				name: 'Mauricio Mercado',
+				url: page.url.origin
+			},
+			keywords: data.tags
+		})
+	);
 
 	onMount(() => {
 		Prism.highlightAll();
@@ -27,6 +46,16 @@
 		document.querySelector('.post-image')?.classList.add('fade-in-image');
 	};
 </script>
+
+<svelte:head>
+	<title>{title} | Mauricio Mercado</title>
+	<meta name="description" content={data.summary} />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content={`${title} | Mauricio Mercado`} />
+	<meta property="og:description" content={data.summary} />
+	<meta property="og:image" content={photo_metadata.urls.regular} />
+	{@html `<script type="application/ld+json">${blogPostingJsonLd}</script>`}
+</svelte:head>
 
 <article class="post-wrapper">
 	<h1 class="post-title">{title}</h1>

@@ -1,16 +1,13 @@
 export interface SEOMetadata {
-	title?: string;
-	description?: string;
-	keywords?: string;
-	ogImage?: string;
-	canonicalUrl?: string;
+	title: string;
+	description: string;
+	keywords: string;
+	ogImage: string;
+	ogType: string;
 }
 
 // Load function to pass default SEO data to all pages
 export const load = ({ url }: { url: URL }) => {
-	// Helper to ensure clean URL paths without double slashes
-	const cleanPath = url.pathname === '/' ? '' : url.pathname;
-
 	const defaultMetadata: SEOMetadata = {
 		title: 'Mauricio Mercado | AI & Software Engineering Consultant',
 		description:
@@ -18,11 +15,12 @@ export const load = ({ url }: { url: URL }) => {
 		keywords:
 			'Mauricio Mercado, Backend Developer, AI Integration Engineer, Web Development, Software Architecture, Technical Consulting, Canada',
 		ogImage: '/favicon.png',
-		canonicalUrl: `http://${url.hostname}:${url.port}${cleanPath}`
+		ogType: 'website'
 	};
 
 	return {
 		url: url.pathname,
+		origin: url.origin,
 		metadata: defaultMetadata
 	};
 };
