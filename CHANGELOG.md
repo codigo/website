@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/codigo/website/compare/v1.13.0...v1.14.0) (2026-02-17)
+
+
+### Features
+
+* add loading spinner to search bar ([#95](https://github.com/codigo/website/issues/95)) ([0410639](https://github.com/codigo/website/commit/04106390b25401c8e8612b07c88287fc835dc1ec))
+
 # [1.13.0](https://github.com/codigo/website/compare/v1.12.0...v1.13.0) (2026-02-17)
 
 ### Features
