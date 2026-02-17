@@ -95,7 +95,7 @@ test.describe('Chatbot', () => {
 	});
 
 	test('sends message and displays streaming response', async ({ page }) => {
-		await mockChatAPI(page, 'Mauricio is a full stack developer');
+		await mockChatAPI(page, 'Mauricio is a backend and AI integration engineer');
 		await page.getByRole('button', { name: 'Toggle chatbot' }).click();
 
 		const input = page.locator('.chatbot-input input');
@@ -106,7 +106,7 @@ test.describe('Chatbot', () => {
 		await expect(page.locator('.message.user')).toContainText('What does Mauricio do?');
 		// AI response should stream in
 		await expect(page.locator('.message.assistant').last()).toContainText(
-			'Mauricio is a full stack developer'
+			'Mauricio is a backend and AI integration engineer'
 		);
 	});
 

@@ -4,10 +4,10 @@ import { test, expect } from '@playwright/test';
 const SEO_DATA = {
 	title: 'Mauricio Mercado | AI & Software Engineering Consultant',
 	description:
-		'Mauricio Mercado - Full Stack & AI Engineer specializing in modern web development, AI solutions, and technical consulting. Based in Canada, offering professional software development services.',
+		'Mauricio Mercado - Backend & AI Integration Engineer specializing in modern web development, AI solutions, and technical consulting. Based in Canada, offering professional software development services.',
 	keywords:
-		'Mauricio Mercado, Full Stack Developer, AI Engineer, Web Development, Software Architecture, Technical Consulting, Canada',
-	baseUrl: 'http://localhost:4173/'
+		'Mauricio Mercado, Backend Developer, AI Integration Engineer, Web Development, Software Architecture, Technical Consulting, Canada',
+	baseUrl: 'http://localhost:4173'
 };
 
 test.describe('SEO Tests', () => {
@@ -37,7 +37,10 @@ test.describe('SEO Tests', () => {
 		const ogTags = {
 			'og:title': SEO_DATA.title,
 			'og:description': SEO_DATA.description,
-			'og:url': SEO_DATA.baseUrl
+			'og:url': `${SEO_DATA.baseUrl}/`,
+			'og:type': 'website',
+			'og:locale': 'en_CA',
+			'og:site_name': 'Mauricio Mercado'
 		};
 
 		for (const [property, content] of Object.entries(ogTags)) {
@@ -46,10 +49,18 @@ test.describe('SEO Tests', () => {
 			);
 			expect(ogContent).toBe(content);
 		}
+
+		// og:image should be an absolute URL
+		const ogImage = await page.$eval('meta[property="og:image"]', (el) =>
+			el.getAttribute('content')
+		);
+		expect(ogImage).toMatch(/^https?:\/\//);
 	});
 
 	test('Twitter tags are correct', async ({ page }) => {
 		const twitterTags = {
+			'twitter:card': 'summary',
+			'twitter:creator': '@maumercado',
 			'twitter:title': SEO_DATA.title,
 			'twitter:description': SEO_DATA.description
 		};
@@ -60,6 +71,12 @@ test.describe('SEO Tests', () => {
 			);
 			expect(twitterContent).toBe(content);
 		}
+
+		// twitter:image should be an absolute URL
+		const twitterImage = await page.$eval('meta[name="twitter:image"]', (el) =>
+			el.getAttribute('content')
+		);
+		expect(twitterImage).toMatch(/^https?:\/\//);
 	});
 
 	test('favicon and touch icons are present', async ({ page }) => {
@@ -77,6 +94,20 @@ test.describe('SEO Tests', () => {
 
 	test('canonical URL is correct', async ({ page }) => {
 		const canonical = await page.$eval('link[rel="canonical"]', (el) => el.getAttribute('href'));
-		expect(canonical).toBe(SEO_DATA.baseUrl);
+		expect(canonical).toBe(`${SEO_DATA.baseUrl}/`);
+	});
+
+	test('JSON-LD structured data is present', async ({ page }) => {
+		const jsonLd = await page.$eval('script[type="application/ld+json"]', (el) => el.textContent);
+		expect(jsonLd).toBeTruthy();
+		const data = JSON.parse(jsonLd!);
+		expect(data['@type']).toBe('Person');
+		expect(data.name).toBe('Mauricio Mercado');
+		expect(data.jobTitle).toBe('Backend & AI Integration Engineer');
+	});
+
+	test('no duplicate title tags', async ({ page }) => {
+		const titleCount = await page.$$eval('title', (titles) => titles.length);
+		expect(titleCount).toBe(1);
 	});
 });

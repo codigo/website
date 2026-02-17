@@ -7,7 +7,7 @@
 	import type { Snippet } from 'svelte';
 
 	const { data, children } = $props<{
-		data: { metadata: SEOMetadata; url: string };
+		data: { metadata: SEOMetadata; origin: string; url: string };
 		children: Snippet;
 	}>();
 
@@ -18,8 +18,28 @@
 		mounted = true;
 	});
 
-	// Combine current path with base URL for canonical
-	const canonicalUrl = $derived(`${data.metadata.canonicalUrl}${page.url.pathname}`);
+	const canonicalUrl = $derived(`${data.origin}${page.url.pathname}`);
+	const absoluteOgImage = $derived(`${data.origin}${data.metadata.ogImage}`);
+
+	const personJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: 'Mauricio Mercado',
+		url: data.origin,
+		jobTitle: 'Backend & AI Integration Engineer',
+		sameAs: [
+			'https://www.linkedin.com/in/mauromercado/',
+			'https://github.com/maumercado',
+			'https://x.com/maumercado'
+		],
+		knowsAbout: [
+			'Backend Development',
+			'AI Integration',
+			'Node.js',
+			'TypeScript',
+			'Systems Architecture'
+		]
+	});
 </script>
 
 <svelte:head>
@@ -32,15 +52,23 @@
 	<link rel="canonical" href={canonicalUrl} />
 
 	<!-- Open Graph -->
+	<meta property="og:type" content={data.metadata.ogType} />
+	<meta property="og:locale" content="en_CA" />
+	<meta property="og:site_name" content="Mauricio Mercado" />
 	<meta property="og:title" content={data.metadata.title} />
 	<meta property="og:description" content={data.metadata.description} />
 	<meta property="og:url" content={canonicalUrl} />
-	<meta property="og:image" content={data.metadata.ogImage} />
+	<meta property="og:image" content={absoluteOgImage} />
 
 	<!-- Twitter -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:creator" content="@maumercado" />
 	<meta name="twitter:title" content={data.metadata.title} />
 	<meta name="twitter:description" content={data.metadata.description} />
-	<meta name="twitter:image" content={data.metadata.ogImage} />
+	<meta name="twitter:image" content={absoluteOgImage} />
+
+	<!-- Structured Data -->
+	{@html `<script type="application/ld+json">${personJsonLd}</script>`}
 </svelte:head>
 
 <div class="main-layout">

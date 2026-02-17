@@ -18,7 +18,11 @@
 </script>
 
 <svelte:head>
-	<title>Contact me</title>
+	<title>Contact | Mauricio Mercado</title>
+	<meta
+		name="description"
+		content="Get in touch with Mauricio Mercado for backend development, AI integration, and technical consulting opportunities."
+	/>
 </svelte:head>
 
 {#if $message}

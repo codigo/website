@@ -17,9 +17,11 @@
 </script>
 
 <svelte:head>
-	<title>My experience at {meta.company}</title>
+	<title>{meta.company} | Mauricio Mercado</title>
+	<meta name="description" content={meta.description} />
 	<meta property="og:type" content="article" />
-	<meta property="og:title" content={`My experience at ${meta.company}`} />
+	<meta property="og:title" content={`${meta.company} | Mauricio Mercado`} />
+	<meta property="og:description" content={meta.description} />
 </svelte:head>
 
 <div class="markdown-wrapper">
