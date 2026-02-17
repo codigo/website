@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/codigo/website/compare/v1.12.0...v1.13.0) (2026-02-17)
+
+
+### Features
+
+* update title and comprehensive SEO improvements ([#94](https://github.com/codigo/website/issues/94)) ([0a978ca](https://github.com/codigo/website/commit/0a978ca0fc541add663648d1e05c56287e063dcd))
+
 # [1.12.0](https://github.com/codigo/website/compare/v1.11.0...v1.12.0) (2026-02-17)
 
 
