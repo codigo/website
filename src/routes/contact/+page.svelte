@@ -4,6 +4,7 @@
 	import { zod4Client } from 'sveltekit-superforms/adapters';
 	import { Turnstile } from 'svelte-turnstile';
 	import { ContactSchema } from '$routes/contact/schema';
+	import { resolve } from '$app/paths';
 
 	const { data } = $props();
 	const { form, errors, constraints, message, enhance, submitting } = superForm(data.form, {
@@ -32,7 +33,7 @@
 				/></svg
 			>
 		</span>
-		<p class="go-back">Go back <a href="/">Home</a></p>
+		<p class="go-back">Go back <a href={resolve('/')}>Home</a></p>
 	</div>
 {:else}
 	<div class="contact-title">

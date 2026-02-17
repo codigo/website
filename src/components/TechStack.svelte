@@ -30,14 +30,14 @@
 		</div>
 	{:else}
 		<div class="pico tech-stack-box" data-animated={dataAnimatedScroller}>
-			{#each techStackChunks as techStackChunk, idx}
+			{#each techStackChunks as techStackChunk, idx (idx)}
 				<!-- techStackChunk is an array of objects -->
 				<ul
 					class="pico tech-stack-box-inner"
 					data-animated={dataAnimatedScroller}
 					data-direction={idx % 2 === 0 ? 'left' : 'right'}
 				>
-					{#each techStackChunk as tech}
+					{#each techStackChunk as tech (tech.name)}
 						<li
 							title={tech.name}
 							data-tooltip={tech.name}

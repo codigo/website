@@ -1,9 +1,15 @@
 import type { Handle } from '@sveltejs/kit';
 import { logger, uuidv4 } from '$lib/stores/loggerStore';
 import { subscribeToPostEmbeddings } from '$lib/services/postEmbeddingSubscription';
+import { initializeIndex } from '$lib/services/vectorIndex';
 
 // Start automatic embedding generation for new/updated posts
 subscribeToPostEmbeddings();
+
+// Initialize HNSW vector search index
+initializeIndex().catch((err) =>
+	logger.error({ err }, 'Failed to initialize vector index')
+);
 
 function logRequest(
 	event: Parameters<Handle>[0]['event'],

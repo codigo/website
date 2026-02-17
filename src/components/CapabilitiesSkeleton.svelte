@@ -6,7 +6,7 @@
 <section class="section-capabilities b-border">
 	<div class="pico capabilities">
 		<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-		{#each Array(count) as _, i}
+		{#each Array(count) as _, i (i)}
 			<div class="capability">
 				<div class="capability-icon-skeleton">
 					<svg width="60" height="60" viewBox="0 0 60 60">
@@ -21,7 +21,7 @@
 				</h3>
 				<ul class="capability-list">
 					<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-					{#each Array(5) as _, j}
+					{#each Array(5) as _, j (j)}
 						<li class="capability-item-skeleton">
 							<svg width="220" height="15" viewBox="0 0 220 15">
 								<rect width="220" height="15" rx="3" class="skeleton-pulse" />

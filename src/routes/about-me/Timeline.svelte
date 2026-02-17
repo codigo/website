@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Experience } from '$lib/types';
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	export let experiences: Experience[] = [];
 
-	const onClick = (link: string) => {
-		goto(LINK_PREFIX + link);
+	const onClick = (slug: string) => {
+		goto(resolve('/about-me/[slug]', { slug }));
 	};
-	const LINK_PREFIX = '/about-me/';
 </script>
 
 <section class="section-about-me-experience b-border">
@@ -16,7 +16,7 @@
 	</h3>
 
 	<ol class="timeline">
-		{#each experiences as entry, index}
+		{#each experiences as entry, index (entry.slug)}
 			<li class="timeline-entry">
 				<p class="timeline-id">{entry.timeframe}</p>
 				<button

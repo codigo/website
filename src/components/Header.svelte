@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
 	let links = {
 		home: { path: '/', name: 'Home' },
 		about: { path: '/about-me', name: 'About me' },
@@ -34,13 +35,13 @@
 	<header class="header">
 		<section class="main-nav">
 			<ul class="main-nav-list" class:open={isMenuOpen}>
-				{#each Object.entries(links) as [key, link]}
+				{#each Object.entries(links) as [key, link] (key)}
 					<li>
 						<a
 							class="main-nav-link"
-							class:active={path === link.path}
+							class:active={link.path === '/' ? path === '/' : path.startsWith(link.path)}
 							class:hovered={hoveredLink === key}
-							href={link.path}
+							href={resolve(link.path)}
 							on:click={() => (isMenuOpen = false)}
 							on:mouseenter={() => handleMouseEnter(key)}
 							on:mouseleave={handleMouseLeave}

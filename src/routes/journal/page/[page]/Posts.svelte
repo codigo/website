@@ -2,15 +2,12 @@
 	import { blurhashToCssGradientString } from '@unpic/placeholder';
 	import { Image } from '@unpic/svelte';
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import type { Post } from '$lib/types';
 	export let posts: Post[];
 
-	interface CustomEvent extends Event {
-		target: EventTarget | null;
-	}
-
-	const onClick = (link: string) => {
-		goto(link);
+	const onClick = (slug: string) => {
+		goto(resolve('/journal/[slug]', { slug }));
 	};
 
 	const onLoadImage = (event: Event) => {
@@ -21,15 +18,10 @@
 
 <div class="posts-wrapper">
 	<ul class="posts-list">
-		{#each posts as { title, slug, tags, photo_metadata, created, summary }, idx}
+		{#each posts as { title, slug, tags, photo_metadata, created, summary }, idx (slug)}
 			<li class="post-item">
 				<article class="article">
-					<button
-						class="article-wrapper"
-						role="link"
-						tabindex={idx}
-						on:click={() => onClick(`/journal/${slug}`)}
-					>
+					<button class="article-wrapper" role="link" tabindex={idx} on:click={() => onClick(slug)}>
 						<div
 							class="background-blur background-blur-radius"
 							style={`background-image: ${blurhashToCssGradientString(photo_metadata.blur_hash)}`}
@@ -45,7 +37,7 @@
 							/>
 						</div>
 						<ul class="post-tags">
-							{#each tags.split(',') as tag}
+							{#each tags.split(',') as tag (tag)}
 								<li class="post-tag-item">#{tag.trim()}</li>
 							{/each}
 						</ul>
