@@ -21,25 +21,27 @@
 	const canonicalUrl = $derived(`${data.origin}${page.url.pathname}`);
 	const absoluteOgImage = $derived(`${data.origin}${data.metadata.ogImage}`);
 
-	const personJsonLd = JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'Person',
-		name: 'Mauricio Mercado',
-		url: data.origin,
-		jobTitle: 'Backend & AI Integration Engineer',
-		sameAs: [
-			'https://www.linkedin.com/in/mauromercado/',
-			'https://github.com/maumercado',
-			'https://x.com/maumercado'
-		],
-		knowsAbout: [
-			'Backend Development',
-			'AI Integration',
-			'Node.js',
-			'TypeScript',
-			'Systems Architecture'
-		]
-	});
+	const personJsonLdTag = $derived(
+		`<${'script'} type="application/ld+json">${JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Person',
+			name: 'Mauricio Mercado',
+			url: data.origin,
+			jobTitle: 'Backend & AI Integration Engineer',
+			sameAs: [
+				'https://www.linkedin.com/in/mauromercado/',
+				'https://github.com/maumercado',
+				'https://x.com/maumercado'
+			],
+			knowsAbout: [
+				'Backend Development',
+				'AI Integration',
+				'Node.js',
+				'TypeScript',
+				'Systems Architecture'
+			]
+		})}</${'script'}>`
+	);
 </script>
 
 <svelte:head>
@@ -68,7 +70,8 @@
 	<meta name="twitter:image" content={absoluteOgImage} />
 
 	<!-- Structured Data -->
-	{@html `<script type="application/ld+json">${personJsonLd}</script>`}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html personJsonLdTag}
 </svelte:head>
 
 <div class="main-layout">

@@ -57,7 +57,8 @@
 	},
 	"name": "mau-app",
 	"pre-commit": [
-		"format"
+		"format",
+		"lint"
 	],
 	"private": true,
 	"release": {
