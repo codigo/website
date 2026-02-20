@@ -1,3 +1,10 @@
+## [1.14.1](https://github.com/codigo/website/compare/v1.14.0...v1.14.1) (2026-02-20)
+
+
+### Bug Fixes
+
+* restore native emoji colors in gradient headings ([f95f542](https://github.com/codigo/website/commit/f95f542e88c6da6d815eec79ed105218db725204))
+
 # [1.14.0](https://github.com/codigo/website/compare/v1.13.0...v1.14.0) (2026-02-17)
 
 ### Features
