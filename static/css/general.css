@@ -222,6 +222,14 @@ h2 {
 	opacity: 0.9;
 }
 
+h2 .emoji,
+h3 .emoji {
+	-webkit-text-fill-color: initial;
+	background: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+}
+
 h3,
 .pico h3 {
 	font-size: var(--theme-font-size-medium);
