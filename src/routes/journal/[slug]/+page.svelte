@@ -12,6 +12,8 @@
 	import 'prismjs/components/prism-markup';
 	import 'prismjs/components/prism-markdown';
 	import 'prismjs/components/prism-yaml';
+	import 'prismjs/components/prism-rust';
+	import 'prismjs/components/prism-sql';
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	const { data } = $props<{ data: Post }>();
