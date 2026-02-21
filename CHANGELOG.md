@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/codigo/website/compare/v1.14.1...v1.15.0) (2026-02-21)
+
+
+### Features
+
+* add Rust and SQL syntax highlighting and switch to VSC Dark Plus theme ([50ce448](https://github.com/codigo/website/commit/50ce4489bd6edd97e81de057e1185b8087b862f6))
+
 ## [1.14.1](https://github.com/codigo/website/compare/v1.14.0...v1.14.1) (2026-02-20)
 
 
