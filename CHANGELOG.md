@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/codigo/website/compare/v1.15.0...v1.16.0) (2026-02-22)
+
+
+### Features
+
+* restyle Timeline with glassmorphism cards and improved responsive layout ([8811ddf](https://github.com/codigo/website/commit/8811ddfedf1ee3d4669530f37adcbe7761abdba6))
+
 # [1.15.0](https://github.com/codigo/website/compare/v1.14.1...v1.15.0) (2026-02-21)
 
 
