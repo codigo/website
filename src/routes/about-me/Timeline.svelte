@@ -18,7 +18,7 @@
 	<ol class="timeline">
 		{#each experiences as entry, index (entry.slug)}
 			<li class="timeline-entry">
-				<p class="timeline-id">{entry.timeframe}</p>
+				<span class="timeline-marker">{entry.timeframe}</span>
 				<button
 					class="timeline-content"
 					class:timeline-content--flipped={index % 2 !== 0}
@@ -26,12 +26,9 @@
 					tabindex={index}
 					onclick={() => onClick(entry.slug)}
 				>
-					<h4 class="timeline-heading">
-						{entry.company}
-					</h4>
-					<p class="timeline-text">
-						{entry.description}
-					</p>
+					<h4 class="timeline-heading">{entry.company}</h4>
+					<p class="timeline-text">{entry.description}</p>
+					<span class="timeline-cta">Read more &rarr;</span>
 				</button>
 			</li>
 		{/each}
@@ -58,95 +55,124 @@
 
 	.timeline {
 		position: relative;
+		padding-right: 1.6rem;
 	}
+
 	.timeline:before {
 		content: '';
 		position: absolute;
 		top: -3rem;
 		left: 2rem;
-		right: 17rem;
-		width: 0.2rem;
+		width: 2px;
 		height: calc(100% + 3.6rem);
-		background: linear-gradient(to bottom, #0f1218 0%, #2727278a 3%, #272727d0 80%, #0f1218 100%);
-	}
-
-	@media screen and (min-width: 65em) {
-		.timeline:before {
-			left: 50%;
-			transform: translateX(-50%);
-		}
+		background: linear-gradient(
+			to bottom,
+			transparent 0%,
+			rgba(255, 255, 255, 0.15) 3%,
+			rgba(255, 255, 255, 0.15) 80%,
+			transparent 100%
+		);
 	}
 
 	.timeline-entry {
 		position: relative;
 		margin-bottom: 4rem;
 	}
-	.timeline-entry:after {
-		content: '';
-		display: table;
-		clear: both;
-	}
 
-	.timeline-id {
-		position: absolute;
-		top: 1rem;
-		padding: 0.4rem 1.2rem;
-		background: #3333338a;
-		margin-left: 0.2rem;
-		border-radius: 0.5rem;
-		box-shadow: 6px 6px 8px 3px rgba(0, 0, 0, 0.3);
-	}
 
-	@media screen and (min-width: 65em) {
-		.timeline-id {
-			left: 50%;
-			transform: translateX(-50%);
-			box-shadow: 6px 6px 8px 3px rgba(0, 0, 0, 0.3);
-		}
+	/* Date marker above the card on mobile */
+	.timeline-marker {
+		display: block;
+		margin-left: 4rem;
+		margin-bottom: 0.6rem;
+		font-size: var(--theme-font-size-small);
+		color: var(--theme-font-secondary);
+		white-space: nowrap;
 	}
 
 	.timeline-content {
 		position: relative;
-		margin-left: 22rem;
-
-		padding: 1rem;
-		background: #3333336a;
-		border-radius: 0.5rem;
-		box-shadow: 6px 6px 8px 3px rgba(0, 0, 0, 0.3);
-		border: unset;
+		margin-left: 4rem;
+		padding: 1.6rem;
+		background: rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		border-radius: 12px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 		text-align: start;
-		transition: all 0.4s ease-out;
+		transition: all 0.3s ease;
+		cursor: pointer;
 	}
 
-	@media screen and (min-width: 65em) {
-		.timeline-content {
-			border: unset;
-			padding: 2.4rem;
-			margin-left: 0;
-			width: calc(50% - 12.8rem);
-			border-radius: 0.5rem;
-			box-shadow: 6px 6px 8px 3px rgba(0, 0, 0, 0.3);
-			cursor: pointer;
-			text-align: start;
-		}
-	}
 	.timeline-content:hover {
-		transform: scale(1.05);
-		transition: 0.3s;
+		transform: translateY(-2px);
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(255, 255, 255, 0.25);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 	}
 
-	@media screen and (min-width: 65em) {
-		.timeline-content--flipped {
-			float: right;
-			box-shadow: 6px 6px 8px 3px rgba(0, 0, 0, 0.3);
-		}
+	.timeline-content:hover .timeline-cta {
+		color: var(--theme-font-default);
 	}
 
 	.timeline-heading {
 		margin-bottom: 0.8rem;
 	}
 
-	.timeline-text:last-child {
+	.timeline-text:last-of-type {
 		margin-bottom: 0;
+	}
+
+	.timeline-cta {
+		color: var(--theme-font-secondary);
+		font-size: var(--theme-font-size-small);
+		margin-top: 1.2rem;
+		display: block;
+		transition: color 0.3s ease;
+	}
+
+	@media screen and (min-width: 65em) {
+		.timeline {
+			padding-right: 0;
+		}
+
+		.timeline:before {
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		.timeline-entry {
+			display: grid;
+			grid-template-columns: 1fr auto 1fr;
+			column-gap: 2rem;
+			align-items: center;
+		}
+
+		/* Marker in the center grid column */
+		.timeline-marker {
+			grid-column: 2;
+			grid-row: 1;
+			margin-left: 0;
+			margin-bottom: 0;
+			padding: 0.4rem 1.2rem;
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			border-radius: 8px;
+			text-align: center;
+		}
+
+		.timeline-content {
+			margin-left: 0;
+			padding: 2.4rem;
+			grid-column: 1;
+			grid-row: 1;
+		}
+
+		.timeline-content--flipped {
+			grid-column: 3;
+		}
 	}
 </style>
