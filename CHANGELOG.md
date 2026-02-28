@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/codigo/website/compare/v1.16.0...v1.16.1) (2026-02-28)
+
+
+### Bug Fixes
+
+* pin image tags to prevent version drift on redeploy ([8041d60](https://github.com/codigo/website/commit/8041d60bbea5c78545dcb692d68e3c2d1f15f5b2))
+
 # [1.16.0](https://github.com/codigo/website/compare/v1.15.0...v1.16.0) (2026-02-22)
 
 
