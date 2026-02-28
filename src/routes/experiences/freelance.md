@@ -1,6 +1,6 @@
 ---
 order: 01
-timeframe: "* - 2013"
+timeframe: '* - 2013'
 company: Consulting
 description: Developed applications for Coca Cola Colombia, Joyeria Caribe, and other clients, improving project management, communication, and e-commerce functionalities through custom software solutions. Enhanced user experience with innovative tools and streamlined internal processes.
 previous: selfie

@@ -79,7 +79,6 @@
 		margin-bottom: 4rem;
 	}
 
-
 	/* Date marker above the card on mobile */
 	.timeline-marker {
 		display: block;
