@@ -24,7 +24,7 @@ services:
       - pocketbase
 
   pocketbase:
-    image: elestio/pocketbase:latest
+    image: elestio/pocketbase:v0.36.5
     deploy:
       replicas: ${REPLICAS:-1}
       restart_policy:
