@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/codigo/website/compare/v1.16.1...v1.16.2) (2026-03-01)
+
+
+### Bug Fixes
+
+* replace pico CSS vars with theme vars in SearchBar and update profile image ([b40ee52](https://github.com/codigo/website/commit/b40ee52e55094f59c84a89ce2d8cd2a307db335a))
+
 ## [1.16.1](https://github.com/codigo/website/compare/v1.16.0...v1.16.1) (2026-02-28)
 
 
