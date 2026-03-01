@@ -107,7 +107,6 @@
 		placeholder="Search posts..."
 		aria-label="Search posts"
 		aria-busy={isLoading}
-		class="pico input"
 		autocomplete="off"
 	/>
 
@@ -171,11 +170,25 @@
 		max-width: 60rem;
 	}
 
-	/* Fix search icon size - override Pico's 10px default */
+	/* Override Tailwind forms plugin reset — restore dark theme styling */
 	input[type='search'] {
+		background-color: var(--theme-background-default) !important;
+		color: var(--theme-font-default) !important;
+		border-color: rgba(255, 255, 255, 0.15) !important;
+		border-radius: var(--theme-border-radius-default) !important;
+		/* Fix search icon size - override Pico's 10px default */
 		background-size: 2rem !important;
 		background-position: left 1.2rem center !important;
 		padding-left: 4.5rem !important;
+	}
+
+	input[type='search']::placeholder {
+		color: var(--theme-font-secondary) !important;
+	}
+
+	input[type='search']:focus {
+		background-color: var(--theme-background-default) !important;
+		border-color: var(--color-primary) !important;
 	}
 
 	/* Responsive icon scaling - match your breakpoints */
@@ -209,10 +222,10 @@
 		z-index: 50;
 		width: 100%;
 		margin-top: 0.8rem;
-		background: var(--pico-background-color);
-		border: 1px solid var(--pico-muted-border-color);
-		border-radius: var(--pico-border-radius);
-		box-shadow: var(--pico-box-shadow);
+		background: var(--theme-background-default);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		border-radius: var(--theme-border-radius-default);
+		box-shadow: 6px 6px 8px 3px rgba(0, 0, 0, 0.3);
 		max-height: 60rem;
 		overflow-y: auto;
 	}
@@ -232,8 +245,8 @@
 	.loading-spinner {
 		width: 2.4rem;
 		height: 2.4rem;
-		border: 3px solid var(--pico-muted-border-color);
-		border-top-color: var(--pico-primary);
+		border: 3px solid rgba(255, 255, 255, 0.15);
+		border-top-color: var(--color-primary);
 		border-radius: 50%;
 		animation: spin 0.8s linear infinite;
 	}
@@ -245,7 +258,7 @@
 	}
 
 	.result-error p:last-child {
-		color: var(--pico-del-color, #e53935);
+		color: var(--theme-font-danger);
 		font-size: 1.3rem;
 	}
 
@@ -256,7 +269,7 @@
 	}
 
 	.results-list li {
-		border-bottom: 1px solid var(--pico-muted-border-color);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 	}
 
 	.results-list li:last-child {
@@ -296,12 +309,12 @@
 
 	.result-main p {
 		margin-bottom: 1rem;
-		color: var(--pico-muted-color);
+		color: var(--theme-font-secondary);
 		font-size: 1.4rem;
 	}
 
 	.result-meta small {
-		color: var(--pico-muted-color);
+		color: var(--theme-font-secondary);
 	}
 
 	.result-tags {
@@ -328,8 +341,8 @@
 	.score {
 		font-weight: 600;
 		padding: 0.4rem 0.8rem;
-		border-radius: var(--pico-border-radius);
-		color: var(--pico-muted-color);
+		border-radius: var(--theme-border-radius-default);
+		color: var(--theme-font-secondary);
 	}
 
 	@media (max-width: 768px) {
