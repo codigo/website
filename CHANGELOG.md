@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/codigo/website/compare/v1.17.0...v1.17.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* improve markdown hierarchy and structure in experience files ([2e589af](https://github.com/codigo/website/commit/2e589af11df0ac7450419acd77ab8df9db6915a4))
+
 # [1.17.0](https://github.com/codigo/website/compare/v1.16.2...v1.17.0) (2026-03-03)
 
 
