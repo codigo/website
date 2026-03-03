@@ -1,3 +1,15 @@
+# [1.17.0](https://github.com/codigo/website/compare/v1.16.2...v1.17.0) (2026-03-03)
+
+
+### Bug Fixes
+
+* update about-me skill categories test to match current page content ([77e5069](https://github.com/codigo/website/commit/77e5069c18a5185944de3cefdf7211fec417ea03))
+
+
+### Features
+
+* update about-me page and experience descriptions with detailed content ([80edb76](https://github.com/codigo/website/commit/80edb76f1afcbb1d11e7e40cc2916e88644ac217))
+
 ## [1.16.2](https://github.com/codigo/website/compare/v1.16.1...v1.16.2) (2026-03-01)
 
 
