@@ -2,7 +2,7 @@
 order: 04
 timeframe: 2019
 company: Navarik
-description: Provided training, code standards, and best practices with NodeJS and React for the entire team of developers.
+description: As Senior Lead Software Engineer, I trained and upskilled 18 developers on Node.js and React, establishing code standards and review processes that achieved a 30% increase in code quality and 95% positive team feedback.
 previous: telus
 next: humanapi
 ---
@@ -15,25 +15,38 @@ Jan 2019 - Apr 2019
 
 ### Technologies Used
 
-- Microservices
-- AWS RDS
-- Amazon S3
-- SQL
-- Fastify
 - Node.js
+- Fastify
+- React.js
+- JavaScript
+- TypeScript
 - Docker
 - Kafka
+- AWS
+- RDS
+- Amazon S3
+- SQL
+As Senior Lead Software Engineer at Navarik, I led a comprehensive training and
+standards initiative to unify the development practices of an 18-person engineering team,
+establishing the foundation for consistent quality, faster development cycles, and a
+healthier codebase.
 
-Led a comprehensive training initiative on NodeJS and React, establishing code standards and best practices for the entire development team. Key achievements include:
+### Key Contributions
 
-- Trained and upskilled a team of 18 developers
+- **Training Initiative:** Designed and delivered a structured training program on
+  Node.js, React, Fastify, and TypeScript — upskilling all **18 developers** and
+  establishing a shared technical vocabulary across the team.
+- **Code Standards:** Introduced code standards, review processes, and testing best
+  practices that were adopted team-wide, reducing inconsistency and improving
+  maintainability across all active projects.
+- **Infrastructure Practices:** Contributed architectural guidance using Docker, Kafka,
+  and AWS — introducing patterns for event-driven services and cloud deployments.
 
-Achieved a 30% increase in code quality, as evidenced by:
+### Key Achievements
 
-- Reduced bug reports
-- Improved code review processes
-- Faster development cycle for new features
-- Improvement in team productivity (measured by story points completed per sprint)
-- Received 95% positive feedback from team members on training relevance and applicability
-
-This initiative not only enhanced the team's technical skills but also significantly improved project outcomes and overall development efficiency.
+- Trained and upskilled **18 developers**, achieving a **30% increase in code quality**
+  as measured by reduced bug reports, improved review processes, and faster delivery
+  cycles.
+- Received **95% positive feedback** from team members on training relevance and
+  applicability.
+- Established code standards and review processes now adopted as team-wide norms.

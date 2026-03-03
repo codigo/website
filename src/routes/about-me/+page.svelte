@@ -2,7 +2,7 @@
 	import type { Experience } from '$lib/types';
 	import Timeline from './Timeline.svelte';
 	import Chatbot from '$components/Chatbot.svelte';
-	import { resolve } from '$app/paths';
+	import { base } from '$app/paths';
 
 	let { data }: { data: { experiences: Experience[] } } = $props();
 </script>
@@ -24,16 +24,20 @@
 			<div class="about-me-text">
 				<h2 class="about-me-heading">About Me</h2>
 				<p class="about-me-paragraph">
-					I'm Mauricio Mercado, an Architect and seasoned Software Developer with over a decade's
-					experience in the industry.
+					I'm Mauricio Mercado, a Full-Stack Software Architect with 15+ years of experience
+					building scalable, high-performing systems. My journey began in Barranquilla, Colombia,
+					and has led me to Vancouver, Canada, where I now call home.
 				</p>
 				<p class="about-me-paragraph">
-					My journey began in the vibrant city of Barranquilla, Colombia, and has led me to the
-					beautiful surroundings of Vancouver, Canada, where I now call home.
+					I specialize in Microservices Architecture, System Design, and Cloud Infrastructure,
+					working with technologies like JavaScript, TypeScript, Python, Go, and Rust, using
+					frameworks such as Fastify, Express, Django, and FastAPI, on cloud platforms like AWS,
+					GCP, Pulumi, and Cloudflare.
 				</p>
 				<p class="about-me-paragraph">
-					I've worked with various teams, from remote squads scattered around the globe to on-site.
-					Together, we've delivered highly reliable, high-performing products.
+					Throughout my career at companies like Coursedog, Telus, and HumanAPI, I've delivered
+					measurable results: serving 1M+ daily interactions at scale, securing secret management
+					across an entire organization, and cutting deployment time from 4 hours to 15 minutes.
 				</p>
 			</div>
 			<!--  end.about-me-text -->
@@ -43,7 +47,7 @@
 					You can explore the timeline below for a detailed view of my experience, or download my
 					resume for a quick overview.
 				</p>
-				<a href={resolve('/mm_resume.pdf')} download class="download-resume-btn">
+				<a href="{base}/mm_resume.pdf" download class="download-resume-btn">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
@@ -76,31 +80,22 @@
 		<h3>I've honed a diverse skill set over the years ...</h3>
 		<ul class="skills-competences-list">
 			<li>
-				<strong>Frontend and Backend Development:</strong> Proficient in ReactJS, SvelteKit, NodeJS,
-				Fastify, micro frontends and modular composition. And I'm always eager to learn new tools and
-				technologies, like Rust.
+				<strong>Languages:</strong> JavaScript, TypeScript, Python, Go, Rust
 			</li>
 			<li>
-				<strong>Systems Design & Architecture:</strong> Specialist in designing scalable, maintainable
-				systems. Versed in microservices and modular monoliths, allowing for flexible and scalable system
-				design.
+				<strong>Frameworks:</strong> Fastify, Express, Django, FastAPI, Hono, React, Svelte, Vue.js,
+				Flask.
 			</li>
 			<li>
-				<strong>Databases:</strong> Experience with NoSQL (e.g. Redis, MongoDB, Elasticsearch) and SQL
-				(e.g. PostgreSQL).
+				<strong>Databases:</strong> PostgreSQL, MongoDB, Redis, Elasticsearch, SQLite.
 			</li>
 			<li>
-				<strong>Integration & Automation:</strong> Skilled using tools like Docker, Kubernetes, GitHub
-				Actions and Apps and Terraform.
+				<strong>Cloud & DevOps:</strong>
+				AWS, GCP, Pulumi, Cloudflare, Docker, Kubernetes, Terraform, GitHub Actions, Ansible.
 			</li>
 			<li>
-				<strong>Development Practices:</strong> Strong advocate for agile methodologies, automated testing,
-				and functional programming.
-			</li>
-			<li>
-				<strong>AI Systems:</strong> Knowledgeable in using OpenAI API, Ollama, and other AI systems
-				to create personal projects, enhancing my capability to integrate advanced AI functionalities
-				into applications.
+				<strong>Specialties:</strong> Microservices Architecture, System Design, Cloud Infrastructure,
+				CI/CD, Modular Monoliths, Event-Driven Architecture, API Design, and Event-Sourcing.
 			</li>
 		</ul>
 	</section>

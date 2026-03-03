@@ -2,8 +2,7 @@
 order: 06
 timeframe: 2020 - 2021
 company: CTO.ai
-description: I guided developers in adopting an open-source collaboration model, built a GitHub application for data integration, and implemented automated quality control across projects.
-previous: mobilelive
+description: As Senior Lead Engineer, I built a Developer Collaboration Platform integrating GitHub APIs with DORA metrics, deployed custom Kubernetes monitoring pods, and developed a Go-based sidecar container for real-time performance monitoring — unifying all engineering teams around shared observability.
 next: telus
 ---
 
@@ -15,23 +14,48 @@ Oct 2020 - Apr 2021
 
 ### Technologies Used
 
-- Webpack
-- Microservices
 - TypeScript
 - JavaScript
+- Go
 - Kubernetes
-- CI/CD (GitHub Actions)
 - Docker
+- AWS Serverless Framework
+- GitHub Actions
+- CI/CD
 - React.js
 - Amazon S3
 - SQL
+- Microservices
+- Webpack
 
-Spearheaded the design, development, and maintenance of APIs to foster a collaborative developer environment, focusing on enhancing development workflow efficiency and performance monitoring.
+As Senior Lead Engineer at CTO.ai, I spearheaded the design and implementation of a
+**Developer Collaboration Platform** — an internal tooling system designed to give
+engineering teams visibility into their delivery performance and application health.
 
-- Architected and implemented a Developer Collaboration Platform, integrating GitHub API for DORA (DevOps Research and Assessment) metrics, resulting in a streamlined approach to retrieve and analyze development metrics.
-- Led the design and deployment of custom Kubernetes pods for comprehensive application monitoring and performance analysis.
-- Developed a bespoke sidecar container using Go, optimizing data relay processes and enhancing overall system efficiency.
-- Implemented real-time monitoring solutions for critical performance indicators including network latency, memory consumption, and CPU usage.
-- Orchestrated the integration of various APIs, fostering a more collaborative and efficient developer ecosystem.
+### Technical Contributions
 
-Through this role, I significantly enhanced the development workflow, improved performance monitoring capabilities, and fostered a more collaborative developer environment. My contributions led to measurable improvements in development efficiency and system performance, directly impacting the organization's ability to deliver high-quality software rapidly and reliably.
+- **DORA Metrics Platform:** Architected and implemented a GitHub-integrated platform
+  for collecting and visualizing DORA (DevOps Research and Assessment) metrics —
+  deployment frequency, lead time for changes, change failure rate, and time to restore.
+  This gave leadership and teams actionable insight into engineering performance for the
+  first time.
+- **Kubernetes Monitoring Infrastructure:** Led the design and deployment of custom
+  Kubernetes pods for comprehensive application monitoring and performance analysis,
+  tracking network latency, memory consumption, and CPU usage in real time.
+- **Go Sidecar Container:** Developed a bespoke sidecar container in **Go** to optimize
+  data relay processes between application containers and the monitoring layer, enhancing
+  overall system efficiency.
+- **Open Collaboration Culture:** Championed an open-source collaboration model across
+  engineering teams, integrating multiple APIs and fostering a more collaborative and
+  transparent developer ecosystem.
+- **API Design and Development:** Designed and maintained APIs focused on enhancing
+  development workflow efficiency, reducing friction between tooling systems.
+
+### Key Achievements
+
+- Delivered DORA metrics and container monitoring capabilities, unifying all engineering
+  teams around a shared observability platform.
+- Implemented real-time monitoring for critical performance indicators across all running
+  services.
+- Built and deployed a Go-based sidecar container for optimized data relay in Kubernetes
+  environments.

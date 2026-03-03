@@ -29,5 +29,13 @@ export default [
 	},
 	{
 		ignores: ['build/', '.svelte-kit/', 'dist/', 'pb_data/', 'pb/']
+	},
+	{
+		files: ['**/*.svelte'],
+		rules: {
+			// TypeScript typed routes via $app/paths already enforce correct route usage;
+			// disabling this rule to allow static asset hrefs (e.g. /mm_resume.pdf)
+			'svelte/no-navigation-without-resolve': 'off'
+		}
 	}
 ];

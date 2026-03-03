@@ -2,7 +2,7 @@
 order: 02
 timeframe: 2013 - 2015
 company: Selfie INC
-description: Led a team through the design, planning, execution, and deployment of all micro-services that composed the social application. I integrated Twilio API for 2FA and used MongoDB and Redis for data management.
+description: As Principal Software Engineer and Architect, I designed the full microservices architecture for a social platform handling 1M+ daily user interactions — using ZeroMQ for async messaging, MongoDB + Redis for data, Twilio for 2FA, and achieving 3x scalability improvement with ~200ms timeline loads.
 next: freelance
 previous: humanapi
 ---
@@ -15,63 +15,71 @@ May 2013 - Jul 2015
 
 ### Technologies Used
 
-- Microservices
-- Amazon S3
-- Elasticsearch
-- SQL
-- MongoDB
-- Restify
 - Node.js
-- Redis
-- Apple Notification Service
-- Twilio
+- Restify
 - ZeroMQ
-- Capistrano
-- Nginx
-- Sockets
+- MongoDB
+- Redis
+- Elasticsearch
+- Amazon S3
+- Twilio
+- Apple Notification Service (APNS)
 - Amazon SES
+- Nginx
+- Capistrano
+- Sockets
+- SQL
+- Microservices
 
-Architected and led the implementation of a microservices-based social platform consisting of 5+ distributed services handling 1M+ daily user interactions. I designed the system architecture using event-driven patterns with ZeroMQ for asynchronous inter-service communication and REST for synchronous operations, achieving 3x scalability improvement. Key architectural decisions included: selecting MongoDB for flexible user data schemas supporting rapid feature iteration, implementing Redis-based caching layer reducing database load by 60%, and designing Twilio integration for two-factor authentication improving security by 40%. I established service boundaries based on domain-driven design principles, ensuring loose coupling and high cohesion across the platform.
+At Selfie INC, I architected and led the full implementation of a microservices-based
+social platform handling **1M+ daily user interactions** — designing the system from
+the ground up using event-driven patterns, CQRS, and domain-driven design.
 
-### System Architecture and Design
+### System Architecture
 
-- Architected event-driven microservices platform using ZeroMQ for asynchronous messaging and REST for synchronous communication
-- Designed service boundaries following domain-driven design principles: Media Service, Notification Service, Authentication Service, Timeline Service, and Deployment Service
-- Established data architecture strategy: MongoDB for user-generated content (flexibility), Redis for session management and caching (performance), and S3 for media storage (scalability)
-- Implemented circuit breaker patterns and retry logic for inter-service communication, achieving 99.9% uptime
-- Designed auto-scaling architecture for Joyent infrastructure, reducing costs by 25% while maintaining performance under variable load
+- Designed an event-driven microservices platform using **ZeroMQ** for asynchronous
+  inter-service messaging and REST for synchronous operations, achieving a **3x
+  scalability improvement** and reducing timeline load times from ~1s to ~200ms.
+- Established service boundaries following domain-driven design principles across 5
+  dedicated services: Media Service, Notification Service, Authentication Service,
+  Timeline Service, and Deployment Service.
+- Selected **MongoDB** for flexible user-generated content schemas supporting rapid
+  feature iteration, **Redis** for session management and caching (reducing DB load by
+  60%), and **Amazon S3** for media storage.
+- Implemented circuit breaker patterns and retry logic for inter-service communication,
+  achieving **99.9% uptime**.
+- Designed auto-scaling architecture for Joyent infrastructure, reducing costs by **25%**
+  while maintaining performance under variable load.
 
-## Major Projects Developed
+### Major Projects
 
-### Media Handler
+**Media Handler**
+Managed and validated all media received by the API, implemented a CDN + Nginx layer
+improving media delivery speed by **70%**, and developed an asynchronous upload system
+reducing user wait times by **50%**. Processed **10,000+ daily media uploads** for
+faster streaming and compression.
+**APNS Receiver**
+Utilized socket.io for long-polling and managing push notifications to Apple devices.
+Implemented a round-robin notification system adhering to APNS rate limits, reducing
+notification failures by **90%** through queue-based processing.
+**Capistrano Deployer**
+Automated deployments across all 5+ services with integration to an in-house build
+testing service — reducing deployment time by **75%** and human error by **95%**.
+**Ciruela (Continuous Integration Server)**
+Implemented automated testing for all microservices with real-time coverage reports and
+issue notifications, catching **30% more bugs** before production.
+**Twilio 2FA Integration**
+Designed and implemented two-factor authentication using **Twilio**, improving platform
+security by **40%** across the user base.
+**Scaler**
+Developed an automated scaling system for Joyent's infrastructure with a backoff
+algorithm for efficient resource allocation, reducing infrastructure costs by **25%**
+while maintaining performance.
 
-- Managed and validated all media received by the API
-- Implemented CDN and nginx for storage, improving media delivery speed by 70%
-- Developed asynchronous upload system, reducing user wait times by 50%
-- Processed 10,000+ daily media uploads for faster streaming and compression
+### Key Achievements
 
-### APNS Receiver
-
-- Utilized socket.io for long polling and managing push notifications to Apple devices
-- Implemented round-robin notification system, adhering to APNS rate limits
-- Reduced notification failures by 90% through queue-based processing
-
-### Capistrano Deployer
-
-- Automated deployments of 5+ services
-- Integrated with in-house build testing service
-- Reduced deployment time by 75% and human error by 95%
-
-### Ciruela (Continuous Integration Server)
-
-- Implemented automated testing for all microservices
-- Provided real-time coverage reports and issue notifications
-- Improved code quality by catching 30% more bugs before production
-
-### Scaler
-
-- Developed automated scaling system for Joyent's Infrastructure
-- Implemented backoff algorithm for efficient resource allocation
-- Reduced infrastructure costs by 25% while maintaining performance
-
-This role significantly enhanced my expertise in microservices architecture, API development, full-stack engineering, cloud infrastructure management, and continuous integration and deployment. The diverse range of projects and technologies I worked with contributed substantially to my professional growth, equipping me with a comprehensive skill set in modern software development practices.
+- Architected platform handling 1M+ daily interactions with 99.9% uptime.
+- Reduced timeline load from ~1s to ~200ms; achieved 3x scalability through CQRS and
+  fan-out caching.
+- Reduced infrastructure costs by 25% through intelligent auto-scaling.
+- Deployment time reduced by 75%, human error by 95%.
