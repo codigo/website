@@ -58,7 +58,9 @@ cloud infrastructure, AI integration, and full-stack development.
 - **End-to-End Project Leadership:** I guide projects from requirements and architecture
   through delivery and maintenance, ensuring alignment with client objectives and budget.
 
-#### Unfold — Open Source JSON Viewer *(Personal / Open Source)*
+### Selected Projects
+
+#### Unfold — Open Source JSON Viewer _(Personal / Open Source)_
 
 A high-performance native JSON viewer built in **Rust** using the Iced GUI framework.
 
@@ -67,4 +69,4 @@ A high-performance native JSON viewer built in **Rust** using the Iced GUI frame
 - Native macOS menu bar, dark/light theme, multi-window support, and built-in update
   checking.
 - Available for macOS, Windows, and Linux.
-📂 [View on GitHub](https://github.com/maumercado/unfold)
+  📂 [View on GitHub](https://github.com/maumercado/unfold)

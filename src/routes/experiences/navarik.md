@@ -26,6 +26,7 @@ Jan 2019 - Apr 2019
 - RDS
 - Amazon S3
 - SQL
+
 As Senior Lead Software Engineer at Navarik, I led a comprehensive training and
 standards initiative to unify the development practices of an 18-person engineering team,
 establishing the foundation for consistent quality, faster development cycles, and a

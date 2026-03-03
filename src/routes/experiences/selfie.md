@@ -53,25 +53,36 @@ the ground up using event-driven patterns, CQRS, and domain-driven design.
 
 ### Major Projects
 
-**Media Handler**
+#### Media Handler
+
 Managed and validated all media received by the API, implemented a CDN + Nginx layer
 improving media delivery speed by **70%**, and developed an asynchronous upload system
 reducing user wait times by **50%**. Processed **10,000+ daily media uploads** for
 faster streaming and compression.
-**APNS Receiver**
+
+#### APNS Receiver
+
 Utilized socket.io for long-polling and managing push notifications to Apple devices.
 Implemented a round-robin notification system adhering to APNS rate limits, reducing
 notification failures by **90%** through queue-based processing.
-**Capistrano Deployer**
+
+#### Capistrano Deployer
+
 Automated deployments across all 5+ services with integration to an in-house build
 testing service — reducing deployment time by **75%** and human error by **95%**.
-**Ciruela (Continuous Integration Server)**
+
+#### Ciruela (Continuous Integration Server)
+
 Implemented automated testing for all microservices with real-time coverage reports and
 issue notifications, catching **30% more bugs** before production.
-**Twilio 2FA Integration**
+
+#### Twilio 2FA Integration
+
 Designed and implemented two-factor authentication using **Twilio**, improving platform
 security by **40%** across the user base.
-**Scaler**
+
+#### Scaler
+
 Developed an automated scaling system for Joyent's infrastructure with a backoff
 algorithm for efficient resource allocation, reducing infrastructure costs by **25%**
 while maintaining performance.

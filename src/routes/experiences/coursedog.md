@@ -49,14 +49,14 @@ with a structured metadata object containing:
 - **Destination** — where the data maps to in the Coursedog platform
 - **Description** — a human-readable explanation of the field's purpose
 - **Data examples** — concrete sample values to aid integration setup and debugging
-The system was designed to be **easily extensible** — new metadata properties could be
-added to the decorator schema without breaking existing formatter definitions.
-By exposing a dedicated API endpoint that introspects formatter classes at runtime, I
-enabled the platform to **surface rich field-level metadata directly to users** — giving
-university integration teams visibility into exactly what data flows through each
-formatter, which fields are bidirectional, and what to expect at the destination. This
-significantly reduced the ambiguity that previously caused misconfigured integrations
-and support escalations.
+  The system was designed to be **easily extensible** — new metadata properties could be
+  added to the decorator schema without breaking existing formatter definitions.
+  By exposing a dedicated API endpoint that introspects formatter classes at runtime, I
+  enabled the platform to **surface rich field-level metadata directly to users** — giving
+  university integration teams visibility into exactly what data flows through each
+  formatter, which fields are bidirectional, and what to expect at the destination. This
+  significantly reduced the ambiguity that previously caused misconfigured integrations
+  and support escalations.
 
 ---
 
@@ -86,20 +86,36 @@ contributing to a consistent and maintainable codebase.
 #### Platform Features
 
 Contributed to the broader Coursedog platform using Vue.js, developing features focused
-on streamlining data management and improving user experience for class scheduling,
-event planning, curriculum, and catalogue workflows
+on streamlining data management and improving user experience across multiple modules:
+
+- Class scheduling
+- Event planning
+- Curriculum management
+- Catalogue workflows
+
 ---
 
 ### Key Achievements
 
-- Designed the `@sisField` TypeScript decorator system, enabling runtime introspection
-  of ERP formatter field metadata (source, bidirectionality, destination, description,
-  examples) and surfacing it to users through a dedicated API endpoint.
-- Enabled seamless integrations for **15+ universities** through automatic, metadata-
-  driven field mapping across heterogeneous ERP environments.
-- Reduced integration support tickets from **~6/week to 1–2/week** through automated
-  mapping and real-time monitoring.
-- Cut user query time by **40%** with a purpose-built Vue.js search interface.
+#### @sisField Decorator System
+
+Designed the TypeScript decorator system, enabling runtime introspection of ERP formatter
+field metadata (source, bidirectionality, destination, description, examples) and
+surfacing it to users through a dedicated API endpoint.
+
+#### University Integration Scale
+
+Enabled seamless integrations for **15+ universities** through automatic, metadata-driven
+field mapping across heterogeneous ERP environments.
+
+#### Support Ticket Reduction
+
+Reduced integration support tickets from **~6/week to 1–2/week** through automated
+mapping and real-time monitoring.
+
+#### Search Performance
+
+Cut user query time by **40%** with a purpose-built Vue.js search interface.
 
 ---
 

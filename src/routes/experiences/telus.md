@@ -33,6 +33,7 @@ Apr 2019 - Sep 2020
 - Tap
 - Jest
 - Restful API Design
+
 As Senior Technology Architect on the Telus Platform Tooling Team, I spearheaded
 initiatives that significantly modernized development practices, deployment processes,
 and secret management security across 15+ engineering teams.

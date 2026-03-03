@@ -41,7 +41,8 @@ and appropriate hosting infrastructure based on performance and budget constrain
 
 ### Selected Projects
 
-**Coca-Cola Documentation Projects Portal (Colombia)**
+#### Coca-Cola Documentation Projects Portal (Colombia)
+
 Architected an internal documentation and project management platform for Coca-Cola
 Colombia with role-based access control and an activity stream for real-time team
 collaboration.
@@ -51,24 +52,36 @@ collaboration.
 - Enhanced team communication efficiency by **60%** through the activity stream pattern.
 - Improved data security by **50%** through role-based permissions at both application
   and database levels.
-**Joyeria Caribe — E-Commerce Platform**
+
+#### Joyeria Caribe — E-Commerce Platform
+
 Architected an e-commerce platform by extending and customizing the Satchmo framework
 for a jewelry retailer.
+
 - Designed multilanguage architecture expanding the potential customer base by **40%**.
 - Built an automated product import system reducing data entry time by **90%**.
-**Squadrapp — Soccer Game Setup Application**
+
+#### Squadrapp — Soccer Game Setup Application
+
 Full-stack web application with event-driven notifications, Redis job queue, and
 asynchronous email processing.
+
 - Designed asynchronous background workers reducing user wait times by **80%**.
 - Deployed on Heroku with PostgreSQL, architecting for **99.9% uptime**.
-**University Assistant Management System**
+
+#### University Assistant Management System
+
 Architected a web application handling complex scheduling algorithms and data
 visualization for a university coordination team.
+
 - Designed scheduling algorithm reducing manual coordination time by **70%**.
 - Implemented real-time data visualization with Google Charts API, increasing coordinator
   productivity by **40%**.
-**EzRent — Rental Property Finder**
+
+#### EzRent — Rental Property Finder
+
 Location-based rental search application with Google Maps and Foursquare API integration.
+
 - Increased user engagement by **35%** through an intuitive map-based interface.
 - Reduced average search time by **25%** through geospatial indexing.
 
