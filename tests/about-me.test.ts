@@ -19,17 +19,10 @@ test.describe('About Me Page', () => {
 		await expect(downloadLink).toHaveAttribute('download', '');
 	});
 
-	test('displays 6 skill categories', async ({ page }) => {
-		const skills = [
-			'Frontend and Backend Development',
-			'Systems Design & Architecture',
-			'Databases',
-			'Integration & Automation',
-			'Development Practices',
-			'AI Systems'
-		];
+	test('displays 5 skill categories', async ({ page }) => {
+		const skills = ['Languages', 'Frameworks', 'Databases', 'Cloud & DevOps', 'Specialties'];
 		for (const skill of skills) {
-			await expect(page.getByText(skill)).toBeVisible();
+			await expect(page.locator('strong').filter({ hasText: skill }).first()).toBeVisible();
 		}
 	});
 

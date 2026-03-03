@@ -58,54 +58,6 @@ cloud infrastructure, AI integration, and full-stack development.
 - **End-to-End Project Leadership:** I guide projects from requirements and architecture
   through delivery and maintenance, ensuring alignment with client objectives and budget.
 
----
-
-### Selected Projects
-
-#### Event-Sourced Order Management System *(Private Client)*
-
-A production-grade event sourcing and CQRS platform built in **Rust** for a private
-client requiring highly auditable, append-only order state management.
-
-- Implemented Event Sourcing with an append-only PostgreSQL event store and in-memory
-  backend (runtime-swappable), CQRS with 4 read model projections, and the Saga pattern
-  for distributed transactions.
-- Achieved ~550,000 events/sec throughput on single-event appends and ~3.9M events/sec
-  retrieval in benchmarks.
-- Full observability with Prometheus metrics and structured tracing.
-📂 [Reference implementation on GitHub](https://github.com/maumercado/event-sourcing-rust)
-
----
-
-#### Multi-Tenant API Gateway *(Private Client)*
-
-A production-ready API Gateway built with **TypeScript**, **Fastify**, and **Node.js**
-for a client needing a centralized, resilient entry point across multiple backend
-services.
-
-- Multi-tenancy with API key isolation, Redis-cached auth, and per-tenant rate limiting
-  using a sliding window algorithm.
-- Full resilience layer: circuit breakers, retry with exponential backoff + jitter,
-  upstream health checks, and fallback responses.
-- Prometheus metrics with per-tenant labels, p50/p95/p99 latency histograms, and a
-  pre-built Grafana dashboard.
-📂 [Reference implementation on GitHub](https://github.com/maumercado/gateway-api)
-
----
-
-#### Distributed Task Queue *(Private Client)*
-
-A horizontally scalable task queue built in **Go** with Redis Streams for a client
-requiring reliable async job processing with priority scheduling.
-
-- 4-tier priority scheduling, at-least-once delivery via Redis consumer groups, dead
-  letter queue, exponential backoff retry, and real-time WebSocket task events.
-- Full admin API for worker management, queue inspection, and DLQ replay.
-- Prometheus metrics and generated Go + TypeScript client SDKs.
-📂 [Reference implementation on GitHub](https://github.com/maumercado/task-queue-go)
-
----
-
 #### Unfold — Open Source JSON Viewer *(Personal / Open Source)*
 
 A high-performance native JSON viewer built in **Rust** using the Iced GUI framework.
