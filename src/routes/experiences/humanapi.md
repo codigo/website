@@ -2,7 +2,7 @@
 order: 03
 timeframe: 2015 - 2018
 company: HumanAPI
-description: As Senior Software Engineer, I architected microservices synchronizing health data from 15+ external providers, implemented Elasticsearch for 70% faster search, built a React.js data visualization platform, and established Prometheus + Grafana monitoring — raising test coverage from 65% to 92% and reducing post-deployment bugs by 75%.
+description: As Senior Software Engineer, customers were churning because they couldn't find their clinics — search was slow and inaccurate, partner integrations broke frequently with different data models, and releases were unreliable due to brittle test mocks. I introduced Elasticsearch for search, designed a microservices normalization layer, and rebuilt the test infrastructure — cutting search time by 70%, bringing sync failures from ~40/week to near-zero, and raising coverage from 65% to 92%.
 previous: navarik
 next: selfie
 ---
@@ -17,7 +17,6 @@ Jul 2015 - Jun 2018
 
 - Node.js
 - JavaScript
-- React.js
 - Elasticsearch
 - MongoDB
 - Redis
@@ -32,39 +31,20 @@ Jul 2015 - Jun 2018
 - CI/CD (GitHub Actions)
 - Microservices
 
-At HumanAPI, I designed and led the development of a microservices architecture to
-synchronize, normalize, and visualize user health data across 15+ external providers and
-devices — dramatically improving data reliability, search performance, and system
-observability.
+At HumanAPI, customers were churning and filing support tickets because they couldn't find their clinics or data stores — search was slow, inconsistent, and sometimes inaccurate. Partner integrations broke frequently due to inconsistent data models across 15+ providers, and releases were unreliable because the test suite was full of brittle mocks requiring 2+ hours of manual verification per release.
 
 ### Technical Contributions
 
-- **Microservices Architecture:** Designed and deployed a microservices system to
-  synchronize user data across multiple platforms and devices, improving data consistency
-  by **95%** and reducing sync time by **60%**. Integrated **15+ external wellness APIs
-  and clinical data sources**, normalizing data across heterogeneous health data models.
-- **Elasticsearch Integration:** Implemented Elasticsearch as the primary search engine
-  for user health data retrieval, handling complex queries across 10+ data types and
-  improving search speed and accuracy by **70%** (down from ~500ms to ~150ms per query).
-- **RabbitMQ Event Bus:** Used RabbitMQ as the event bus for asynchronous inter-service
-  communication, enabling reliable, decoupled data synchronization between microservices.
-- **Data Visualization:** Developed and optimized a centralized **React.js** application
-  for visualizing user health data across partner platforms — increasing partner interest
-  in HumanAPI's health data consumption by **60%**.
-- **Observability:** Implemented comprehensive metrics instrumentation throughout the
-  stack using **Prometheus and Grafana**, enabling real-time monitoring and reducing
-  system downtime by **85%**.
-- **Testing Infrastructure:** Engineered automated testing solutions that raised code
-  coverage from **65% to 92%** for both front-end and back-end services, leading to a
-  **75% reduction in post-deployment bugs**.
-- **Developer Enablement:** Reduced environment setup time by **90%**, enabling 20+
-  developers and product team members to work efficiently without backend dependencies.
+- **Microservices Architecture:** Partner integrations were breaking frequently because each of our 15+ health data providers had different data models — sync failures looked like bad data to customers and eroded trust. I designed a microservices layer to normalize and sync health data across all providers into a consistent format, bringing sync failures from ~40/week down to near-zero.
+- **Elasticsearch Integration:** Customers were churning and filing support tickets because they couldn't find their clinics or data stores. I introduced Elasticsearch as a search layer on top of our existing data, replacing the direct MongoDB queries that were producing unreliable results — cutting search time from ~500ms to ~150ms and eliminating the support ticket backlog for missing clinics.
+- **RabbitMQ Event Bus:** To prevent cascading failures between services, I used RabbitMQ as the event bus for asynchronous inter-service communication, enabling reliable, decoupled data synchronization between microservices.
+- **Observability:** To gain visibility into a system that previously had no monitoring, I implemented comprehensive metrics instrumentation using **Prometheus and Grafana**, enabling real-time monitoring and reducing system downtime by **85%**.
+- **Testing Infrastructure:** Releases were unreliable — the test suite was full of mocks that didn't catch real issues, so every release required 2+ extra hours of manual verification. Bugs still slipped through, sometimes flagged by partners, sometimes breaking things in production. I rebuilt the testing infrastructure, replacing brittle mocks with meaningful tests — raising coverage from 65% to 92% and cutting release verification from hours of manual checks to automated confidence.
+- **Developer Enablement:** Reduced environment setup time by **90%**, enabling 20+ developers and product team members to work efficiently without backend dependencies.
 
 ### Key Achievements
 
-- Microservices architecture improved data consistency by 95% and reduced sync failures
-  from ~40/week to near-zero across 15+ provider integrations.
-- Elasticsearch reduced search latency by 70% across 10+ health data types.
-- Test coverage raised from 65% to 92%; post-deployment bugs reduced by 75%.
+- Customers stopped churning over missing clinics; search time cut from ~500ms to ~150ms across 15+ provider integrations.
+- Sync failures dropped from ~40/week to near-zero, restoring partner trust.
+- Release verification cut from 2+ hours of manual checks to automated confidence; coverage raised from 65% to 92%.
 - Prometheus + Grafana monitoring reduced system downtime by 85%.
-- Streamlined reporting reduced manual effort by 80% and enabled real-time data sharing.

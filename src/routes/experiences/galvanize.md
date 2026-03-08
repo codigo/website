@@ -2,7 +2,7 @@
 order: 08
 timeframe: 2021 - 2022
 company: Galvanize / Diligent
-description: As Senior Software Engineer, I optimized performance for applications serving 100,000+ daily active users, improved test execution efficiency by 60% through Jest parallelization, and proposed a monolith-to-microservices migration plan — while upskilling the entire team through Node.js workshops.
+description: As Senior Software Engineer, the test suite for an app serving 100K+ daily users took ~45 minutes and sometimes crashed from memory exhaustion, bottlenecking the entire release cycle. I parallelized Jest test execution and led Node.js testing standards adoption — cutting test time from ~45 to ~18 minutes and eliminating memory crashes.
 previous: doc-ai
 next: mobilelive
 ---
@@ -26,16 +26,11 @@ Oct 2021 - Mar 2022
 - CI/CD (GitHub Actions)
 - Terraform
 
-As a Senior Software Engineer at Galvanize (acquired by Diligent during my tenure), I
-focused on performance analysis, code quality, architectural improvements, and developer
-enablement for critical applications serving **100,000+ daily active users**.
+At Galvanize (acquired by Diligent), the test suite for an application serving 100,000+ daily active users took ~45 minutes to run — sometimes consuming all available memory and crashing, forcing developers to restart and wait again. This bottleneck was slowing down the entire release cycle. I focused on unblocking the team.
 
 ### Technical Contributions
 
-- **Performance Optimization:** Identified performance bottlenecks across core
-  applications and provided detailed optimization recommendations, improving test
-  execution efficiency by 60% through innovative compilation and parallel Jest execution
-  strategies — cutting test time from ~45 to ~18 minutes.
+- **Performance Optimization:** The test suite sometimes consumed all available memory and crashed, forcing developers to restart and wait from scratch. I identified performance bottlenecks across core applications and parallelized Jest execution — cutting test time from ~45 to ~18 minutes and eliminating the memory crashes entirely.
 - **Architecture Planning:** Proposed a transition plan from monolithic to microservices
   architecture using strangler patterns, outlining improvements in deployment efficiency,
   team autonomy, and scalability. Authored Architecture Decision Records (ADRs) to align
@@ -50,8 +45,7 @@ enablement for critical applications serving **100,000+ daily active users**.
 
 ### Key Achievements
 
-- Reduced test suite execution from ~45 minutes to ~18 minutes through Jest
-  parallelization, unblocking faster release cycles.
+- Cut test execution from ~45 minutes to ~18 minutes, eliminated memory crashes that were forcing restarts, and unblocked the release cycle for 100K+ daily users.
 - Served applications with 100,000+ daily active users with improved stability and
   reduced latency.
 - Produced a detailed monolith-to-microservices migration plan using strangler patterns,

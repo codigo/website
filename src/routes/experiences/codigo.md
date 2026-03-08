@@ -2,7 +2,7 @@
 order: 11
 timeframe: '*'
 company: Codigo, Inc. Consulting
-description: Founder and Principal Architect at Codigo Inc., delivering custom software architecture and consulting for clients across industries; building event-driven systems, API infrastructure, and AI-integrated platforms using Rust, Go, TypeScript, and Node.js.
+description: Founder and Principal Architect at Codigo Inc., helping clients — startups and established companies — who were stuck with slow manual deployments blocking their ability to iterate. I build event-driven systems, API infrastructure, and automated provisioning — cutting client deploy times from ~4 hours to ~15 minutes using Rust, Go, TypeScript, and Node.js.
 next: coursedog
 previous: freelance
 ---
@@ -41,8 +41,12 @@ March 2019 - Present
 
 As the founder and principal consultant at Codigo Inc., I deliver end-to-end software
 architecture and engineering for clients across various sectors — from greenfield
-platform builds to complex system redesigns. My work spans backend systems engineering,
-cloud infrastructure, AI integration, and full-stack development.
+platform builds to complex system redesigns. My clients — both established companies
+testing internal tools and startups waiting on critical bug fixes — often came to me
+stuck with manual deployment processes that took hours, blocking their ability to
+iterate. Across engagements, I've consistently cut deployment cycles from ~4 hours to
+~15 minutes. My work spans backend systems engineering, cloud infrastructure, AI
+integration, and full-stack development.
 
 ### What I Bring to Projects
 

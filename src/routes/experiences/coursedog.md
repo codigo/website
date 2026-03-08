@@ -2,7 +2,7 @@
 order: 10
 timeframe: '2023 - Present'
 company: Coursedog
-description: As Senior Software Engineer, I build and maintain real-time bi-directional integrations with ERP systems for 15+ universities — designing a TypeScript metadata decorator system (@sisField) to automatically surface field mapping information across all formatters, reducing integration support tickets from ~6/week to 1–2/week and cutting query times by 40%.
+description: As Senior Software Engineer, I stabilized 15+ university ERP integrations by improving field-level data handling, configurable retries, and dynamic header injection — cutting support tickets from ~6/week to 1-2/week. I also proposed and built the @sisField and @sisEntity TypeScript decorator system, giving sales, marketing, and product teams live visibility into our integration capabilities and field directionality.
 previous: codigo
 next: doc-ai
 ---
@@ -24,48 +24,32 @@ April 2023 - Present
 - OAuth2
 - CI/CD (GitHub Actions)
 
-As a Senior Software Engineer at Coursedog, I play a pivotal role in building and
-maintaining the integration layer that connects university ERP systems with Coursedog's
-academic planning platform. My work spans requirement analysis, architectural design,
-implementation, and ongoing maintenance of critical integrations for institutions across
-North America.
+At Coursedog, I play a pivotal role in the integration layer connecting university ERP systems with Coursedog's academic planning platform. When I joined, support for the existing 15+ university integrations was poor — I personally worked through 50+ support tickets, and the platform was generating ~6 tickets per week from universities experiencing sync issues. I also identified that internal teams had no reliable way to understand our integration capabilities, leading me to propose the @sisField decorator system.
 
 ### Key Contributions
 
+#### ERP Integration Architecture
+
+Support for 15+ university ERP integrations was poor. I improved data handling at the field level, added configurable retries for failed syncs, and implemented dynamic header injection where integrations required it — cutting support tickets from ~6/week to 1-2/week. The `@sisField` decorator system served as the backbone for automatic field mapping metadata, eliminating the manual configuration that previously caused inconsistencies across all university deployments.
+
 #### @sisField Metadata Decorator System
 
-One of my core architectural contributions was designing a **TypeScript decorator-based
-metadata system** to bring transparency and discoverability to the ERP integration layer.
-Each ERP integration at Coursedog relies on **formatter classes** — TypeScript classes
-that take raw data from an ERP system (e.g., PeopleSoft, Ellucian Banner) and transform
-it into Coursedog's internal data model. The challenge: there was no programmatic way
-for users or support teams to understand what each field in a formatter did, where its
-data came from, or whether it supported bidirectional sync.
-I designed the `@sisField` decorator, which annotates each field on a formatter class
-with a structured metadata object containing:
+Internal teams — sales, marketing, product — had no reliable way to know what fields our integrations supported or whether they were bidirectional or read-only. The only reference was a stale Salesforce document that was manually updated and frequently out of date.
+
+I designed the `@sisField` decorator, which annotates each field on a formatter class with a structured metadata object containing:
 
 - **Source** — where the data originates in the ERP system
 - **Bidirectional support** — whether the field supports read and write back to the ERP
 - **Destination** — where the data maps to in the Coursedog platform
 - **Description** — a human-readable explanation of the field's purpose
 - **Data examples** — concrete sample values to aid integration setup and debugging
-  The system was designed to be **easily extensible** — new metadata properties could be
-  added to the decorator schema without breaking existing formatter definitions.
-  By exposing a dedicated API endpoint that introspects formatter classes at runtime, I
-  enabled the platform to **surface rich field-level metadata directly to users** — giving
-  university integration teams visibility into exactly what data flows through each
-  formatter, which fields are bidirectional, and what to expect at the destination. This
-  significantly reduced the ambiguity that previously caused misconfigured integrations
-  and support escalations.
+
+The system was designed to be **easily extensible** — new metadata properties could be
+added to the decorator schema without breaking existing formatter definitions.
+
+By exposing a dedicated API endpoint that introspects formatter classes at runtime, I enabled the platform to **surface rich field-level metadata directly to users** — giving university integration teams visibility into exactly what data flows through each formatter, which fields are bidirectional, and what to expect at the destination. This eliminated repetitive questions from internal teams, gave sales and marketing immediate visibility into integration capabilities, and sparked new product ideas.
 
 ---
-
-#### ERP Integration Architecture
-
-Designed real-time, bi-directional integrations with educational ERP systems including
-PeopleSoft and Ellucian Banner. The `@sisField` decorator system served as the backbone
-for automatic field mapping metadata, eliminating the manual configuration that
-previously caused inconsistencies across 15+ university deployments.
 
 #### Integration Monitoring
 
@@ -110,8 +94,7 @@ field mapping across heterogeneous ERP environments.
 
 #### Support Ticket Reduction
 
-Reduced integration support tickets from **~6/week to 1–2/week** through automated
-mapping and real-time monitoring.
+Reduced integration support tickets from **~6/week to 1–2/week** through improved field-level data handling, configurable retries, dynamic header injection, and real-time monitoring.
 
 #### Search Performance
 

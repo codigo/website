@@ -2,7 +2,7 @@
 order: 09
 timeframe: 2022 - 2023
 company: Doc.Ai / Sharecare
-description: As Staff Software Engineer, I led frontend architecture for SmartOmix — a distributed health research platform — building a reusable Storybook component library across 5 projects, replacing Redux with React Context + react-query caching, and cutting API calls by 50% while raising test coverage from 80% to 95%.
+description: As Staff Software Engineer, leadership was pushing for faster feature delivery but redundant API calls made SmartOmix sluggish for field researchers on mobile. I replaced Redux with React Context + react-query caching and built a shared Storybook component library across 5 projects — cutting API calls by 50%, raising test coverage from 80% to 95%, and accelerating feature delivery.
 next: galvanize
 previous: coursedog
 ---
@@ -26,19 +26,14 @@ Apr 2022 - Mar 2023
 - CI/CD
 - Docker
 
-As a Staff Software Engineer at doc.ai (acquired by Sharecare during my tenure), I led
-the frontend architecture and engineering quality for **SmartOmix** — a distributed,
-decentralized health study platform enabling researchers to collect and analyze participant
-health data at scale.
+At doc.ai (acquired by Sharecare), leadership was pressuring the team to ship features faster on SmartOmix — a distributed health research platform — but redundant API calls made the app sluggish, especially for field researchers using mobile devices and tablets on poor connections. Meanwhile, duplicated UI code across 5 projects slowed development even further.
 
 ### Technical Contributions
 
 - **Component Library:** Led the development of a reusable component library using
   Storybook and TypeScript, establishing consistent UI patterns and components shared
-  across **5 different projects** within the platform.
-- **State Management Modernization:** Replaced Redux with React Context API and
-  react-query, eliminating excessive API calls (~50 per page) through caching and
-  request deduplication — improving load times by 40%.
+  across **5 different projects** within the platform — eliminating the duplicated UI work that was slowing feature delivery.
+- **State Management Modernization:** Field researchers using the platform on mobile devices and tablets with poor connections were experiencing noticeably slow load times due to redundant API calls. I replaced Redux with React Context API and react-query, eliminating excessive API calls (~50 per page) through caching and request deduplication — improving load times by 40%.
 - **Testing Infrastructure:** Established testing best practices and infrastructure,
   creating patterns for unit, integration, and component tests adopted as team standards.
   Raised coverage from **80% to 95%** and reduced post-release bugs by 70%.
@@ -54,11 +49,9 @@ health data at scale.
 
 ### Key Achievements
 
-- Built a Storybook component library providing consistent UI patterns across 5 projects,
-  significantly improving development velocity and design consistency.
+- Cut API calls by 50%, noticeably improving load times for field researchers on mobile.
+- Accelerated feature delivery by giving all 5 projects a shared component library.
 - Raised test coverage from 80% to 95%, reducing post-release bugs by 70%.
-- Reduced API call frequency by 50% and improved load times by 40% through react-query
-  caching and request deduplication.
 - Reduced data fetching errors by 80% through robust cache management and error recovery
   patterns.
 
