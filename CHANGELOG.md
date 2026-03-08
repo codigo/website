@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/codigo/website/compare/v1.17.2...v1.18.0) (2026-03-08)
+
+
+### Features
+
+* **chatbot:** move to layout with session persistence, exclude journal pages ([#100](https://github.com/codigo/website/issues/100)) ([33433d7](https://github.com/codigo/website/commit/33433d7d06f3388e79c685b7c1e9bc7bcaa160c8))
+
 ## [1.17.2](https://github.com/codigo/website/compare/v1.17.1...v1.17.2) (2026-03-08)
 
 
