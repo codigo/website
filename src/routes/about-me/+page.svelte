@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Experience } from '$lib/types';
 	import Timeline from './Timeline.svelte';
-	import Chatbot from '$components/Chatbot.svelte';
 	import { base } from '$app/paths';
 
 	let { data }: { data: { experiences: Experience[] } } = $props();
@@ -134,8 +133,6 @@
 </div>
 
 <!--  end.about-layout -->
-
-<Chatbot />
 
 <style>
 	.about-layout {

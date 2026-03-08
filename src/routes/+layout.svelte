@@ -4,6 +4,7 @@
 	import type { SEOMetadata } from './+layout';
 	import Header from '../components/Header.svelte';
 	import Footer from '../components/Footer.svelte';
+	import Chatbot from '../components/Chatbot.svelte';
 	import type { Snippet } from 'svelte';
 
 	const { data, children } = $props<{
@@ -27,7 +28,7 @@
 			'@type': 'Person',
 			name: 'Mauricio Mercado',
 			url: data.origin,
-			jobTitle: 'Backend & AI Integration Engineer',
+			jobTitle: 'Senior Backend Engineer',
 			sameAs: [
 				'https://www.linkedin.com/in/mauromercado/',
 				'https://github.com/maumercado',
@@ -92,6 +93,9 @@
 	</main>
 
 	<Footer />
+	{#if !page.url.pathname.startsWith('/journal')}
+		<Chatbot />
+	{/if}
 </div>
 
 <style>

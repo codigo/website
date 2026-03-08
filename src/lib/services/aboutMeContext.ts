@@ -79,6 +79,7 @@ export const generateAboutMeContext = async (): Promise<string> => {
 
 	const aboutMeContent = [
 		'About Me\n========\n',
+		'Mauricio Mercado is a Senior Backend Engineer based in Vancouver, Canada, with 15+ years of experience building scalable, high-performing systems. He specializes in Microservices Architecture, Event-Driven Architecture, and Cloud Infrastructure, and has worked across startups and established companies including Coursedog, Telus, and HumanAPI.\n',
 		'Experiences\n-----------\n',
 		formatExperiences(experiences),
 		'Tech Stack\n----------\n',
