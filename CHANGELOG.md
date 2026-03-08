@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/codigo/website/compare/v1.17.1...v1.17.2) (2026-03-08)
+
+
+### Bug Fixes
+
+* **ci:** add content commit type as patch release trigger ([#99](https://github.com/codigo/website/issues/99)) ([87ed3b1](https://github.com/codigo/website/commit/87ed3b15181334b598a3e66e66a8ef49149b8dd0))
+
 ## [1.17.1](https://github.com/codigo/website/compare/v1.17.0...v1.17.1) (2026-03-03)
 
 
