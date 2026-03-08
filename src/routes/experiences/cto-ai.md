@@ -2,7 +2,7 @@
 order: 06
 timeframe: 2020 - 2021
 company: CTO.ai
-description: As Senior Lead Engineer, I built a Developer Collaboration Platform integrating GitHub APIs with DORA metrics, deployed custom Kubernetes monitoring pods, and developed a Go-based sidecar container for real-time performance monitoring — unifying all engineering teams around shared observability.
+description: As Senior Lead Engineer, internal engineering teams were struggling — projects being abandoned, employee churn rising, no visibility into project health. I built a GitHub App integrating DORA metrics (also the company's core product), deployed Go-based sidecar containers for monitoring, and drove open collaboration — giving leadership real-time visibility that reduced the churn.
 next: telus
 ---
 
@@ -28,9 +28,7 @@ Oct 2020 - Apr 2021
 - Microservices
 - Webpack
 
-As Senior Lead Engineer at CTO.ai, I spearheaded the design and implementation of a
-**Developer Collaboration Platform** — an internal tooling system designed to give
-engineering teams visibility into their delivery performance and application health.
+At CTO.ai, engineering teams internally were struggling — projects were being abandoned, developers felt like they were fighting uphill battles, and employee churn was rising. There was no visibility into project health or team performance, and the containers running services had no monitoring. I built the observability platform that gave teams and leadership the visibility they needed — and this DORA metrics dashboard also became the company's core product offering.
 
 ### Technical Contributions
 
@@ -53,8 +51,8 @@ engineering teams visibility into their delivery performance and application hea
 
 ### Key Achievements
 
-- Delivered DORA metrics and container monitoring capabilities, unifying all engineering
-  teams around a shared observability platform.
+- Gave leadership and teams real-time visibility into project health, reducing the sense of working blind that was driving employee churn.
+- Delivered the DORA metrics dashboard that became the company's core product offering to external customers.
 - Implemented real-time monitoring for critical performance indicators across all running
   services.
 - Built and deployed a Go-based sidecar container for optimized data relay in Kubernetes

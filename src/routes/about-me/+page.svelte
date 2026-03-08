@@ -24,15 +24,15 @@
 			<div class="about-me-text">
 				<h2 class="about-me-heading">About Me</h2>
 				<p class="about-me-paragraph">
-					I'm Mauricio Mercado, a Full-Stack Software Architect with 15+ years of experience
-					building scalable, high-performing systems. My journey began in Barranquilla, Colombia,
-					and has led me to Vancouver, Canada, where I now call home.
+					I'm Mauricio Mercado, a Senior Backend Engineer with 15+ years of experience building
+					scalable, high-performing systems. My journey began in Barranquilla, Colombia, and has led
+					me to Vancouver, Canada, where I now call home.
 				</p>
 				<p class="about-me-paragraph">
-					I specialize in Microservices Architecture, System Design, and Cloud Infrastructure,
-					working with technologies like JavaScript, TypeScript, Python, Go, and Rust, using
-					frameworks such as Fastify, Express, Django, and FastAPI, on cloud platforms like AWS,
-					GCP, Pulumi, and Cloudflare.
+					I specialize in Microservices Architecture, Event-Driven Architecture, and Cloud
+					Infrastructure, working with technologies like JavaScript, TypeScript, Python, Go, and
+					Rust, using frameworks such as Fastify, Express, Django, and FastAPI, on cloud platforms
+					like AWS, GCP, Pulumi, and Cloudflare.
 				</p>
 				<p class="about-me-paragraph">
 					Throughout my career at companies like Coursedog, Telus, and HumanAPI, I've delivered
@@ -94,8 +94,8 @@
 				AWS, GCP, Pulumi, Cloudflare, Docker, Kubernetes, Terraform, GitHub Actions, Ansible.
 			</li>
 			<li>
-				<strong>Specialties:</strong> Microservices Architecture, System Design, Cloud Infrastructure,
-				CI/CD, Modular Monoliths, Event-Driven Architecture, API Design, and Event-Sourcing.
+				<strong>Specialties:</strong> Microservices Architecture, Event-Driven Architecture, Cloud Infrastructure,
+				CI/CD, Modular Monoliths, High-Performance Systems, API Design, and Event-Sourcing.
 			</li>
 		</ul>
 	</section>

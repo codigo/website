@@ -2,7 +2,7 @@
 order: 02
 timeframe: 2013 - 2015
 company: Selfie INC
-description: As Principal Software Engineer and Architect, I designed the full microservices architecture for a social platform handling 1M+ daily user interactions — using ZeroMQ for async messaging, MongoDB + Redis for data, Twilio for 2FA, and achieving 3x scalability improvement with ~200ms timeline loads.
+description: As Principal Software Engineer, users were churning saying 'the app doesn't work' — timeline loads took ~1s and when Wiz Khalifa joined, the spike in activity made the sluggishness highly visible. I redesigned the architecture around CQRS with async queues and fan-out caching — bringing loads from ~1s to ~200ms, scaling capacity 3x, and stopping the user churn.
 next: freelance
 previous: humanapi
 ---
@@ -31,9 +31,7 @@ May 2013 - Jul 2015
 - SQL
 - Microservices
 
-At Selfie INC, I architected and led the full implementation of a microservices-based
-social platform handling **1M+ daily user interactions** — designing the system from
-the ground up using event-driven patterns, CQRS, and domain-driven design.
+At Selfie INC, users were churning and saying 'the app doesn't work' — timeline loads took ~1s and the platform couldn't handle traffic spikes. When Wiz Khalifa joined and drove a wave of activity, the sluggishness became highly visible, accelerating user drop-off by the hundreds. I redesigned the architecture to handle burst traffic and bring the experience back to life.
 
 ### System Architecture
 
@@ -89,8 +87,7 @@ while maintaining performance.
 
 ### Key Achievements
 
-- Architected platform handling 1M+ daily interactions with 99.9% uptime.
-- Reduced timeline load from ~1s to ~200ms; achieved 3x scalability through CQRS and
-  fan-out caching.
+- Stopped user churn caused by sluggish timelines — some users who had left came back after performance improvements.
+- Brought timeline loads from ~1s to ~200ms; scaled capacity 3x through CQRS and fan-out caching.
 - Reduced infrastructure costs by 25% through intelligent auto-scaling.
 - Deployment time reduced by 75%, human error by 95%.
