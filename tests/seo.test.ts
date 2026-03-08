@@ -103,7 +103,7 @@ test.describe('SEO Tests', () => {
 		const data = JSON.parse(jsonLd!);
 		expect(data['@type']).toBe('Person');
 		expect(data.name).toBe('Mauricio Mercado');
-		expect(data.jobTitle).toBe('Backend & AI Integration Engineer');
+		expect(data.jobTitle).toBe('Senior Backend Engineer');
 	});
 
 	test('no duplicate title tags', async ({ page }) => {
