@@ -23,12 +23,14 @@ Apr 2019 - Sep 2020
 - Next.js
 - GCP
 - AWS
+- Go
 - Kubernetes
 - HashiCorp Vault
 - HashiCorp Consul
 - PostgreSQL
 - SQL
 - Firebase
+- OAuth2
 - CI/CD (GitHub Actions)
 - Tap
 - Jest
@@ -38,7 +40,7 @@ At Telus, deployments took ~4 hours, secrets were being shared in chat messages 
 
 ### Cloud Deployment Framework
 
-Previously, teams copied a Kubernetes template and modified it for their needs. When the platform team updated the template, every team had to rebase — a painful, error-prone process. I replaced this with a **Fastify-based npm package**, so staying current became as simple as running `npm update`.
+Previously, teams copied a Kubernetes template and modified it for their needs. When the platform team updated the template, every team had to rebase — a painful, error-prone process. I replaced this with a **Fastify-based application framework** — think of it like SvelteKit for Telus's cloud services. Teams could `npm create` to scaffold a new project and `npm update` to pull in the latest changes. The framework bundled secrets management (HashiCorp Vault), internal Telus linting rules, config, and deployment tooling as npm packages, so staying current was automatic.
 
 - Architected a **Fastify-based Node.js framework** providing a clean abstraction over
   cloud-specific APIs, enabling seamless deployment across both **GCP and AWS**
@@ -67,6 +69,22 @@ Secrets were being shared in Slack, stored in .env files, and there were inciden
   error and credential leakage.
 - Standardized secret management practices across all development teams.
 
+### Auth-Aware API Gateway
+
+Telus served different applications through both public-facing and internal services, but authentication was handled inconsistently and access control lacked central enforcement. I built an auth-aware API gateway that routed traffic to the proper services, kept and forwarded authentication where needed, and served as a centralized door to allow or disallow access depending on the requesting service.
+
+- Centralized authentication for **20+ internal and public-facing services** using TypeScript, Fastify, and OAuth2.
+- Enforced access control and standardized auth forwarding across all services.
+- Eliminated inconsistent authentication handling that had been a recurring source of security gaps.
+
+### Event-Sourced CI/CD Pipeline
+
+The deployment pipeline lacked auditability and crash recovery, failing SOC2 compliance requirements. I designed an event-sourced CI/CD pipeline where a git push flowed through an append-only event log: `DeploymentTriggered → LintingPassed → BuildPassed → KubernetesManifestGenerated → SecretsSuccessfullyInjected → DeployedToStaging → ProductionPromotionApproved → DeployedToProduction`.
+
+- The write side (CQRS commands) handled each step independently and emitted events; the read side maintained optimized read models for a developer dashboard showing pipeline status.
+- Provided **full auditability** (SOC2/security audit compliance), **crash recovery** (the system could resume from the last successful event after a server reboot), and **time-travel debugging** (replaying events to recreate failure states).
+- Processed **~30+ deployments/day** using TypeScript, Go, GCP, and AWS.
+
 ### Testing Infrastructure
 
 - Established testing standards using **nock.js** and **node-tap**.
@@ -77,9 +95,9 @@ Secrets were being shared in Slack, stored in .env files, and there were inciden
 
 ### Key Achievements
 
-- Deployment time reduced by 80%; zero-downtime releases enabled across AWS and GCP.
-- 95% of secrets now auto-rotated; secret lifespan cut from 180 to 30 days.
-- Eliminated secret leakage via chat messages and env files; credentials no longer appearing in repos.
-- Staying current became as simple as `npm update` for 15+ teams.
-- Audit trail coverage improved by 300%.
-- Framework adopted by 15+ teams; supported 200% growth in deployment volume.
+- Cut deployment time by 80% by architecting a Fastify-based application framework with `npm create`/`npm update` workflow — enabling zero-downtime releases across AWS and GCP.
+- Eliminated secret leakage by integrating HashiCorp Vault with Kubernetes secrets — achieving 95% automated rotation (lifespan cut from 180 to 30 days), improving audit trail coverage by 300%, and removing manual secret-setting from env files and chat messages.
+- Drove adoption across 15+ teams by packaging the framework as npm packages with bundled linting, config, and secrets tooling — supporting 200% growth in deployment volume.
+- Reduced onboarding time by 50% by establishing testing standards with nock.js and node-tap and creating a shared library of infrastructure mocks.
+- Centralized authentication for 20+ services by building an auth-aware API gateway with OAuth2 — eliminating inconsistent auth handling that had been a recurring source of security gaps.
+- Achieved SOC2-compliant deployment auditability by designing an event-sourced CI/CD pipeline processing ~30+ deployments/day — enabling crash recovery and time-travel debugging across GCP and AWS.

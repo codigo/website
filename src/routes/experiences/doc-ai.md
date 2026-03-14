@@ -32,28 +32,25 @@ At doc.ai (acquired by Sharecare), leadership was pressuring the team to ship fe
 
 - **Component Library:** Led the development of a reusable component library using
   Storybook and TypeScript, establishing consistent UI patterns and components shared
-  across **5 different projects** within the platform — eliminating the duplicated UI work that was slowing feature delivery.
-- **State Management Modernization:** Field researchers using the platform on mobile devices and tablets with poor connections were experiencing noticeably slow load times due to redundant API calls. I replaced Redux with React Context API and react-query, eliminating excessive API calls (~50 per page) through caching and request deduplication — improving load times by 40%.
+  across **5 different projects** within the platform — eliminating duplicated CSS and
+  components that were slowing feature delivery, and **cutting feature delivery time
+  from ~3 days to under 1 day**.
+- **State Management Modernization:** Field researchers using the platform on mobile devices and tablets with poor connections were experiencing noticeably slow load times due to redundant API calls. I replaced Redux with React Context API and react-query, eliminating excessive API calls (~50 per page) through caching and request deduplication — cutting API calls by 50%, improving load times by 40%, and reducing data fetching errors by 80%.
 - **Testing Infrastructure:** Established testing best practices and infrastructure,
   creating patterns for unit, integration, and component tests adopted as team standards.
   Raised coverage from **80% to 95%** and reduced post-release bugs by 70%.
 - **Performance Optimization:** Implemented advanced React patterns including custom
   hooks for business logic reuse, higher-order components for cross-cutting concerns,
   and compound component patterns for composability.
-- **Data Synchronization:** Developed efficient data synchronization solutions using
-  react-query and React Context, implementing cache management and error recovery
-  patterns that reduced data fetching errors by 80%.
 - **Mentorship:** Mentored junior developers on TypeScript, React best practices, and
   test-driven development approaches. Led comprehensive code reviews and established
   frontend development standards.
 
 ### Key Achievements
 
-- Cut API calls by 50%, noticeably improving load times for field researchers on mobile.
-- Accelerated feature delivery by giving all 5 projects a shared component library.
-- Raised test coverage from 80% to 95%, reducing post-release bugs by 70%.
-- Reduced data fetching errors by 80% through robust cache management and error recovery
-  patterns.
+- Cut API calls by 50% and reduced data fetching errors by 80% by replacing Redux with React Context + react-query caching — improving load times by 40% for field researchers on mobile and eliminating brittle data synchronization.
+- Cut feature delivery time from ~3 days to under 1 day by eliminating duplicated CSS and components across 5 projects using a shared Storybook design system.
+- Reduced post-release bugs by 70% by establishing testing infrastructure and patterns that raised coverage from 80% to 95%.
 
 ### Domain Expertise Gained
 
