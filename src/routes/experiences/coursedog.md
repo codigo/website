@@ -2,7 +2,7 @@
 order: 10
 timeframe: '2023 - Present'
 company: Coursedog
-description: As Senior Software Engineer, I stabilized 15+ university ERP integrations by improving field-level data handling, configurable retries, and dynamic header injection — cutting support tickets from ~6/week to 1-2/week. I also proposed and built the @sisField and @sisEntity TypeScript decorator system, giving sales, marketing, and product teams live visibility into our integration capabilities and field directionality.
+description: As Senior Software Engineer, I stabilized 15+ university ERP integrations by improving field-level data handling, configurable retries, and dynamic header injection — cutting support tickets from ~6/week to 1-2/week. I also proposed and built the @sisField and @sisEntity TypeScript decorator system and led the Data Lineage feature with an LLM-powered chat interface, reducing data engineer questions by ~40% across 300+ institutions.
 previous: codigo
 next: doc-ai
 ---
@@ -23,6 +23,7 @@ April 2023 - Present
 - Ellucian Banner
 - OAuth2
 - CI/CD (GitHub Actions)
+- LLM / OpenAI API
 
 At Coursedog, I play a pivotal role in the integration layer connecting university ERP systems with Coursedog's academic planning platform. When I joined, support for the existing 15+ university integrations was poor — I personally worked through 50+ support tickets, and the platform was generating ~6 tickets per week from universities experiencing sync issues. I also identified that internal teams had no reliable way to understand our integration capabilities, leading me to propose the @sisField decorator system.
 
@@ -44,10 +45,11 @@ I designed the `@sisField` decorator, which annotates each field on a formatter 
 - **Description** — a human-readable explanation of the field's purpose
 - **Data examples** — concrete sample values to aid integration setup and debugging
 
-The system was designed to be **easily extensible** — new metadata properties could be
-added to the decorator schema without breaking existing formatter definitions.
+The system was designed to be **easily extensible** — new metadata properties could be added to the decorator schema without breaking existing formatter definitions. By exposing a dedicated API endpoint that introspects formatter classes at runtime, I enabled the platform to surface rich field-level metadata directly to users — replacing the stale Salesforce document as the single source of truth for integration capabilities.
 
-By exposing a dedicated API endpoint that introspects formatter classes at runtime, I enabled the platform to **surface rich field-level metadata directly to users** — giving university integration teams visibility into exactly what data flows through each formatter, which fields are bidirectional, and what to expect at the destination. This eliminated repetitive questions from internal teams, gave sales and marketing immediate visibility into integration capabilities, and sparked new product ideas.
+#### Data Lineage Feature (RFC, API, and UI)
+
+Data engineers frequently asked repetitive questions about where source fields originated, how they mapped through formatters, and whether transformations were applied — accounting for ~40% of internal integration questions. I led the end-to-end Data Lineage feature from RFC through API and UI delivery, building an LLM-powered chat interface that lets users trace any field from its ERP source through the Coursedog platform. The system leverages the existing `@sisField` and `@sisEntity` decorator metadata to provide live, self-updating source field traceability across 300+ institutions — replacing the stale Salesforce document entirely and reducing data engineer questions by ~40%.
 
 ---
 
@@ -81,29 +83,15 @@ on streamlining data management and improving user experience across multiple mo
 
 ### Key Achievements
 
-#### @sisField Decorator System
-
-Designed the TypeScript decorator system, enabling runtime introspection of ERP formatter
-field metadata (source, bidirectionality, destination, description, examples) and
-surfacing it to users through a dedicated API endpoint.
-
-#### University Integration Scale
-
-Enabled seamless integrations for **15+ universities** through automatic, metadata-driven
-field mapping across heterogeneous ERP environments.
-
-#### Support Ticket Reduction
-
-Reduced integration support tickets from **~6/week to 1–2/week** through improved field-level data handling, configurable retries, dynamic header injection, and real-time monitoring.
-
-#### Search Performance
-
-Cut user query time by **40%** with a purpose-built Vue.js search interface.
+- Gave sales, marketing, and product teams live visibility into integration capabilities by designing the @sisField/@sisEntity TypeScript decorator system with a runtime introspection API — replacing a stale, manually-updated Salesforce document as the single source of truth.
+- Reduced integration support tickets from **~6/week to 1–2/week** by improving field-level data handling, adding configurable retries, and implementing dynamic header injection across 15+ university ERP integrations.
+- Reduced data engineer questions by **~40%** across 300+ institutions by leading the end-to-end Data Lineage feature — an LLM-powered chat interface that traces any field from its ERP source through the Coursedog platform, leveraging existing decorator metadata for live, self-updating traceability.
+- Cut user query time by **40%** by building a Vue.js search interface for historical CSV uploads.
 
 ---
 
 ### Skills Deepened
 
 Deep expertise in educational technology integrations, ERP data models, TypeScript
-decorator patterns, and API introspection design. Strong proficiency in TypeScript
-backend development, SQL, and Vue.js front-end engineering.
+decorator patterns, API introspection design, and LLM-powered feature development.
+Strong proficiency in TypeScript backend development, SQL, and Vue.js front-end engineering.

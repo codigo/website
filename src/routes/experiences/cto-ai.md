@@ -27,6 +27,7 @@ Oct 2020 - Apr 2021
 - SQL
 - Microservices
 - Webpack
+- Slack API
 
 At CTO.ai, engineering teams internally were struggling — projects were being abandoned, developers felt like they were fighting uphill battles, and employee churn was rising. There was no visibility into project health or team performance, and the containers running services had no monitoring. I built the observability platform that gave teams and leadership the visibility they needed — and this DORA metrics dashboard also became the company's core product offering.
 
@@ -43,6 +44,7 @@ At CTO.ai, engineering teams internally were struggling — projects were being 
 - **Go Sidecar Container:** Developed a bespoke sidecar container in **Go** to optimize
   data relay processes between application containers and the monitoring layer, enhancing
   overall system efficiency.
+- **Go Event Queue:** DevOps workflows were manual and disruptive, requiring engineers to context-switch for routine operations. Built a Go event queue processing **50+ daily Slack-driven commands** (deployments, restarts, metrics requests) with async responses — eliminating manual DevOps workflows and freeing engineers from context-switching for routine operations.
 - **Open Collaboration Culture:** Championed an open-source collaboration model across
   engineering teams, integrating multiple APIs and fostering a more collaborative and
   transparent developer ecosystem.
@@ -51,9 +53,6 @@ At CTO.ai, engineering teams internally were struggling — projects were being 
 
 ### Key Achievements
 
-- Gave leadership and teams real-time visibility into project health, reducing the sense of working blind that was driving employee churn.
-- Delivered the DORA metrics dashboard that became the company's core product offering to external customers.
-- Implemented real-time monitoring for critical performance indicators across all running
-  services.
-- Built and deployed a Go-based sidecar container for optimized data relay in Kubernetes
-  environments.
+- Reduced employee churn by giving leadership real-time visibility into project health through a GitHub-integrated DORA metrics platform — which also became the company's core product offering to external customers.
+- Enabled real-time performance monitoring across all running services by deploying custom Kubernetes pods with a Go-based sidecar container — tracking network latency, memory, and CPU usage.
+- Eliminated manual DevOps workflows by building a Go event queue processing 50+ daily Slack-driven commands — freeing engineers from context-switching for routine operations.
