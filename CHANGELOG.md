@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/codigo/website/compare/v1.18.1...v1.18.2) (2026-03-15)
+
+
+### Bug Fixes
+
+* move resume PDF to static directory so it is served correctly ([#102](https://github.com/codigo/website/issues/102)) ([2d507d0](https://github.com/codigo/website/commit/2d507d0ff4c429eb1ff30aaedba9fa6d08b8c31a))
+
 ## [1.18.1](https://github.com/codigo/website/compare/v1.18.0...v1.18.1) (2026-03-14)
 
 # [1.18.0](https://github.com/codigo/website/compare/v1.17.2...v1.18.0) (2026-03-08)
