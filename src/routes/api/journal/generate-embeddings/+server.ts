@@ -4,6 +4,7 @@ import { generateAISummary, generatePostEmbedding } from '$lib/services/embeddin
 import pb, { PocketBaseSingleton } from '$lib/services/pb';
 import type { Post } from '$lib/types';
 import { SECRET_OPENAI_API_KEY } from '$env/static/private';
+import { addToIndex } from '$lib/services/vectorIndex';
 
 /**
  * POST endpoint to generate AI summaries and embeddings for posts.
@@ -134,6 +135,19 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 					ai_summary: aiSummary,
 					embedding: embedding
 				});
+
+				// Update the in-memory HNSW index so this post is immediately searchable
+				if (post.publish) {
+					addToIndex(post.id, embedding, {
+						id: post.id,
+						slug: post.slug,
+						title: post.title,
+						summary: post.summary,
+						tags: post.tags,
+						created: post.created,
+						photo_metadata: post.photo_metadata
+					});
+				}
 
 				postLog.info('Post updated successfully');
 				results.success++;
