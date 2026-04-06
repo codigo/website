@@ -1,3 +1,10 @@
+## [1.18.3](https://github.com/codigo/website/compare/v1.18.2...v1.18.3) (2026-04-06)
+
+
+### Bug Fixes
+
+* update HNSW index immediately after embedding generation ([88512ab](https://github.com/codigo/website/commit/88512abd3fd82814f5576c6d1a099a902a12f602))
+
 ## [1.18.2](https://github.com/codigo/website/compare/v1.18.1...v1.18.2) (2026-03-15)
 
 
