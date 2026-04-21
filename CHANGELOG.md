@@ -1,65 +1,56 @@
 ## [1.18.3](https://github.com/codigo/website/compare/v1.18.2...v1.18.3) (2026-04-06)
 
-
 ### Bug Fixes
 
-* update HNSW index immediately after embedding generation ([88512ab](https://github.com/codigo/website/commit/88512abd3fd82814f5576c6d1a099a902a12f602))
+- update HNSW index immediately after embedding generation ([88512ab](https://github.com/codigo/website/commit/88512abd3fd82814f5576c6d1a099a902a12f602))
 
 ## [1.18.2](https://github.com/codigo/website/compare/v1.18.1...v1.18.2) (2026-03-15)
 
-
 ### Bug Fixes
 
-* move resume PDF to static directory so it is served correctly ([#102](https://github.com/codigo/website/issues/102)) ([2d507d0](https://github.com/codigo/website/commit/2d507d0ff4c429eb1ff30aaedba9fa6d08b8c31a))
+- move resume PDF to static directory so it is served correctly ([#102](https://github.com/codigo/website/issues/102)) ([2d507d0](https://github.com/codigo/website/commit/2d507d0ff4c429eb1ff30aaedba9fa6d08b8c31a))
 
 ## [1.18.1](https://github.com/codigo/website/compare/v1.18.0...v1.18.1) (2026-03-14)
 
 # [1.18.0](https://github.com/codigo/website/compare/v1.17.2...v1.18.0) (2026-03-08)
 
-
 ### Features
 
-* **chatbot:** move to layout with session persistence, exclude journal pages ([#100](https://github.com/codigo/website/issues/100)) ([33433d7](https://github.com/codigo/website/commit/33433d7d06f3388e79c685b7c1e9bc7bcaa160c8))
+- **chatbot:** move to layout with session persistence, exclude journal pages ([#100](https://github.com/codigo/website/issues/100)) ([33433d7](https://github.com/codigo/website/commit/33433d7d06f3388e79c685b7c1e9bc7bcaa160c8))
 
 ## [1.17.2](https://github.com/codigo/website/compare/v1.17.1...v1.17.2) (2026-03-08)
 
-
 ### Bug Fixes
 
-* **ci:** add content commit type as patch release trigger ([#99](https://github.com/codigo/website/issues/99)) ([87ed3b1](https://github.com/codigo/website/commit/87ed3b15181334b598a3e66e66a8ef49149b8dd0))
+- **ci:** add content commit type as patch release trigger ([#99](https://github.com/codigo/website/issues/99)) ([87ed3b1](https://github.com/codigo/website/commit/87ed3b15181334b598a3e66e66a8ef49149b8dd0))
 
 ## [1.17.1](https://github.com/codigo/website/compare/v1.17.0...v1.17.1) (2026-03-03)
 
-
 ### Bug Fixes
 
-* improve markdown hierarchy and structure in experience files ([2e589af](https://github.com/codigo/website/commit/2e589af11df0ac7450419acd77ab8df9db6915a4))
+- improve markdown hierarchy and structure in experience files ([2e589af](https://github.com/codigo/website/commit/2e589af11df0ac7450419acd77ab8df9db6915a4))
 
 # [1.17.0](https://github.com/codigo/website/compare/v1.16.2...v1.17.0) (2026-03-03)
 
-
 ### Bug Fixes
 
-* update about-me skill categories test to match current page content ([77e5069](https://github.com/codigo/website/commit/77e5069c18a5185944de3cefdf7211fec417ea03))
-
+- update about-me skill categories test to match current page content ([77e5069](https://github.com/codigo/website/commit/77e5069c18a5185944de3cefdf7211fec417ea03))
 
 ### Features
 
-* update about-me page and experience descriptions with detailed content ([80edb76](https://github.com/codigo/website/commit/80edb76f1afcbb1d11e7e40cc2916e88644ac217))
+- update about-me page and experience descriptions with detailed content ([80edb76](https://github.com/codigo/website/commit/80edb76f1afcbb1d11e7e40cc2916e88644ac217))
 
 ## [1.16.2](https://github.com/codigo/website/compare/v1.16.1...v1.16.2) (2026-03-01)
 
-
 ### Bug Fixes
 
-* replace pico CSS vars with theme vars in SearchBar and update profile image ([b40ee52](https://github.com/codigo/website/commit/b40ee52e55094f59c84a89ce2d8cd2a307db335a))
+- replace pico CSS vars with theme vars in SearchBar and update profile image ([b40ee52](https://github.com/codigo/website/commit/b40ee52e55094f59c84a89ce2d8cd2a307db335a))
 
 ## [1.16.1](https://github.com/codigo/website/compare/v1.16.0...v1.16.1) (2026-02-28)
 
-
 ### Bug Fixes
 
-* pin image tags to prevent version drift on redeploy ([8041d60](https://github.com/codigo/website/commit/8041d60bbea5c78545dcb692d68e3c2d1f15f5b2))
+- pin image tags to prevent version drift on redeploy ([8041d60](https://github.com/codigo/website/commit/8041d60bbea5c78545dcb692d68e3c2d1f15f5b2))
 
 # [1.16.0](https://github.com/codigo/website/compare/v1.15.0...v1.16.0) (2026-02-22)
 
