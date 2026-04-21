@@ -140,5 +140,5 @@
 		"test:watch": "npm run test:integration && npm run test:unit:watch"
 	},
 	"type": "module",
-	"version": "1.18.3"
+	"version": "1.19.0"
 }
