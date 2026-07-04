@@ -49,7 +49,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.SEMANTIC_RELEASE_PAT }}
+          fetch-depth: 0
+          token: ${{ secrets.SEMANTIC_RELEASE_PAT || github.token }}
           persist-credentials: true
       - name: Semantic Release
         id: semantic
@@ -63,7 +64,7 @@ jobs:
             @semantic-release/npm
             @semantic-release/git
         env:
-          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_PAT }}
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_PAT || github.token }}
 
   build:
     name: 'Build and Push Docker Image'
