@@ -4,7 +4,7 @@ import { generateAISummary, generatePostEmbedding } from '$lib/services/embeddin
 import pb, { PocketBaseSingleton } from '$lib/services/pb';
 import type { Post } from '$lib/types';
 import { SECRET_OPENAI_API_KEY } from '$env/static/private';
-import { addToIndex } from '$lib/services/vectorIndex';
+import { addToIndex, rebuildIndex } from '$lib/services/vectorIndex';
 
 /**
  * POST endpoint to generate AI summaries and embeddings for posts.
@@ -52,9 +52,21 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 			// Check if we should process this post
 			if (!regenerate && post.embedding && post.ai_summary) {
+				if (post.publish) {
+					addToIndex(post.id, post.embedding, {
+						id: post.id,
+						slug: post.slug,
+						title: post.title,
+						summary: post.summary,
+						tags: post.tags,
+						created: post.created,
+						photo_metadata: post.photo_metadata
+					});
+				}
+
 				return json({
 					success: true,
-					message: 'Post already has embeddings',
+					message: 'Post already has embeddings and was synced to the search index',
 					processed: 0,
 					total: 1
 				});
@@ -89,9 +101,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		log.info({ postsToProcess: postsToProcess.length }, 'Posts to process');
 
 		if (postsToProcess.length === 0) {
+			await rebuildIndex();
+
 			return json({
 				success: true,
-				message: 'No posts need embedding generation',
+				message: 'No posts need embedding generation; search index rebuilt',
 				processed: 0,
 				total: totalPosts
 			});
