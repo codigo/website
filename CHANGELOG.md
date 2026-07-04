@@ -1,14 +1,12 @@
 # [1.19.0](https://github.com/codigo/website/compare/v1.18.3...v1.19.0) (2026-04-21)
 
-
 ### Bug Fixes
 
-* correct Go syntax highlighting import in journal page ([#103](https://github.com/codigo/website/issues/103)) ([150b219](https://github.com/codigo/website/commit/150b219b680195c647ec27f5c8ff346f46150f98))
-
+- correct Go syntax highlighting import in journal page ([#103](https://github.com/codigo/website/issues/103)) ([150b219](https://github.com/codigo/website/commit/150b219b680195c647ec27f5c8ff346f46150f98))
 
 ### Features
 
-* add Go syntax highlighting to journal page ([4d3e1ab](https://github.com/codigo/website/commit/4d3e1ab9c4e67cb632d2de199cac31ac3ae522a5))
+- add Go syntax highlighting to journal page ([4d3e1ab](https://github.com/codigo/website/commit/4d3e1ab9c4e67cb632d2de199cac31ac3ae522a5))
 
 ## [1.18.3](https://github.com/codigo/website/compare/v1.18.2...v1.18.3) (2026-04-06)
 

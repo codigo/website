@@ -10,7 +10,8 @@ const mocks = vi.hoisted(() => ({
 	ensureAdminAuth: vi.fn(),
 	generateAISummary: vi.fn(),
 	generatePostEmbedding: vi.fn(),
-	addToIndex: vi.fn()
+	addToIndex: vi.fn(),
+	rebuildIndex: vi.fn()
 }));
 
 vi.mock('$env/static/private', () => ({ SECRET_OPENAI_API_KEY: 'test-api-key' }));
@@ -36,7 +37,10 @@ vi.mock('$lib/services/embeddings', () => ({
 	generatePostEmbedding: mocks.generatePostEmbedding
 }));
 
-vi.mock('$lib/services/vectorIndex', () => ({ addToIndex: mocks.addToIndex }));
+vi.mock('$lib/services/vectorIndex', () => ({
+	addToIndex: mocks.addToIndex,
+	rebuildIndex: mocks.rebuildIndex
+}));
 
 import { POST } from './+server';
 
@@ -89,11 +93,13 @@ beforeEach(() => {
 	mocks.generateAISummary.mockReset();
 	mocks.generatePostEmbedding.mockReset();
 	mocks.addToIndex.mockReset();
+	mocks.rebuildIndex.mockReset();
 
 	mocks.update.mockResolvedValue({});
 	mocks.ensureAdminAuth.mockResolvedValue(undefined);
 	mocks.generateAISummary.mockResolvedValue('AI generated summary');
 	mocks.generatePostEmbedding.mockResolvedValue(MOCK_EMBEDDING);
+	mocks.rebuildIndex.mockResolvedValue(undefined);
 });
 
 describe('POST /api/journal/generate-embeddings', () => {
@@ -133,7 +139,7 @@ describe('POST /api/journal/generate-embeddings', () => {
 			expect(mocks.addToIndex).not.toHaveBeenCalled();
 		});
 
-		it('returns early without calling addToIndex when post already has embeddings', async () => {
+		it('syncs a published post to the index when it already has embeddings', async () => {
 			mocks.getOne.mockResolvedValue(
 				makePost({ ai_summary: 'existing', embedding: MOCK_EMBEDDING })
 			);
@@ -145,7 +151,31 @@ describe('POST /api/journal/generate-embeddings', () => {
 
 			const body = await response.json();
 			expect(body.processed).toBe(0);
-			expect(body.message).toBe('Post already has embeddings');
+			expect(body.message).toBe('Post already has embeddings and was synced to the search index');
+			expect(mocks.addToIndex).toHaveBeenCalledOnce();
+			expect(mocks.addToIndex).toHaveBeenCalledWith('post-1', MOCK_EMBEDDING, {
+				id: 'post-1',
+				slug: 'test-post',
+				title: 'Test Post',
+				summary: 'A test post',
+				tags: 'test, vitest',
+				created: '2024-01-01',
+				photo_metadata: {}
+			});
+		});
+
+		it('does not sync an unpublished post that already has embeddings', async () => {
+			mocks.getOne.mockResolvedValue(
+				makePost({ publish: false, ai_summary: 'existing', embedding: MOCK_EMBEDDING })
+			);
+
+			const response = await POST({
+				request: makeRequest({ postId: 'post-1' }),
+				locals: mockLocals
+			} as Parameters<typeof POST>[0]);
+
+			const body = await response.json();
+			expect(body.processed).toBe(0);
 			expect(mocks.addToIndex).not.toHaveBeenCalled();
 		});
 
@@ -201,6 +231,23 @@ describe('POST /api/journal/generate-embeddings', () => {
 				MOCK_EMBEDDING,
 				expect.objectContaining({ id: 'post-1' })
 			);
+		});
+
+		it('rebuilds the index when no posts need embedding generation', async () => {
+			mocks.getFullList.mockResolvedValue([
+				makePost({ id: 'post-1', ai_summary: 'existing', embedding: MOCK_EMBEDDING })
+			]);
+
+			const response = await POST({
+				request: makeRequest({}),
+				locals: mockLocals
+			} as Parameters<typeof POST>[0]);
+
+			const body = await response.json();
+			expect(body.processed).toBe(0);
+			expect(body.message).toBe('No posts need embedding generation; search index rebuilt');
+			expect(mocks.rebuildIndex).toHaveBeenCalledOnce();
+			expect(mocks.addToIndex).not.toHaveBeenCalled();
 		});
 	});
 
