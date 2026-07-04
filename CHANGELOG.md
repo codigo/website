@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/codigo/website/compare/v1.19.0...v1.19.1) (2026-07-04)
+
+
+### Bug Fixes
+
+* sync existing embeddings into search index ([#106](https://github.com/codigo/website/issues/106)) ([6d95e3a](https://github.com/codigo/website/commit/6d95e3a80dd39368e5a74469d5f3a9d07af93908))
+
 # [1.19.0](https://github.com/codigo/website/compare/v1.18.3...v1.19.0) (2026-04-21)
 
 ### Bug Fixes
