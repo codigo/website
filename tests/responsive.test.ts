@@ -39,6 +39,16 @@ test.describe('Responsive Design', () => {
 			// Form should not exceed viewport width
 			expect(box!.width).toBeLessThanOrEqual(375);
 		});
+
+		test('contact title starts below fixed header on mobile', async ({ page }) => {
+			await page.goto('/contact');
+			const headerBox = await page.locator('.header').boundingBox();
+			const titleBox = await page.locator('.contact-title').boundingBox();
+
+			expect(headerBox).not.toBeNull();
+			expect(titleBox).not.toBeNull();
+			expect(titleBox!.y).toBeGreaterThanOrEqual(headerBox!.y + headerBox!.height);
+		});
 	});
 
 	test.describe('Desktop viewport (1280x720)', () => {
@@ -57,6 +67,16 @@ test.describe('Responsive Design', () => {
 			const style = await skillsList.evaluate((el) => getComputedStyle(el).gridTemplateColumns);
 			const columns = style.split(' ').filter((v) => v !== '');
 			expect(columns.length).toBe(2);
+		});
+
+		test('journal search starts below fixed header on desktop', async ({ page }) => {
+			await page.goto('/journal/page/1');
+			const headerBox = await page.locator('.header').boundingBox();
+			const searchBox = await page.locator('.search-wrapper').boundingBox();
+
+			expect(headerBox).not.toBeNull();
+			expect(searchBox).not.toBeNull();
+			expect(searchBox!.y).toBeGreaterThanOrEqual(headerBox!.y + headerBox!.height);
 		});
 	});
 });

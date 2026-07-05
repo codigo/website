@@ -109,7 +109,11 @@
 	.main {
 		max-width: var(--max-width);
 		margin: 0 auto;
-		padding-top: 4rem;
+		padding-top: var(--header-offset, 12rem);
+	}
+
+	:root {
+		--header-offset: 12rem;
 	}
 
 	@media (max-width: 1200px) {
@@ -135,6 +139,7 @@
 	@media (max-width: 600px) {
 		:root {
 			--max-width: 50rem;
+			--header-offset: 6.4rem;
 		}
 	}
 	@media (max-width: 500px) {

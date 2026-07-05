@@ -197,7 +197,7 @@
 
 		.main-nav {
 			justify-content: flex-end;
-			padding-bottom: 0.8rem;
+			padding: 0.8rem 0;
 		}
 
 		.hamburger-menu {
