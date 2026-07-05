@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/codigo/website/compare/v1.19.1...v1.19.2) (2026-07-05)
+
+
+### Bug Fixes
+
+* prevent header overlapping page content ([#107](https://github.com/codigo/website/issues/107)) ([aa19b8f](https://github.com/codigo/website/commit/aa19b8fdb32d4d6b0c60b06dd5c1a9f2e14617e8))
+
 ## [1.19.1](https://github.com/codigo/website/compare/v1.19.0...v1.19.1) (2026-07-04)
 
 
