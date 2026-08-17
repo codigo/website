@@ -65,13 +65,7 @@
 		left: 2rem;
 		width: 2px;
 		height: calc(100% + 3.6rem);
-		background: linear-gradient(
-			to bottom,
-			transparent 0%,
-			rgba(255, 255, 255, 0.15) 3%,
-			rgba(255, 255, 255, 0.15) 80%,
-			transparent 100%
-		);
+		background: rgba(255, 255, 255, 0.15);
 	}
 
 	.timeline-entry {
@@ -85,7 +79,7 @@
 		margin-left: 4rem;
 		margin-bottom: 0.6rem;
 		font-size: var(--theme-font-size-small);
-		color: var(--theme-font-secondary);
+		color: var(--theme-font-default);
 		white-space: nowrap;
 	}
 

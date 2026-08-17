@@ -148,6 +148,12 @@
 		}
 	}
 
+	@media (max-width: 768px) {
+		.main {
+			padding-bottom: 8rem;
+		}
+	}
+
 	.nav-transition {
 		display: flex;
 		gap: 1.6rem;

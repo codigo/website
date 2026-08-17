@@ -97,6 +97,12 @@
 		color: var(--theme-font-primary);
 	}
 
+	.main-nav-link:hover,
+	.main-nav-link:active,
+	.main-nav-link:focus-visible {
+		box-shadow: none;
+	}
+
 	.main-nav-link:not(.active) {
 		transition: color 0.25s ease;
 	}

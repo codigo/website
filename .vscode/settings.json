@@ -11,12 +11,19 @@
 		"statusBar.background": "#29e3a3",
 		"statusBar.foreground": "#15202b",
 		"statusBarItem.hoverBackground": "#19c086",
-		"statusBarItem.remoteBackground": "#29e3a3",
+		"statusBarItem.remoteBackground": "#b656e9",
 		"statusBarItem.remoteForeground": "#15202b",
 		"titleBar.activeBackground": "#29e3a3",
-		"titleBar.activeForeground": "#15202b",
+		"titleBar.activeForeground": "#595959",
 		"titleBar.inactiveBackground": "#29e3a399",
-		"titleBar.inactiveForeground": "#15202b99"
+		"titleBar.inactiveForeground": "#15202b99",
+		"activityBarTop.activeBackground": "#56e9b6",
+		"activityBarTop.background": "#56e9b6",
+		"activityBarTop.foreground": "#15202b",
+		"activityBarTop.inactiveForeground": "#15202b99",
+		"commandCenter.foreground": "#595959",
+		"statusBar.debuggingBackground": "#29e3a3",
+		"statusBar.debuggingForeground": "#15202b"
 	},
 	"peacock.color": "#29e3a3",
 	"CodeGPT.apiKey": "OpenAI"

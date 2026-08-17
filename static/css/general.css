@@ -62,7 +62,7 @@ body {
 	font-weight: 400;
 	line-height: 1;
 
-	background: linear-gradient(135deg, #0c1016 0%, #0b0a12 50%, #06080b 100%);
+	background: #0c1016;
 	color: var(--theme-font-default);
 }
 
@@ -157,6 +157,7 @@ strong {
 	--theme-font-secondary: #9e9e9e;
 	--theme-font-danger: #ff3d00;
 	--theme-font-active-link: #f2f2f2;
+	--theme-accent: #41d1ff;
 
 	--theme-font-size-default: 1.8rem;
 	--theme-font-weight-default: 200;
@@ -205,29 +206,15 @@ h1 {
 	font-size: var(--theme-font-size-xlarge);
 	font-weight: var(--theme-font-weight-xlarge);
 	line-height: var(--theme-font-line-height-xlarge);
-	background: linear-gradient(160deg, #41d1ff 14%, #bd34fe 77%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	color: var(--theme-font-default);
 }
 
 h2 {
 	font-size: var(--theme-font-size-large);
 	font-weight: var(--theme-font-weight-large);
 	line-height: var(--theme-font-line-height-large);
-	background: linear-gradient(160deg, #41d1ff 30%, #bd34fe 90%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	color: var(--theme-font-default);
 	opacity: 0.9;
-}
-
-h2 .emoji,
-h3 .emoji {
-	-webkit-text-fill-color: initial;
-	background: none;
-	-webkit-background-clip: initial;
-	background-clip: initial;
 }
 
 h3,
@@ -235,10 +222,7 @@ h3,
 	font-size: var(--theme-font-size-medium);
 	font-weight: var(--theme-font-weight-medium);
 	line-height: var(--theme-font-line-height-medium);
-	background: linear-gradient(160deg, #41d1ff 30%, #bd34fe 120%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	color: var(--theme-font-default);
 	opacity: 0.9;
 }
 
@@ -263,6 +247,10 @@ a {
 	letter-spacing: var(--theme-font-leter-spacing-default);
 	line-height: var(--theme-font-line-height-default);
 	color: var(--theme-font-default);
+}
+
+a {
+	color: var(--theme-accent);
 }
 
 /* Pico CSS */
@@ -317,8 +305,8 @@ blockquote::after {
 
 a:hover,
 a:active {
-	color: var(--theme-font-active-link);
-	box-shadow: 0 2px 0 0 var(--theme-font-active-link);
+	color: var(--theme-accent);
+	box-shadow: 0 2px 0 0 var(--theme-accent);
 }
 
 .b-border {
