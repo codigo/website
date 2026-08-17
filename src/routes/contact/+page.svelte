@@ -87,7 +87,7 @@
 				required
 				name="content"
 				id="content"
-				rows="6"
+				rows="4"
 				placeholder="What can I help you with..."
 				{...$constraints.content}
 			></textarea>
@@ -255,6 +255,39 @@
 	@media (width <= 750px) {
 		.contact-form {
 			width: calc(var(--max-width) / 1.2);
+		}
+	}
+
+	@media (max-height: 950px) {
+		.contact-title {
+			margin-bottom: 1.6rem;
+		}
+
+		.contact-title h2 {
+			font-size: 2.6rem;
+			margin-bottom: 0.2rem;
+		}
+
+		.contact-title p {
+			font-size: 1.5rem;
+		}
+
+		.contact-form {
+			gap: 1rem;
+		}
+
+		.form-group {
+			gap: 0.4rem;
+		}
+
+		.contact-form :global(input),
+		.contact-form :global(textarea),
+		.contact-form :global(button[type='submit']) {
+			padding: 0.8rem 1.2rem;
+		}
+
+		.contact-form :global(textarea) {
+			min-height: 5.6rem;
 		}
 	}
 </style>

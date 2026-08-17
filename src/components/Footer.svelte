@@ -15,4 +15,10 @@
 		row-gap: 2.4rem;
 		padding: 6.4rem 0 6.4rem 0;
 	}
+
+	@media (max-width: 768px) {
+		footer {
+			padding-bottom: 14rem;
+		}
+	}
 </style>

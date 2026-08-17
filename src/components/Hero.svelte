@@ -149,25 +149,6 @@
 		overflow: visible;
 	}
 
-	.img-container::before {
-		content: '';
-		position: absolute;
-		top: -2.4rem;
-		left: -2.4rem;
-		right: -2.4rem;
-		bottom: -2.4rem;
-		background: conic-gradient(from 150deg, #fff, #fff 46%, transparent 46%);
-		-webkit-mask: radial-gradient(
-			farthest-side,
-			transparent calc(100% - 3px),
-			#fff calc(100% - 3px + 1px)
-		);
-		mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px + 1px));
-		border-radius: 50%;
-		z-index: -1;
-		opacity: 0.8;
-	}
-
 	.img-wrapper {
 		position: relative;
 		overflow: hidden;
