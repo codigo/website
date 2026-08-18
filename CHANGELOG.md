@@ -1,3 +1,10 @@
+## [1.19.3](https://github.com/codigo/website/compare/v1.19.2...v1.19.3) (2026-08-18)
+
+
+### Bug Fixes
+
+* **ci:** migrate GitHub Actions to Node 24 and release style commits ([#109](https://github.com/codigo/website/issues/109)) ([06148ab](https://github.com/codigo/website/commit/06148ab450ff3c4261e9c522b6ab5313ac044232))
+
 ## [1.19.2](https://github.com/codigo/website/compare/v1.19.1...v1.19.2) (2026-07-05)
 
 
