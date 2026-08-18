@@ -21,8 +21,8 @@ jobs:
         SECRET_POCKETBASE_ADMIN_PASSWORD: ${{ secrets.SECRET_POCKETBASE_ADMIN_PASSWORD }}
         SECRET_POCKETBASE_ADMIN_EMAIL: ${{ secrets.SECRET_POCKETBASE_ADMIN_EMAIL }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - name: Install dependencies
@@ -43,11 +43,11 @@ jobs:
     name: 'Semantic Release'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v6
         with:
           dry_run: true
           semantic_version: 24.1.2
