@@ -89,6 +89,10 @@
 						{
 							"type": "content",
 							"release": "patch"
+						},
+						{
+							"type": "style",
+							"release": "patch"
 						}
 					]
 				}

@@ -28,7 +28,7 @@ export default [
 		}
 	},
 	{
-		ignores: ['build/', '.svelte-kit/', 'dist/', 'pb_data/', 'pb/']
+		ignores: ['build/', '.svelte-kit/', 'dist/', 'pb_data/', 'pb/', '.worktrees/']
 	},
 	{
 		files: ['**/*.svelte'],
